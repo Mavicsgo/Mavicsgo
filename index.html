@@ -1,0 +1,1819 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+<title>MAVIC Papelería Creativa</title>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@300;400;500;600;700;800&family=Playfair+Display:wght@700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+<style>
+*{box-sizing:border-box;margin:0;padding:0;}
+
+:root{
+  --pink:#e8157a;
+  --pink-light:#f06292;
+  --pink-pale:#fdf2f7;
+  --pink-deep:#c2006b;
+  --radius:18px;
+  --shadow:0 6px 28px rgba(232,21,122,0.13);
+  --shadow-hover:0 14px 40px rgba(232,21,122,0.22);
+  --transition:0.3s cubic-bezier(.4,0,.2,1);
+  --font-body:'DM Sans',sans-serif;
+  --font-display:'Playfair Display',serif;
+  --surface:#fff;
+  --text-main:#1a1a2e;
+  --text-muted:#7a7a8a;
+  --border:rgba(232,21,122,0.1);
+}
+
+body{
+  font-family:var(--font-body);
+  background:linear-gradient(160deg,#fdf2f7 0%,#fce4f0 60%,#f8d7ea 100%);
+  min-height:100vh;
+  display:flex;
+  flex-direction:column;
+  color:var(--text-main);
+  -webkit-font-smoothing:antialiased;
+  -moz-osx-font-smoothing:grayscale;
+  text-rendering:optimizeLegibility;
+}
+
+::-webkit-scrollbar{width:6px;}
+::-webkit-scrollbar-track{background:#fff0f5;}
+::-webkit-scrollbar-thumb{background:var(--pink-light);border-radius:10px;}
+
+/* ─── PAGINACIÓN ─── */
+.pagination{
+  display:flex;align-items:center;justify-content:center;
+  gap:8px;padding:20px 20px 40px;
+  flex-wrap:wrap;
+}
+.page-btn{
+  width:40px;height:40px;
+  border:2px solid rgba(255,20,147,0.2);
+  background:white;color:#cc0077;
+  border-radius:12px;cursor:pointer;
+  font-family:'Poppins',sans-serif;
+  font-size:14px;font-weight:600;
+  transition:var(--transition);
+  display:flex;align-items:center;justify-content:center;
+  box-shadow:0 2px 10px rgba(255,20,147,0.08);
+}
+.page-btn:hover{
+  background:linear-gradient(45deg,#ff1493,#ff69b4);
+  color:white;border-color:transparent;
+  transform:translateY(-2px);
+  box-shadow:0 6px 18px rgba(255,20,147,0.3);
+}
+.page-btn.active{
+  background:linear-gradient(45deg,#ff1493,#ff69b4);
+  color:white;border-color:transparent;
+  box-shadow:0 4px 16px rgba(255,20,147,0.35);
+  transform:scale(1.08);
+}
+.page-btn:disabled{
+  opacity:0.35;cursor:default;pointer-events:none;
+}
+.page-info{
+  font-size:13px;color:#aaa;font-weight:500;
+  padding:0 6px;
+}
+
+/* ─── HEADER ─── */
+header{
+  background:rgba(255,255,255,0.82);
+  backdrop-filter:blur(20px);
+  -webkit-backdrop-filter:blur(20px);
+  color:var(--text-main);
+  padding:0 20px;
+  height:64px;
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  position:sticky;
+  top:0;
+  z-index:100;
+  box-shadow:0 1px 0 rgba(232,21,122,0.12), 0 4px 20px rgba(0,0,0,0.06);
+  border-bottom:1px solid rgba(232,21,122,0.08);
+}
+.logo{display:flex;align-items:center;gap:8px;}
+.logo-icon{
+  width:46px;height:46px;
+  border-radius:12px;
+  overflow:hidden;
+  display:flex;align-items:center;justify-content:center;
+  flex-shrink:0;
+  box-shadow:0 3px 10px rgba(232,21,122,0.25);
+}
+.logo-icon img{
+  width:100%;height:100%;
+  object-fit:cover;
+  display:block;
+}
+.logo h2{
+  font-family:var(--font-display);
+  font-size:20px;font-weight:700;
+  color:var(--pink-deep);
+  letter-spacing:0.3px;
+}
+
+/* ─── MENU TOGGLE ─── */
+.menu-toggle{
+  position:absolute;
+  top:50%;left:14px;
+  transform:translateY(-50%);
+  font-size:17px;
+  background:rgba(232,21,122,0.08);
+  color:var(--pink);
+  width:40px;height:40px;
+  display:flex;align-items:center;justify-content:center;
+  border-radius:12px;
+  cursor:pointer;
+  z-index:10001;
+  border:1px solid rgba(232,21,122,0.15);
+  transition:var(--transition);
+}
+.menu-toggle:hover{background:var(--pink);color:white;border-color:transparent;}
+
+/* ─── SIDEBAR ─── */
+.sidebar{
+  position:fixed;top:0;left:0;
+  transform:translateX(-100%);
+  width:280px;height:100vh;
+  will-change:transform;
+  background:#fff;
+  padding-top:80px;
+  display:flex;flex-direction:column;gap:2px;
+  transition:0.38s cubic-bezier(.4,0,.2,1);
+  z-index:20000;
+  box-shadow:12px 0 50px rgba(0,0,0,0.1);
+  overflow-y:auto;
+}
+.sidebar.active{transform:translateX(0);}
+.sidebar a{
+  display:flex;align-items:center;gap:12px;
+  padding:12px 18px;
+  text-decoration:none;color:#555;
+  font-weight:500;font-size:14px;
+  border-radius:14px;margin:0 10px;
+  transition:var(--transition);
+  letter-spacing:0.1px;
+}
+.sidebar a i{width:20px;text-align:center;color:var(--pink);font-size:14px;}
+.sidebar a:hover{background:linear-gradient(90deg,#fdf2f7,#fce4f0);color:var(--pink);transform:translateX(4px);}
+.menu-title{
+  padding:10px 20px 8px;font-family:var(--font-display);
+  font-weight:700;font-size:16px;color:var(--pink-deep);letter-spacing:0.3px;
+}
+.menu-sub{padding:12px 22px 4px;font-size:10.5px;font-weight:700;color:#ccc;text-transform:uppercase;letter-spacing:1.5px;}
+.sidebar-divider{height:1px;background:#f5f0f3;margin:6px 18px;}
+.overlay{
+  position:fixed;top:0;left:0;width:100%;height:100%;
+  background:rgba(0,0,0,0.35);
+  opacity:0;pointer-events:none;
+  transition:0.3s;z-index:15000;
+  backdrop-filter:blur(2px);
+}
+.overlay.active{opacity:1;pointer-events:auto;}
+
+/* ─── HERO ─── */
+.hero{
+  min-height:90vh;
+  display:flex;justify-content:center;align-items:center;
+  text-align:center;
+  background:
+    linear-gradient(160deg,rgba(232,21,122,0.22) 0%,rgba(255,182,193,0.4) 100%),
+    url('https://i.pinimg.com/originals/9a/d5/6e/9ad56e57f1f5340c6d235f14a520a170.jpg');
+  background-size:cover;
+  background-position:center top;
+  background-attachment:fixed;
+  flex-direction:column;
+  gap:0;
+  padding:60px 20px 50px;
+  position:relative;
+  overflow:hidden;
+}
+.hero::before{
+  content:'';position:absolute;inset:0;
+  background:linear-gradient(to bottom,transparent 60%,rgba(253,242,247,0.6));
+  pointer-events:none;
+}
+.hero-content{
+  background:rgba(255,255,255,0.78);
+  backdrop-filter:blur(22px);
+  -webkit-backdrop-filter:blur(22px);
+  padding:40px 48px;
+  border-radius:32px;
+  box-shadow:0 24px 64px rgba(232,21,122,0.15),0 2px 0 rgba(255,255,255,0.9) inset;
+  border:1px solid rgba(255,255,255,0.7);
+  margin-bottom:28px;
+  max-width:580px;width:100%;
+  position:relative;z-index:1;
+}
+.hero-badge{
+  display:inline-flex;align-items:center;gap:6px;
+  background:linear-gradient(135deg,var(--pink),var(--pink-light));
+  color:white;font-size:11px;font-weight:700;
+  padding:5px 16px;border-radius:20px;
+  margin-bottom:20px;letter-spacing:1px;text-transform:uppercase;
+  box-shadow:0 4px 14px rgba(232,21,122,0.3);
+}
+.hero-content h1{
+  font-family:var(--font-display);
+  font-size:clamp(26px,5vw,44px);
+  font-weight:800;color:var(--pink-deep);
+  line-height:1.15;margin-bottom:12px;letter-spacing:-1px;
+}
+.hero-content p{
+  font-size:clamp(14px,2.5vw,17px);
+  color:var(--text-muted);font-weight:400;margin-bottom:6px;line-height:1.6;
+}
+.hero-btn{
+  margin-top:12px;padding:15px 40px;
+  background:linear-gradient(135deg,var(--pink),var(--pink-light));
+  color:white;border:none;border-radius:50px;
+  cursor:pointer;font-family:var(--font-body);
+  font-size:15px;font-weight:700;
+  transition:var(--transition);
+  box-shadow:0 6px 22px rgba(232,21,122,0.38);
+  letter-spacing:0.2px;
+}
+.hero-btn:hover{transform:translateY(-3px) scale(1.04);box-shadow:0 12px 32px rgba(232,21,122,0.48);}
+
+
+
+/* ─── FILTROS CATEGORÍA PILLS ─── */
+.cat-filter-bar{
+  display:flex;align-items:center;justify-content:center;
+  gap:8px;padding:22px 20px 4px;
+  flex-wrap:wrap;
+  max-width:900px;margin:0 auto;
+}
+.cat-pill{
+  display:inline-flex;align-items:center;gap:6px;
+  padding:8px 18px;border-radius:50px;
+  border:1.5px solid rgba(232,21,122,0.18);
+  background:white;color:#555;
+  font-size:13px;font-weight:600;
+  cursor:pointer;transition:var(--transition);
+  box-shadow:0 2px 8px rgba(0,0,0,0.04);
+  font-family:var(--font-body);
+  white-space:nowrap;
+}
+.cat-pill i{font-size:11px;color:var(--pink);}
+.cat-pill:hover{border-color:var(--pink);color:var(--pink);background:#fdf2f7;}
+.cat-pill.active{
+  background:linear-gradient(135deg,var(--pink),var(--pink-light));
+  color:white;border-color:transparent;
+  box-shadow:0 4px 16px rgba(232,21,122,0.3);
+}
+.cat-pill.active i{color:white;}
+
+/* ─── BUSCADOR ─── */
+.search-wrapper{
+  width:100%;max-width:520px;
+  display:flex;align-items:center;
+  background:white;border-radius:50px;
+  box-shadow:0 8px 32px rgba(232,21,122,0.18);
+  overflow:hidden;
+  border:1.5px solid rgba(255,255,255,0.9);
+  transition:box-shadow 0.3s,border-color 0.3s;
+  position:relative;z-index:1;
+}
+.search-wrapper:focus-within{
+  box-shadow:0 8px 36px rgba(232,21,122,0.35);
+  border-color:rgba(232,21,122,0.3);
+}
+.search-wrapper .search-icon{
+  padding:0 14px 0 20px;color:var(--pink);font-size:16px;
+  display:flex;align-items:center;flex-shrink:0;
+}
+.search-wrapper input{
+  flex:1;padding:15px 8px;border:none;outline:none;
+  font-family:var(--font-body);font-size:14px;
+  background:transparent;color:#333;min-width:0;
+}
+.search-wrapper input::placeholder{color:#ccc;}
+.search-wrapper .clear-btn{
+  padding:0 18px;color:#ccc;background:none;border:none;
+  font-size:18px;cursor:pointer;display:none;align-items:center;transition:color 0.2s;
+}
+.search-wrapper .clear-btn:hover{color:var(--pink);}
+.search-wrapper .clear-btn.visible{display:flex;}
+
+/* ─── TOAST ─── */
+.toast{
+  position:fixed;bottom:28px;left:50%;
+  transform:translateX(-50%) translateY(12px);
+  background:linear-gradient(135deg,var(--pink),var(--pink-light));
+  color:white;padding:13px 28px;border-radius:50px;
+  opacity:0;transition:opacity 0.3s,transform 0.3s;
+  z-index:99999;font-size:14px;font-weight:600;
+  box-shadow:0 8px 28px rgba(232,21,122,0.38);
+  white-space:nowrap;pointer-events:none;
+}
+.toast.show{opacity:1;transform:translateX(-50%) translateY(0);}
+
+/* ─── SCROLL TO TOP ─── */
+.scroll-top{
+  position:fixed;bottom:28px;right:20px;
+  width:44px;height:44px;
+  background:linear-gradient(135deg,var(--pink),var(--pink-light));
+  color:white;border:none;border-radius:50%;
+  display:flex;align-items:center;justify-content:center;
+  font-size:16px;cursor:pointer;z-index:9000;
+  box-shadow:0 4px 18px rgba(232,21,122,0.4);
+  opacity:0;pointer-events:none;
+  transition:opacity 0.3s,transform 0.3s;
+  transform:translateY(8px);
+}
+.scroll-top.visible{opacity:1;pointer-events:auto;transform:translateY(0);}
+.scroll-top:hover{transform:translateY(-3px);box-shadow:0 8px 24px rgba(232,21,122,0.5);}
+
+/* ─── SECCIÓN TITLE ─── */
+.section-title{
+  text-align:center;padding:44px 20px 6px;
+  font-family:var(--font-display);
+  font-size:clamp(20px,4vw,30px);font-weight:800;
+  color:var(--pink-deep);letter-spacing:-0.5px;
+}
+.section-subtitle{
+  text-align:center;color:var(--text-muted);
+  font-size:14px;margin-bottom:4px;
+}
+.section-line{
+  width:40px;height:3px;
+  background:linear-gradient(45deg,var(--pink),var(--pink-light));
+  margin:10px auto 28px;border-radius:10px;
+}
+
+/* ─── GRID ─── */
+.products{
+  display:grid;
+  grid-template-columns:repeat(4,1fr);
+  gap:20px;
+  padding:0 28px 40px;
+  max-width:1440px;
+  margin:0 auto;
+  width:100%;
+  box-sizing:border-box;
+}
+
+/* ─── CARD ─── */
+.card{
+  background:white;
+  border-radius:20px;
+  box-shadow:0 2px 16px rgba(232,21,122,0.08), 0 1px 4px rgba(0,0,0,0.04);
+  opacity:0;
+  transform:translateY(22px);
+  transition:opacity 0.45s ease, transform 0.45s ease, box-shadow 0.3s ease;
+  display:flex;
+  flex-direction:column;
+  overflow:hidden;
+  border:1px solid rgba(232,21,122,0.06);
+}
+.card:hover{
+  box-shadow:0 16px 44px rgba(232,21,122,0.18), 0 2px 8px rgba(0,0,0,0.06);
+  transform:translateY(-6px) !important;
+  border-color:rgba(232,21,122,0.12);
+}
+.card.show{opacity:1;transform:translateY(0);}
+
+/* ─── IMAGEN ─── */
+.img-container{
+  width:100%;
+  aspect-ratio:4/3;
+  overflow:hidden;
+  flex-shrink:0;
+  background:linear-gradient(135deg,#fdf2f7,#fce4f0);
+  position:relative;
+  cursor:pointer;
+}
+.img-container::after{
+  content:'';position:absolute;inset:0;
+  background:linear-gradient(to top,rgba(0,0,0,0.06) 0%,transparent 50%);
+  pointer-events:none;z-index:2;
+}
+.img-container img{
+  position:absolute;
+  top:0;left:0;
+  width:100%;height:100%;
+  object-fit:cover;
+  object-position:center;
+  opacity:0;
+  transition:opacity 0.65s ease, transform 0.5s cubic-bezier(.4,0,.2,1);
+  backface-visibility:hidden;
+  z-index:1;
+}
+.img-container img.active-img{opacity:1;}
+.card:hover .img-container img.active-img{transform:scale(1.07);}
+
+/* ─── CARD BODY ─── */
+.card-body{
+  padding:14px 15px 15px;
+  display:flex;flex-direction:column;flex:1;gap:5px;
+}
+.card-cat-label{
+  font-size:10px;font-weight:700;color:var(--pink);
+  text-transform:uppercase;letter-spacing:1.2px;
+  margin-bottom:1px;
+}
+.card-body h3{
+  font-size:14px;font-weight:600;color:var(--text-main);
+  line-height:1.35;margin:0;
+}
+.card-body .desc{
+  font-size:11.5px;color:#9a9aaa;line-height:1.5;flex:1;margin:0;
+  display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden;
+}
+.card-body .price{
+  font-size:18px;font-weight:800;color:var(--pink);
+  letter-spacing:-0.5px;margin:3px 0 0;
+  display:flex;align-items:baseline;gap:4px;flex-wrap:wrap;
+  font-family:var(--font-body);
+}
+.card-body .price span{font-size:11px;font-weight:400;color:#bbb;}
+
+/* ─── BTN AGREGAR ─── */
+.btn-add{
+  width:100%;padding:11px;margin-top:4px;
+  background:linear-gradient(135deg,var(--pink),var(--pink-light));
+  color:white;border:none;border-radius:12px;
+  cursor:pointer;font-family:var(--font-body);
+  font-weight:700;font-size:13px;
+  transition:var(--transition);
+  display:flex;align-items:center;justify-content:center;gap:7px;
+  box-shadow:0 3px 14px rgba(232,21,122,0.25);
+  letter-spacing:0.1px;
+}
+.btn-add:hover{transform:scale(1.02);box-shadow:0 6px 20px rgba(232,21,122,0.38);}
+.btn-add:active{transform:scale(0.97);}
+
+/* ─── BTN GENÉRICO ─── */
+.btn{
+  width:100%;padding:11px;margin-top:8px;
+  background:linear-gradient(135deg,var(--pink),var(--pink-light));
+  color:white;border:none;border-radius:12px;
+  cursor:pointer;font-family:var(--font-body);
+  font-weight:600;font-size:14px;transition:var(--transition);
+  box-shadow:0 4px 14px rgba(232,21,122,0.2);
+}
+.btn:hover{transform:scale(1.02);box-shadow:0 6px 18px rgba(232,21,122,0.32);}
+
+/* ─── BADGE DESCUENTO ─── */
+.discount-badge{
+  position:absolute;top:10px;left:10px;
+  background:linear-gradient(135deg,#ff1493,#c2006b);
+  color:white;font-size:11px;font-weight:700;
+  padding:4px 9px;border-radius:20px;
+  z-index:5;
+  box-shadow:0 2px 8px rgba(255,20,147,0.4);
+  display:flex;align-items:center;gap:3px;
+  pointer-events:none;
+  animation:badgePop 0.35s cubic-bezier(.4,0,.2,1);
+}
+.discount-badge::before{content:'🏷️';font-size:10px;}
+@keyframes badgePop{
+  from{transform:scale(0.5);opacity:0;}
+  to{transform:scale(1);opacity:1;}
+}
+
+/* ─── PRECIO ORIGINAL TACHADO ─── */
+.price-original{
+  font-size:12px;font-weight:400;
+  color:#ccc;text-decoration:line-through;
+}
+
+/* ─── DOTS ─── */
+.img-dots{
+  position:absolute;bottom:8px;left:50%;
+  transform:translateX(-50%);
+  display:flex;gap:5px;z-index:10;
+  pointer-events:none;
+}
+.img-dots span{
+  width:6px;height:6px;border-radius:50%;
+  background:rgba(255,255,255,0.55);
+  transition:all 0.3s;pointer-events:auto;cursor:pointer;
+  border:1.5px solid rgba(255,255,255,0.7);
+}
+.img-dots span.dot-active{
+  background:white;width:18px;border-radius:4px;
+  box-shadow:0 2px 6px rgba(0,0,0,0.3);
+}
+
+/* ─── LOCK ICON ─── */
+.lock-icon{
+  position:absolute;top:8px;right:8px;
+  background:rgba(255,20,147,0.85);color:white;border-radius:8px;
+  width:26px;height:26px;display:none;
+  align-items:center;justify-content:center;
+  font-size:12px;z-index:10;
+  backdrop-filter:blur(4px);
+  box-shadow:0 2px 8px rgba(255,20,147,0.4);
+}
+.img-container.locked-gallery .lock-icon{display:flex;}
+
+/* ─── FLECHAS ─── */
+.img-arrow{
+  position:absolute;top:50%;transform:translateY(-50%);
+  background:rgba(255,255,255,0.88);color:var(--pink);
+  border:none;border-radius:50%;
+  width:28px;height:28px;
+  display:none;align-items:center;justify-content:center;
+  font-size:12px;cursor:pointer;z-index:10;
+  box-shadow:0 2px 10px rgba(0,0,0,0.12);
+  transition:all 0.2s;backdrop-filter:blur(4px);
+}
+.img-arrow:hover{background:white;transform:translateY(-50%) scale(1.1);}
+.img-arrow.arrow-left{left:8px;}
+.img-arrow.arrow-right{right:8px;}
+.img-container.locked-gallery .img-arrow{display:flex;}
+
+/* ─── RESPONSIVE ─── */
+@media(max-width:1100px){
+  .products{grid-template-columns:repeat(4,1fr);gap:16px;padding:0 20px 36px;}
+}
+@media(max-width:860px){
+  .products{grid-template-columns:repeat(2,1fr);gap:14px;padding:0 16px 30px;}
+}
+@media(max-width:480px){
+  .products{grid-template-columns:repeat(2,1fr);gap:10px;padding:0 10px 24px;}
+  .card-body{padding:10px 11px 12px;}
+  .card-body h3{font-size:12.5px;}
+  .card-body .desc{font-size:11px;}
+  .card-body .price{font-size:15px;}
+  .btn-add{font-size:11.5px;padding:9px;}
+  .img-arrow{display:none !important;}
+}
+
+/* ─── CARRITO TOGGLE ─── */
+.cart-toggle{
+  position:absolute;top:50%;right:14px;
+  transform:translateY(-50%);
+  background:linear-gradient(135deg,var(--pink),var(--pink-light));
+  color:white;width:44px;height:44px;
+  display:flex;align-items:center;justify-content:center;
+  border-radius:13px;cursor:pointer;z-index:10000;
+  font-size:17px;box-shadow:0 4px 16px rgba(232,21,122,0.35);
+  transition:box-shadow var(--transition),transform var(--transition);
+  border:none;
+}
+.cart-toggle:hover{box-shadow:0 6px 22px rgba(232,21,122,0.5);transform:translateY(-50%) scale(1.05);}
+.cart-count-badge{
+  position:absolute;top:-6px;right:-6px;
+  background:#fff;color:var(--pink);
+  font-size:10px;font-weight:700;
+  width:18px;height:18px;border-radius:50%;
+  display:flex;align-items:center;justify-content:center;
+  border:1.5px solid var(--pink);line-height:1;
+}
+
+/* ─── CARRITO BOX ─── */
+.cart-box{
+  position:fixed;right:14px;top:76px;
+  width:340px;background:white;
+  padding:20px;border-radius:20px;
+  display:none;
+  box-shadow:0 16px 50px rgba(0,0,0,0.18);
+  z-index:10000;max-height:82vh;overflow-y:auto;
+  border:1px solid rgba(255,20,147,0.08);
+}
+.cart-box h3{font-size:16px;font-weight:700;color:#222;margin:10px 0 14px;}
+.cart-box input,.cart-box select{
+  width:100%;padding:10px 14px;margin:5px 0;
+  border:1.5px solid #f0e0e8;border-radius:10px;
+  font-family:var(--font-body);font-size:13px;
+  color:#444;outline:none;transition:border-color 0.2s;background:#fafafa;
+}
+.cart-box input:focus,.cart-box select:focus{border-color:var(--pink-light);}
+.cart-total-row{
+  display:flex;justify-content:space-between;align-items:center;
+  padding:10px 0 6px;border-top:1.5px solid #f5f0f3;margin-top:8px;
+}
+.cart-total-row span:first-child{font-weight:500;color:#888;font-size:14px;}
+.cart-total-row span:last-child{font-weight:700;color:var(--pink);font-size:18px;}
+.cart-btn{
+  border:none;border-radius:7px;padding:5px 9px;
+  cursor:pointer;font-weight:700;font-size:13px;transition:0.2s;
+}
+.btn-plus{background:#e8f8ee;color:#27ae60;}
+.btn-minus{background:#fff3e0;color:#e67e22;}
+.btn-delete{
+  background:#fff0f0;color:#e53935;border-radius:8px;
+  width:28px;height:28px;display:flex;align-items:center;justify-content:center;font-size:13px;
+}
+.cart-btn:hover{opacity:0.8;transform:scale(1.1);}
+
+/* ─── FOOTER ─── */
+footer{
+  background:linear-gradient(135deg,#1a1a2e 0%,#2d1b3d 100%);
+  color:white;padding:56px 24px 28px;margin-top:auto;
+  position:relative;overflow:hidden;
+}
+footer::before{
+  content:'';position:absolute;top:-60px;right:-60px;
+  width:260px;height:260px;border-radius:50%;
+  background:radial-gradient(circle,rgba(232,21,122,0.15),transparent 70%);
+  pointer-events:none;
+}
+.footer-container{
+  max-width:1100px;margin:auto;
+  display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:40px;
+  position:relative;z-index:1;
+}
+.footer-brand h2{
+  font-family:var(--font-display);
+  font-size:20px;margin-bottom:12px;font-weight:700;
+  background:linear-gradient(90deg,#fff,rgba(255,255,255,0.7));
+  -webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;
+}
+.footer-brand p{font-size:13.5px;line-height:1.75;opacity:0.65;color:#e0c8d8;}
+.footer-social{display:flex;gap:10px;margin-top:20px;flex-wrap:wrap;}
+.footer-social a{
+  width:42px;height:42px;display:flex;align-items:center;justify-content:center;
+  background:rgba(255,255,255,0.07);border-radius:12px;font-size:17px;
+  text-decoration:none;color:rgba(255,255,255,0.7);transition:var(--transition);
+  border:1px solid rgba(255,255,255,0.1);
+}
+.footer-social a:hover{background:var(--pink);color:white;border-color:transparent;transform:translateY(-3px);box-shadow:0 6px 18px rgba(232,21,122,0.4);}
+.footer-links h3{font-size:12px;margin-bottom:16px;font-weight:700;opacity:0.5;text-transform:uppercase;letter-spacing:1.5px;}
+.footer-links a{display:block;color:rgba(255,255,255,0.65);text-decoration:none;margin-bottom:10px;font-size:13.5px;transition:0.2s;}
+.footer-links a:hover{color:var(--pink-light);padding-left:4px;}
+.footer-bottom{
+  text-align:center;margin-top:40px;padding-top:20px;
+  border-top:1px solid rgba(255,255,255,0.08);
+  font-size:12.5px;opacity:0.45;
+  position:relative;z-index:1;
+}
+
+/* ─── PROMOS / CARTELES ─── */
+.promos-section{
+  max-width:1440px;margin:0 auto;
+  padding:36px 28px 56px;
+}
+.promos-title{
+  text-align:center;
+  font-family:var(--font-display);
+  font-size:clamp(22px,4vw,34px);font-weight:800;
+  color:#cc0077;margin-bottom:32px;
+  display:flex;align-items:center;justify-content:center;gap:12px;
+  letter-spacing:-0.5px;
+}
+.promos-grid{
+  display:grid;
+  grid-template-columns:repeat(4,1fr);
+  gap:22px;
+}
+
+/* Cartel base */
+.promo-card{
+  border-radius:24px;
+  padding:32px 26px 26px;
+  position:relative;
+  overflow:hidden;
+  cursor:pointer;
+  transition:transform 0.3s cubic-bezier(.4,0,.2,1), box-shadow 0.3s;
+  min-height:220px;
+  display:flex;flex-direction:column;justify-content:flex-start;
+}
+.promo-card:hover{
+  transform:translateY(-8px) scale(1.03);
+}
+
+/* Cartel 1 – Flash Sale */
+.promo-flash{
+  background:linear-gradient(135deg,#ff1493 0%,#c2006b 100%);
+  color:white;
+  box-shadow:0 10px 36px rgba(255,20,147,0.45);
+}
+.promo-flash::before{
+  content:'';position:absolute;
+  top:-40px;right:-40px;
+  width:150px;height:150px;
+  border-radius:50%;
+  background:rgba(255,255,255,0.12);
+}
+.promo-flash::after{
+  content:'';position:absolute;
+  bottom:-25px;left:-25px;
+  width:100px;height:100px;
+  border-radius:50%;
+  background:rgba(255,255,255,0.08);
+}
+
+/* Cartel 2 – Descuento */
+.promo-descuento{
+  background:white;
+  border:2.5px solid var(--pink);
+  box-shadow:0 10px 32px rgba(255,20,147,0.18);
+  color:#cc0077;
+}
+.promo-descuento::before{
+  content:'';position:absolute;inset:0;
+  background:linear-gradient(135deg,rgba(255,20,147,0.05),transparent);
+  border-radius:18px;
+}
+
+/* Cartel 3 – Kit especial */
+.promo-kit{
+  background:linear-gradient(135deg,#1a1a2e 0%,#16213e 60%,#0f3460 100%);
+  color:white;
+  box-shadow:0 10px 34px rgba(0,0,0,0.32);
+}
+.promo-kit::before{
+  content:'✦';position:absolute;
+  top:16px;right:20px;
+  font-size:40px;opacity:0.12;color:white;
+}
+
+/* Cartel 4 – Envío */
+.promo-envio{
+  background:linear-gradient(135deg,#fff8e1 0%,#fff3cd 100%);
+  border:2.5px solid #ffd700;
+  color:#b8860b;
+  box-shadow:0 10px 28px rgba(255,215,0,0.28);
+}
+
+.promo-badge{
+  display:inline-flex;align-items:center;gap:4px;
+  font-size:11.5px;font-weight:700;
+  letter-spacing:1px;text-transform:uppercase;
+  padding:5px 14px;border-radius:20px;
+  margin-bottom:14px;width:fit-content;
+}
+.promo-flash .promo-badge{background:rgba(255,255,255,0.22);color:white;}
+.promo-descuento .promo-badge{background:rgba(255,20,147,0.1);color:var(--pink);}
+.promo-kit .promo-badge{background:rgba(255,255,255,0.14);color:#aad4ff;}
+.promo-envio .promo-badge{background:rgba(255,215,0,0.35);color:#b8860b;}
+
+.promo-card h3{
+  font-size:clamp(16px,1.9vw,22px);font-weight:800;
+  line-height:1.25;margin-bottom:10px;
+  position:relative;z-index:1;
+  letter-spacing:-0.4px;
+}
+.promo-card p{
+  font-size:13px;font-weight:400;opacity:0.85;
+  position:relative;z-index:1;
+  line-height:1.55;flex:1;
+}
+.promo-card .promo-cta{
+  display:inline-flex;align-items:center;gap:7px;
+  margin-top:18px;padding:10px 22px;
+  border-radius:30px;font-size:13.5px;font-weight:700;
+  text-decoration:none;transition:all 0.25s;
+  width:fit-content;position:relative;z-index:1;
+  cursor:pointer;border:none;font-family:'Poppins',sans-serif;
+  letter-spacing:0.2px;
+}
+.promo-flash .promo-cta{background:white;color:var(--pink);box-shadow:0 4px 14px rgba(0,0,0,0.12);}
+.promo-flash .promo-cta:hover{background:rgba(255,255,255,0.92);transform:scale(1.06);}
+.promo-descuento .promo-cta{background:var(--pink);color:white;box-shadow:0 4px 14px rgba(255,20,147,0.28);}
+.promo-descuento .promo-cta:hover{transform:scale(1.06);}
+.promo-kit .promo-cta{background:rgba(255,255,255,0.15);color:white;border:1.5px solid rgba(255,255,255,0.3);}
+.promo-kit .promo-cta:hover{background:rgba(255,255,255,0.28);transform:scale(1.06);}
+.promo-envio .promo-cta{background:#ffd700;color:#664400;box-shadow:0 4px 12px rgba(255,215,0,0.35);}
+.promo-envio .promo-cta:hover{transform:scale(1.06);}
+
+/* Número grande decorativo */
+.promo-big-num{
+  position:absolute;right:16px;bottom:14px;
+  font-size:88px;font-weight:900;
+  opacity:0.08;line-height:1;
+  pointer-events:none;
+}
+
+/* Animación shimmer en flash */
+.promo-flash .shimmer{
+  position:absolute;inset:0;
+  background:linear-gradient(105deg,transparent 40%,rgba(255,255,255,0.15) 50%,transparent 60%);
+  background-size:200% 100%;
+  animation:shimmer 3s infinite;
+  border-radius:20px;
+}
+@keyframes shimmer{
+  0%{background-position:200% 0;}
+  100%{background-position:-200% 0;}
+}
+
+/* Pulso en badge de flash */
+.pulse-dot{
+  display:inline-block;width:7px;height:7px;
+  background:#fff;border-radius:50%;
+  margin-right:4px;vertical-align:middle;
+  animation:pulseDot 1.4s infinite;flex-shrink:0;
+}
+@keyframes pulseDot{
+  0%,100%{opacity:1;transform:scale(1);}
+  50%{opacity:0.4;transform:scale(0.7);}
+}
+
+@media(max-width:900px){
+  .promos-grid{grid-template-columns:1fr 1fr;gap:16px;}
+  .promo-card{min-height:190px;padding:26px 20px 20px;}
+  .promo-big-num{font-size:66px;}
+}
+@media(max-width:768px){
+  .promos-section{padding:18px 14px 36px;}
+  .promos-grid{grid-template-columns:1fr 1fr;gap:14px;}
+  .promo-card{min-height:180px;padding:22px 16px 16px;}
+  .promo-card h3{font-size:15px;}
+  .promo-card p{font-size:12.5px;}
+  .promo-card .promo-cta{font-size:12px;padding:8px 16px;margin-top:12px;}
+  .promo-big-num{font-size:56px;}
+  .img-arrow{display:none !important;}
+  .hero{min-height:88vh;background-attachment:scroll;padding:50px 16px 40px;}
+  .hero-content{padding:28px 24px;}
+  .cart-box{width:calc(100vw - 28px);right:14px;}
+  .section-title{padding:28px 16px 6px;}
+}
+@media(max-width:420px){
+  .promos-grid{grid-template-columns:1fr 1fr;gap:10px;}
+  .promo-card{min-height:165px;padding:18px 14px 14px;}
+  .promo-card h3{font-size:13.5px;line-height:1.2;}
+  .promo-card p{font-size:11.5px;}
+  .promo-card .promo-cta{font-size:11.5px;padding:7px 13px;gap:4px;}
+  .promo-badge{font-size:10px;padding:4px 9px;}
+}
+
+/* ─── BOTÓN VER DETALLE EN CARD ─── */
+.btn-detail{
+  width:100%;padding:8px;margin-top:0;
+  background:white;color:var(--pink);
+  border:1.5px solid rgba(255,20,147,0.3);
+  border-radius:10px;cursor:pointer;
+  font-family:'Poppins',sans-serif;
+  font-weight:500;font-size:12px;
+  transition:var(--transition);
+  display:flex;align-items:center;justify-content:center;gap:6px;
+}
+.btn-detail:hover{background:rgba(255,20,147,0.06);border-color:var(--pink);}
+
+/* ─── MODAL OVERLAY ─── */
+.modal-overlay{
+  position:fixed;inset:0;
+  background:rgba(0,0,0,0.55);
+  backdrop-filter:blur(6px);
+  -webkit-backdrop-filter:blur(6px);
+  z-index:50000;
+  display:flex;align-items:center;justify-content:center;
+  padding:16px;
+  opacity:0;pointer-events:none;
+  transition:opacity 0.3s cubic-bezier(.4,0,.2,1);
+}
+.modal-overlay.active{opacity:1;pointer-events:auto;}
+
+/* ─── MODAL BOX ─── */
+.modal-box{
+  background:#fff;
+  border-radius:24px;
+  max-width:860px;width:100%;
+  max-height:92vh;
+  overflow-y:auto;
+  box-shadow:0 30px 80px rgba(0,0,0,0.3),0 0 0 1px rgba(255,20,147,0.08);
+  transform:translateY(32px) scale(0.97);
+  transition:transform 0.35s cubic-bezier(.4,0,.2,1);
+  position:relative;
+  scrollbar-width:thin;
+  scrollbar-color:rgba(255,20,147,0.3) transparent;
+}
+.modal-overlay.active .modal-box{transform:translateY(0) scale(1);}
+
+/* ─── MODAL CLOSE ─── */
+.modal-close{
+  position:absolute;top:16px;right:16px;
+  width:38px;height:38px;
+  background:rgba(0,0,0,0.06);color:#555;
+  border:none;border-radius:50%;
+  display:flex;align-items:center;justify-content:center;
+  font-size:17px;cursor:pointer;z-index:10;
+  transition:background 0.2s,color 0.2s,transform 0.2s;
+}
+.modal-close:hover{background:var(--pink);color:white;transform:rotate(90deg);}
+
+/* ─── MODAL INNER LAYOUT ─── */
+.modal-inner{
+  display:grid;grid-template-columns:1fr 1fr;
+  gap:0;
+}
+@media(max-width:640px){
+  .modal-inner{grid-template-columns:1fr;}
+}
+
+/* ─── MODAL GALERÍA ─── */
+.modal-gallery{
+  padding:28px 20px 28px 28px;
+  display:flex;flex-direction:column;gap:14px;
+}
+@media(max-width:640px){.modal-gallery{padding:20px 20px 12px;}}
+
+.modal-main-img{
+  width:100%;aspect-ratio:1/1;
+  border-radius:18px;overflow:hidden;
+  background:linear-gradient(135deg,#fff0f5,#ffe4ee);
+  position:relative;
+  box-shadow:0 4px 20px rgba(255,20,147,0.12);
+}
+.modal-main-img img{
+  width:100%;height:100%;object-fit:cover;
+  transition:transform 0.5s cubic-bezier(.4,0,.2,1), opacity 0.4s;
+}
+.modal-main-img img:hover{transform:scale(1.04);}
+
+.modal-thumbs{
+  display:flex;gap:10px;
+  flex-wrap:wrap;
+}
+.modal-thumb{
+  width:68px;height:68px;border-radius:12px;
+  overflow:hidden;cursor:pointer;
+  border:2.5px solid transparent;
+  transition:border-color 0.2s,transform 0.2s,box-shadow 0.2s;
+  flex-shrink:0;
+  background:linear-gradient(135deg,#fff0f5,#ffe4ee);
+}
+.modal-thumb:hover{transform:scale(1.06);box-shadow:0 4px 14px rgba(255,20,147,0.22);}
+.modal-thumb.active-thumb{border-color:var(--pink);box-shadow:0 0 0 2px rgba(255,20,147,0.18);}
+.modal-thumb img{width:100%;height:100%;object-fit:cover;}
+
+/* ─── MODAL INFO ─── */
+.modal-info{
+  padding:28px 28px 28px 20px;
+  display:flex;flex-direction:column;
+  border-left:1px solid #f5f0f3;
+  gap:0;
+}
+@media(max-width:640px){
+  .modal-info{padding:4px 20px 24px;border-left:none;border-top:1px solid #f5f0f3;}
+}
+
+.modal-cat-badge{
+  display:inline-flex;align-items:center;gap:5px;
+  background:linear-gradient(90deg,#fff0f5,#ffe4ee);
+  color:var(--pink);font-size:11px;font-weight:600;
+  padding:5px 12px;border-radius:20px;
+  margin-bottom:12px;width:fit-content;
+  letter-spacing:0.4px;text-transform:capitalize;
+  border:1px solid rgba(255,20,147,0.15);
+}
+
+.modal-title{
+  font-family:var(--font-display);
+  font-size:clamp(17px,2.8vw,24px);font-weight:800;
+  color:var(--text-main);line-height:1.25;margin-bottom:8px;
+  letter-spacing:-0.5px;
+}
+
+.modal-rating{
+  display:flex;align-items:center;gap:8px;
+  margin-bottom:16px;
+}
+.modal-stars{color:#f5a623;font-size:14px;letter-spacing:1px;}
+.modal-rating-text{font-size:12px;color:#aaa;}
+
+.modal-price-block{
+  background:linear-gradient(135deg,#fff0f5,#ffe4ee);
+  border-radius:16px;padding:18px 20px;
+  margin-bottom:18px;
+  border:1px solid rgba(255,20,147,0.1);
+}
+.modal-price-original{
+  font-size:13px;color:#bbb;text-decoration:line-through;margin-bottom:2px;
+}
+.modal-price-main{
+  font-size:clamp(26px,4vw,34px);font-weight:800;
+  color:var(--pink);letter-spacing:-1px;line-height:1;
+}
+.modal-price-currency{font-size:16px;font-weight:600;vertical-align:top;margin-top:4px;display:inline-block;}
+.modal-price-ars{font-size:13px;color:#bbb;font-weight:400;margin-left:4px;}
+.modal-discount-tag{
+  display:inline-flex;align-items:center;gap:4px;
+  background:linear-gradient(45deg,#ff1493,#c2006b);
+  color:white;font-size:11px;font-weight:700;
+  padding:3px 10px;border-radius:20px;margin-top:6px;
+}
+
+.modal-divider{height:1px;background:#f5f0f3;margin:14px 0;}
+
+.modal-desc-title{
+  font-size:12px;font-weight:700;color:#888;
+  text-transform:uppercase;letter-spacing:1px;margin-bottom:8px;
+}
+.modal-desc-text{
+  font-size:13.5px;color:#555;line-height:1.7;margin-bottom:16px;
+  flex:1;
+}
+
+.modal-features{
+  display:flex;flex-wrap:wrap;gap:8px;margin-bottom:16px;
+}
+.modal-feat-chip{
+  display:inline-flex;align-items:center;gap:5px;
+  background:white;border:1.5px solid rgba(255,20,147,0.15);
+  color:#666;font-size:11.5px;font-weight:500;
+  padding:5px 11px;border-radius:20px;
+}
+.modal-feat-chip i{color:var(--pink);font-size:10px;}
+
+.modal-actions{
+  display:flex;flex-direction:column;gap:10px;
+  margin-top:auto;
+  padding-top:8px;
+}
+.modal-btn-add{
+  width:100%;padding:14px;
+  background:linear-gradient(135deg,var(--pink),var(--pink-light));
+  color:white;border:none;border-radius:12px;
+  cursor:pointer;font-family:var(--font-body);
+  font-weight:700;font-size:14px;
+  transition:var(--transition);
+  display:flex;align-items:center;justify-content:center;gap:8px;
+  box-shadow:0 4px 18px rgba(232,21,122,0.35);
+  letter-spacing:0.2px;
+}
+.modal-btn-add:hover{transform:translateY(-2px);box-shadow:0 8px 24px rgba(232,21,122,0.45);}
+.modal-btn-add:active{transform:scale(0.98);}
+
+.modal-btn-wa{
+  width:100%;padding:13px;
+  background:linear-gradient(135deg,#25D366,#1da851);
+  color:white;border:none;border-radius:12px;
+  cursor:pointer;font-family:var(--font-body);
+  font-weight:600;font-size:13.5px;
+  transition:var(--transition);
+  display:flex;align-items:center;justify-content:center;gap:8px;
+  box-shadow:0 4px 14px rgba(37,211,102,0.3);
+}
+.modal-btn-wa:hover{transform:translateY(-2px);box-shadow:0 6px 20px rgba(37,211,102,0.42);}
+
+.modal-trust{
+  display:flex;justify-content:center;gap:18px;
+  margin-top:12px;flex-wrap:wrap;
+}
+.modal-trust-item{
+  display:flex;align-items:center;gap:5px;
+  font-size:11.5px;color:#aaa;font-weight:500;
+}
+.modal-trust-item i{color:var(--pink);font-size:11px;}
+
+/* ─── MODAL BREADCRUMB ─── */
+.modal-breadcrumb{
+  padding:14px 28px 0;
+  font-size:12px;color:#bbb;display:flex;align-items:center;gap:6px;flex-wrap:wrap;
+}
+.modal-breadcrumb span{color:var(--pink);font-weight:500;}
+
+/* Zoom nav arrows en modal */
+.modal-img-nav{
+  position:absolute;top:50%;transform:translateY(-50%);
+  background:rgba(255,255,255,0.9);color:var(--pink);
+  border:none;border-radius:50%;width:34px;height:34px;
+  display:flex;align-items:center;justify-content:center;
+  font-size:13px;cursor:pointer;z-index:5;
+  box-shadow:0 2px 12px rgba(0,0,0,0.12);
+  transition:all 0.2s;backdrop-filter:blur(4px);
+}
+.modal-img-nav:hover{background:white;transform:translateY(-50%) scale(1.1);}
+.modal-img-nav.left{left:10px;}
+.modal-img-nav.right{right:10px;}
+
+/* Cards cursor pointer */
+.card{cursor:pointer;}
+</style>
+</head>
+<body>
+
+<header>
+  <div class="logo">
+    <div class="logo-icon">
+      <img src="https://i.pinimg.com/736x/df/15/d3/df15d3a1d5bb78c012125f77f02206a2.jpg" alt="MAVIC logo">
+    </div>
+    <h2>MAVIC</h2>
+  </div>
+  <div class="menu-toggle" onclick="toggleMenu()"><i class="fas fa-bars"></i></div>
+  <div class="cart-toggle" onclick="toggleCart()">
+    <i class="fas fa-shopping-cart"></i>
+    <div class="cart-count-badge" id="cart-count">0</div>
+  </div>
+</header>
+
+<!-- SIDEBAR -->
+<div class="sidebar" id="sidebar">
+  <h3 class="menu-title">✨ Menú</h3>
+  <a href="#" onclick="toggleMenu()"><i class="fas fa-home"></i> Inicio</a>
+  <a href="#productos" onclick="filtrarCategoria('todos');toggleMenu(true)"><i class="fas fa-store"></i> Todos los productos</a>
+  <div class="sidebar-divider"></div>
+  <p class="menu-sub">Categorías</p>
+  <a href="#" onclick="irCategoria('agendas')"><i class="fas fa-book"></i> Agendas</a>
+  <a href="#" onclick="irCategoria('stickers')"><i class="fas fa-sticky-note"></i> Stickers</a>
+  <a href="#" onclick="irCategoria('fotos')"><i class="fas fa-image"></i> Fotos</a>
+  <a href="#" onclick="irCategoria('emprendedor')"><i class="fas fa-briefcase"></i> Emprendedores</a>
+  <div class="sidebar-divider"></div>
+  <a href="#" onclick="irCategoria('Eventos')"><i class="fas fa-sticky-note"></i> Eventos</a>
+  <p class="menu-sub">Otros</p>
+  <a href="#productGrid" onclick="filtrarOfertas();toggleMenu(true)"><i class="fas fa-tags"></i> Ofertas</a>
+  <a href="#footer-social" onclick="toggleMenu(true);setTimeout(()=>document.getElementById('footer-social').scrollIntoView({behavior:'smooth'}),120)"><i class="fas fa-phone"></i> Contacto</a>
+  <div class="sidebar-divider"></div>
+  <p class="menu-sub">Redes</p>
+  <a href="https://wa.me/5493854077166" target="_blank"><i class="fab fa-whatsapp"></i> WhatsApp</a>
+  <a href="https://www.instagram.com/mavic.sgo" target="_blank"><i class="fab fa-instagram"></i> Instagram</a>
+  <a href="https://www.facebook.com/profile.php?id=100071057791710" target="_blank"><i class="fab fa-facebook-f"></i> Facebook</a>
+  <a href="https://www.tiktok.com/@mavicdisenos" target="_blank"><i class="fab fa-tiktok"></i> TikTok</a>
+</div>
+<div class="overlay" id="overlay" onclick="toggleMenu()"></div>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-content">
+  <div class="hero-badge"><i class="fas fa-sparkles" style="font-size:10px;"></i> Diseños únicos</div>
+    <h1>MAVIC Papelería Creativa</h1>
+    <p>Productos personalizados con amor y calidad</p>
+    <button class="hero-btn" onclick="document.getElementById('productos').scrollIntoView({behavior:'smooth'})">
+      <i class="fas fa-shopping-bag" style="margin-right:8px;"></i>Ver productos
+    </button>
+  </div>
+  <div class="search-wrapper">
+    <span class="search-icon"><i class="fas fa-search"></i></span>
+    <input type="text" id="buscador" placeholder="Buscar productos..." oninput="filtrar()">
+    <button class="clear-btn" id="clearBtn" onclick="limpiarBusqueda()">✕</button>
+  </div>
+</section>
+
+
+
+<!-- CARRITO BOX -->
+<div class="cart-box" id="cartBox">
+  <button class="btn" onclick="vaciarCarrito()" style="background:linear-gradient(45deg,#aaa,#888);margin-top:0;">
+    <i class="fas fa-trash" style="margin-right:6px;"></i>Vaciar carrito
+  </button>
+  <h3>🛒 Tu carrito</h3>
+  <div id="cart-items"></div>
+  <div class="cart-total-row">
+    <span>Total</span>
+    <span>$<span id="total">0</span></span>
+  </div>
+  <input id="cliente" placeholder="👤 Tu nombre">
+  <input id="direccion" placeholder="📍 Dirección (opcional)">
+  <select id="envio">
+    <option value="Retiro">📦 Retiro en persona</option>
+    <option value="Envío">🏠 Envío a domicilio</option>
+  </select>
+  <select id="pago">
+    <option value="Transferencia">💳 Transferencia</option>
+    <option value="Efectivo">💵 Efectivo</option>
+  </select>
+  <button class="btn" onclick="comprarTodo()">
+    <i class="fab fa-whatsapp" style="margin-right:6px;"></i>Finalizar por WhatsApp
+  </button>
+</div>
+
+<!-- ─── CARTELES PROMO ─── -->
+<section class="promos-section" id="ofertas">
+  <div class="promos-title">
+    <i class="fas fa-bolt" style="color:var(--pink);"></i>
+    Promociones &amp; Ofertas
+    <i class="fas fa-bolt" style="color:var(--pink);"></i>
+  </div>
+  <div class="promos-grid">
+
+    <!-- Cartel 1: Flash Sale -->
+    <div class="promo-card promo-flash" onclick="filtrarCategoria('todos');document.getElementById('productGrid').scrollIntoView({behavior:'smooth'})">
+      <div class="shimmer"></div>
+      <div class="promo-badge"><span class="pulse-dot"></span>Oferta activa</div>
+      <h3>¡ Productos desde<br>$2.000!</h3>
+      <p>Stickers, llaveros y más al mejor precio</p>
+      <button class="promo-cta"><i class="fas fa-arrow-right"></i> Ver todo</button>
+      <div class="promo-big-num">%</div>
+    </div>
+
+    <!-- Cartel 2: Descuento Kit -->
+    <div class="promo-card promo-descuento" onclick="filtrarCategoria('emprendedor');document.getElementById('productGrid').scrollIntoView({behavior:'smooth'})">
+      <div class="promo-badge">🎯 Emprendedores</div>
+      <h3>Kits Completos<br>¡Todo Para Emprendedores!</h3>
+      <p>Tarjetas + etiquetas + bolsitas y más</p>
+      <button class="promo-cta"><i class="fas fa-briefcase"></i> Ver kit</button>
+      <div class="promo-big-num" style="color:var(--pink);">★</div>
+    </div>
+
+    <!-- Cartel 3: Eventos -->
+    <div class="promo-card promo-kit" onclick="filtrarCategoria('Eventos');document.getElementById('productGrid').scrollIntoView({behavior:'smooth'})">
+      <div class="promo-badge">🎉 Especial eventos</div>
+      <h3>COMBO CUMPLEAÑOS &amp;<br>EVENTOS</h3>
+      <p>Personaliza cada detalle de tu evento</p>
+      <button class="promo-cta"><i class="fas fa-star"></i> Explorar</button>
+    </div>
+
+    <!-- Cartel 4: Fotos -->
+    <div class="promo-card promo-envio" onclick="filtrarCategoria('fotos');document.getElementById('productGrid').scrollIntoView({behavior:'smooth'})">
+      <div class="promo-badge">📸 Fotos especiales</div>
+      <h3>Fotos Polaroid<br>desde $3.500</h3>
+      <p>Mini y clásicas en alta calidad ¡Para regalar!</p>
+      <button class="promo-cta"><i class="fas fa-camera"></i> Ver fotos</button>
+      <div class="promo-big-num">📷</div>
+    </div>
+
+  </div>
+</section>
+
+<!-- SECCIÓN PRODUCTOS -->
+<h2 class="section-title" id="productos">Nuestros Productos</h2>
+<p class="section-subtitle">Cada pieza, diseñada especialmente para vos ✨</p>
+<div class="section-line"></div>
+
+<!-- FILTROS CATEGORÍA -->
+<div class="cat-filter-bar" id="catFilterBar">
+  <button class="cat-pill active" onclick="catPillClick('todos',this)"><i class="fas fa-th"></i> Todos</button>
+  <button class="cat-pill" onclick="catPillClick('agendas',this)"><i class="fas fa-book"></i> Agendas</button>
+  <button class="cat-pill" onclick="catPillClick('stickers',this)"><i class="fas fa-sticky-note"></i> Stickers</button>
+  <button class="cat-pill" onclick="catPillClick('fotos',this)"><i class="fas fa-image"></i> Fotos</button>
+  <button class="cat-pill" onclick="catPillClick('emprendedor',this)"><i class="fas fa-briefcase"></i> Emprendedores</button>
+  <button class="cat-pill" onclick="catPillClick('Eventos',this)"><i class="fas fa-star"></i> Eventos</button>
+</div>
+
+<div class="products" id="productGrid"></div>
+<div class="pagination" id="pagination"></div>
+<div id="toast" class="toast"></div>
+<button class="scroll-top" id="scrollTopBtn" onclick="window.scrollTo({top:0,behavior:'smooth'})"><i class="fas fa-arrow-up"></i></button>
+
+<script>
+let productos=[
+  {n:"Agendas",p:10500,d:"Organiza tus dias con una agenda de tamaño A5 que contiene 40 hojas, diseñada 100% para vos, tapas personalizadas con tu logo y estilo, además podes sumar QR de tus redes sociales en su contratapa. Super practico y funcional.",img:"https://i.pinimg.com/1200x/3d/5a/c9/3d5ac902b59e99e05c85b6f2960a7960.jpg",imgs:["https://i.pinimg.com/1200x/3d/5a/c9/3d5ac902b59e99e05c85b6f2960a7960.jpg","https://i.pinimg.com/736x/cd/a4/33/cda4334434e4a7ed96ceb8525ca0a1b5.jpg","https://i.pinimg.com/736x/ad/c9/ca/adc9ca5e6498b02e1f861e60da16d8f1.jpg"],cat:"agendas",desc:10},
+  {n:"Agenda Pediátrica para tu bebé",p:8500,d:"Ideal para registrar controles y su crecimiento, guardando cada momento importante en un solo lugar.",img:"https://i.pinimg.com/736x/5d/8d/29/5d8d2987bd579e6adf6d5d556b687530.jpg",imgs:["https://i.pinimg.com/736x/5d/8d/29/5d8d2987bd579e6adf6d5d556b687530.jpg","https://i.pinimg.com/736x/88/6c/2d/886c2ddddfd0fdd9e8def91a880f044c.jpg","https://i.pinimg.com/736x/25/71/f9/2571f9cf06ec1440b5cb437db5768ca3.jpg"],cat:"agendas"},
+  {n:"Llavero Personalizados",p:2000,d:"Llavero con diseño personalizado a elección.",img:"https://i.pinimg.com/1200x/79/bc/27/79bc27468089c4b797c7b8909782ac90.jpg",imgs:["https://i.pinimg.com/1200x/79/bc/27/79bc27468089c4b797c7b8909782ac90.jpg","https://i.pinimg.com/736x/5a/90/8a/5a908a63c6df51541352bb7d0a4aa402.jpg","https://i.pinimg.com/736x/cc/d0/8f/ccd08f7424ed2d0db5b41d2865987dc1.jpg"],cat:"emprendedor",desc:15},
+  {n:"Stickers Circulares",p:3000,d:"Pack de 20 unidades perfectos para packaging aportan un toque profesional y personalizado en cada de detalle la medida ideal (5cm).",img:"https://i.pinimg.com/1200x/4b/02/f1/4b02f11a032f1e32d59e1cddbe31301b.jpg",imgs:["https://i.pinimg.com/1200x/4b/02/f1/4b02f11a032f1e32d59e1cddbe31301b.jpg","https://i.pinimg.com/736x/01/61/17/016117b826f93d8564ed21bf15d647aa.jpg","https://i.pinimg.com/736x/09/e5/e5/09e5e519bb9a2b47799dbe5bf52b9e45.jpg"],cat:"stickers"},
+  {n:"Fotos Polaroid x6u",p:3500,d:"Fotos estilo polaroid impresas en alta calidad.",img:"https://i.pinimg.com/1200x/d5/e6/ff/d5e6ff273a154e20687cc3ea4bd1dd72.jpg",imgs:["https://i.pinimg.com/1200x/d5/e6/ff/d5e6ff273a154e20687cc3ea4bd1dd72.jpg","https://i.pinimg.com/1200x/8a/5f/6f/8a5f6f03da9c978c878954f05a923140.jpg","https://i.pinimg.com/1200x/11/c0/01/11c0016099ea7aa0c246158ac0b8bfd8.jpg"],cat:"fotos",desc:10},
+  {n:"Fotos Mini Polaroid x16u",p:4000,d:"Mini fotos ideales para recuerdos y regalos.",img:"https://i.pinimg.com/1200x/8a/5f/6f/8a5f6f03da9c978c878954f05a923140.jpg",imgs:["https://i.pinimg.com/1200x/8a/5f/6f/8a5f6f03da9c978c878954f05a923140.jpg","https://i.pinimg.com/736x/27/33/e5/2733e51b505c521eb754213310686b5f.jpg","https://i.pinimg.com/1200x/a0/0b/bb/a00bbba2f391eaf5eefce02c643ef602.jpg"],cat:"fotos"},
+  {n:"Bolsitas Personalizadas",p:5000,d:"Bolsitas para emprendedores con diseño propio.",img:"https://i.pinimg.com/1200x/bf/63/f4/bf63f48baa091146c26508874aafc341.jpg",imgs:["https://i.pinimg.com/1200x/bf/63/f4/bf63f48baa091146c26508874aafc341.jpg","https://i.pinimg.com/736x/20/85/83/20858319329216722a4d958056ee162c.jpg","https://i.pinimg.com/736x/cd/91/24/cd9124e171e6d6bf4d74bbda021140e9.jpg"],cat:"emprendedor"},
+  {n:"Bolsitas Golosineras ",p:5000,d:"Pack de 10 bolsitas para eventos y souvenirs.",img:"https://i.pinimg.com/1200x/38/5c/6e/385c6e3176c93e64bd0d606168c66749.jpg",imgs:["https://i.pinimg.com/1200x/38/5c/6e/385c6e3176c93e64bd0d606168c66749.jpg","https://i.pinimg.com/736x/03/36/b6/0336b6b2d0a034eb0a1eeb6b95a456ca.jpg","https://i.pinimg.com/736x/87/90/67/8790673659fbd97eb56f298088c0051a.jpg"],cat:"Eventos",desc:10},
+  {n:"Stickers Para Termos",p:3500,d:"Pack de 10 diseños resistentes ideales para termos.",img:"https://i.pinimg.com/1200x/13/16/fb/1316fb01c2127ae3aa9d26dc93c3e182.jpg",imgs:["https://i.pinimg.com/1200x/13/16/fb/1316fb01c2127ae3aa9d26dc93c3e182.jpg","https://i.pinimg.com/736x/e3/b4/c6/e3b4c6089dcab1b0bbd0f27d6783b145.jpg","https://i.pinimg.com/736x/e0/f6/b9/e0f6b96d0b99c87edcaff54d0834dbcf.jpg"],cat:"stickers"},
+  {n:"Tarjetas Personales",p:4000,d:"Causa una primera impresion profesional desde el primer contacto, medida 7x4cm ideal para la billetera.",img:"https://i.pinimg.com/1200x/13/99/e8/1399e880cbf50ab9c3de8405f9e3d681.jpg",imgs:["https://i.pinimg.com/1200x/13/99/e8/1399e880cbf50ab9c3de8405f9e3d681.jpg","https://i.pinimg.com/736x/7a/34/21/7a3421d16ad4e20bb63f3b892f317cb2.jpg","https://i.pinimg.com/736x/30/75/c3/3075c3ea7cd92abe525e00c2e0daabc1.jpg"],cat:"emprendedor",desc:20},
+  {n:"Etiquetas Colgantes",p:4000,d:"Pack de 20 unidades para personalizar tus productos en la medida de 4x7cm.",img:"https://i.pinimg.com/1200x/8f/5a/46/8f5a465996efa43e731a9bf506ff4dc0.jpg",imgs:["https://i.pinimg.com/1200x/8f/5a/46/8f5a465996efa43e731a9bf506ff4dc0.jpg","https://i.pinimg.com/736x/b0/ae/93/b0ae9320f3d52bc6477fb42dfddb2152.jpg","https://i.pinimg.com/736x/3d/5b/98/3d5b98872f09eee2ac38eee39c7d049c.jpg"],cat:"emprendedor"},
+  {n:"Kit de Emprendedor",p:26000,d:"Contiene todo lo que necesitas para empezar a potenciar tu marca. Conecta con tus clientes desde el primer momento.",img:"https://i.pinimg.com/1200x/f6/15/fe/f615fe1434537a2624cfb260825ea49f.jpg",imgs:["https://i.pinimg.com/1200x/f6/15/fe/f615fe1434537a2624cfb260825ea49f.jpg","https://i.pinimg.com/736x/2f/f4/83/2ff483de5c770afc41c98b2f7db987fb.jpg","https://i.pinimg.com/736x/8e/8f/77/8e8f77cefa7cbe2ec365dec47c1409f5.jpg"],cat:"emprendedor",desc:10},
+  {n:"Anotador",p:5000,d:"Personalizados con el estilo de tu marca en medidas A6, perfectos para anotar ideas o llevar el control de tus gastos contiene 40 Hojas.",img:"https://i.pinimg.com/1200x/e8/83/1d/e8831df4ceca1ffb2e85b62eeae0afb1.jpg",imgs:["https://i.pinimg.com/1200x/e8/83/1d/e8831df4ceca1ffb2e85b62eeae0afb1.jpg","https://i.pinimg.com/736x/a1/49/b9/a149b9bb82e1b2e2d9a6de8ce90ade80.jpg","https://i.pinimg.com/736x/cf/db/f1/cfdbf115bced40b1c0f8477688476577.jpg"],cat:"agendas"},
+  {n:"Carteles A4 Plastificados",p:3500,d:"Mostra tus opciones de pago de forma clara y profesional.",img:"https://i.pinimg.com/1200x/79/1e/11/791e118873927367c3c58551567d20b8.jpg",imgs:["https://i.pinimg.com/1200x/79/1e/11/791e118873927367c3c58551567d20b8.jpg","https://i.pinimg.com/1200x/13/99/e8/1399e880cbf50ab9c3de8405f9e3d681.jpg","https://i.pinimg.com/1200x/11/c0/01/11c0016099ea7aa0c246158ac0b8bfd8.jpg"],cat:"emprendedor"},
+  {n:"Libritos para colorear ",p:6000,d:"Pack de 10 libritos infantiles para eventos.",img:"https://i.pinimg.com/1200x/a0/0b/bb/a00bbba2f391eaf5eefce02c643ef602.jpg",imgs:["https://i.pinimg.com/1200x/a0/0b/bb/a00bbba2f391eaf5eefce02c643ef602.jpg","https://i.pinimg.com/736x/c0/57/30/c057303ef4cae0fda0f264ad515b586e.jpg","https://i.pinimg.com/736x/6b/c6/16/6bc616e6cda724a62baf9237e23f0230.jpg"],cat:"Eventos",desc:15},
+  {n:"Tarjetas Estilo Instagram",p:3500,d:"Souvenirs infantiles para eventos.",img:"https://i.pinimg.com/1200x/11/c0/01/11c0016099ea7aa0c246158ac0b8bfd8.jpg",imgs:["https://i.pinimg.com/1200x/11/c0/01/11c0016099ea7aa0c246158ac0b8bfd8.jpg","https://i.pinimg.com/1200x/13/99/e8/1399e880cbf50ab9c3de8405f9e3d681.jpg","https://i.pinimg.com/1200x/8f/5a/46/8f5a465996efa43e731a9bf506ff4dc0.jpg"],cat:"emprendedor"},
+  {n:"Plancha de stickers",p:3000,d:"Incluye 35 stickers en la medida de 4cm (no incluye diseño).",img:"https://i.pinimg.com/736x/cb/2e/ed/cb2eedac9aba8734123c2e8a4756241a.jpg",imgs:["https://i.pinimg.com/736x/cb/2e/ed/cb2eedac9aba8734123c2e8a4756241a.jpg","https://i.pinimg.com/736x/16/de/6f/16de6fab63d2dc66004a9d54643992bf.jpg","https://i.pinimg.com/736x/a9/8d/db/a98ddb86f79601dce127813d755905fe.jpg"],cat:"stickers",desc:10},
+  {n:"Banderines Personalizados",p:10000,d:"Decorativos y únicos, ideales para darle un toque especial y personalizados a tu celebración.",img:"https://i.pinimg.com/736x/02/9e/6a/029e6adda60497509935c58fb9979c4f.jpg",imgs:["https://i.pinimg.com/736x/02/9e/6a/029e6adda60497509935c58fb9979c4f.jpg","https://i.pinimg.com/736x/1c/e2/d6/1ce2d6ac28ff0ff0f28128adfe8097be.jpg","https://i.pinimg.com/736x/fd/8e/cc/fd8ecc12a745ef7d769eb6c2b83915f0.jpg"],cat:"Eventos"},
+  {n:"Folletos Publicitarios",p:7500,d:"Pack de 100 Folletos publicitarios ideales para emprendimientos: prácticos y atractivos para promocionar tus productos o servicios de forma clara y profesional.",img:"https://i.pinimg.com/736x/f9/92/ed/f992ed2fb741961dba6c0fafff303ba3.jpg",imgs:["https://i.pinimg.com/736x/f9/92/ed/f992ed2fb741961dba6c0fafff303ba3.jpg","https://i.pinimg.com/736x/46/48/de/4648de2e9f25cd86a4ee262367498df5.jpg","https://i.pinimg.com/736x/78/99/1a/78991a55c7f569b4a1bfa2faf5c3cc9f.jpg"],cat:"emprendedor"},
+  {n:"Separadores para carpetas",p:7500,d:"Pack .",img:"https://i.pinimg.com/1200x/e8/6e/ee/e86eeeb28eb54a5dc78ed17a33e7c85c.jpg",imgs:["https://i.pinimg.com/1200x/e8/6e/ee/e86eeeb28eb54a5dc78ed17a33e7c85c.jpg","https://i.pinimg.com/1200x/a8/a3/a5/a8a3a5058b4fbe45e28ae791d0e4eacf.jpg","https://i.pinimg.com/736x/78/99/1a/78991a55c7f569b4a1bfa2faf5c3cc9f.jpg"],cat:""},
+  {n:"Toppers Multiusos",p:7500,d:"Pack .",img:"https://i.pinimg.com/736x/dc/d3/79/dcd379a6e873c2a69e2ce1630a280f74.jpg",imgs:["https://i.pinimg.com/736x/dc/d3/79/dcd379a6e873c2a69e2ce1630a280f74.jpg","https://i.pinimg.com/1200x/b7/2d/9f/b72d9f3e8909de2ded47164ec68f9cca.jpg","https://i.pinimg.com/1200x/78/7c/6a/787c6a482bd604809cd10a7350f01e5d.jpg"],cat:"Eventos"},
+];
+
+let cart=JSON.parse(localStorage.getItem("cart"))||[];
+let categoriaActual="todos";
+const POR_PAGINA=8;
+let paginaActual=1;
+let listaActual=[];
+
+function formato(n){return n.toLocaleString("es-AR");}
+
+// ── Galería: estado global de timers ──
+const galleryTimers={};
+
+function buildGallery(imgs, cardId){
+  // imgs: array of 3 urls
+  const allImgs = imgs||[];
+  if(allImgs.length===0) return {html:'', count:0};
+  let imgsHtml = allImgs.map((src,i)=>`<img src="${src}" alt="" loading="lazy" decoding="async" class="${i===0?'active-img':''}" data-idx="${i}">`).join('');
+  let dotsHtml = allImgs.length>1 ? `<div class="img-dots">${allImgs.map((_,i)=>`<span class="${i===0?'dot-active':''}" onclick="galDot(event,'${cardId}',${i})"></span>`).join('')}</div>` : '';
+  let arrowsHtml = allImgs.length>1 ? `
+    <button class="img-arrow arrow-left" onclick="galMove(event,'${cardId}',-1)"><i class="fas fa-chevron-left"></i></button>
+    <button class="img-arrow arrow-right" onclick="galMove(event,'${cardId}',1)"><i class="fas fa-chevron-right"></i></button>
+  ` : '';
+  let lockHtml = `<div class="lock-icon"><i class="fas fa-lock"></i></div>`;
+  return {html: imgsHtml+dotsHtml+arrowsHtml+lockHtml, count: allImgs.length};
+}
+
+function galGoTo(cardId, idx){
+  const cont = document.querySelector(`.img-container[data-card="${cardId}"]`);
+  if(!cont) return;
+  const imgs = cont.querySelectorAll('img');
+  const dots = cont.querySelectorAll('.img-dots span');
+  const count = imgs.length;
+  const newIdx = ((idx % count)+count)%count;
+  imgs.forEach((im,i)=>{ im.classList.toggle('active-img', i===newIdx); });
+  dots.forEach((d,i)=>{ d.classList.toggle('dot-active', i===newIdx); });
+  cont.dataset.current = newIdx;
+}
+
+function galDot(e, cardId, idx){
+  e.stopPropagation();
+  galGoTo(cardId, idx);
+}
+
+function galMove(e, cardId, dir){
+  e.stopPropagation();
+  const cont = document.querySelector(`.img-container[data-card="${cardId}"]`);
+  if(!cont) return;
+  const cur = parseInt(cont.dataset.current||0);
+  galGoTo(cardId, cur+dir);
+}
+
+function galLock(cardId){
+  const cont = document.querySelector(`.img-container[data-card="${cardId}"]`);
+  if(!cont) return;
+  if(cont.classList.contains('locked-gallery')){
+    // desbloquear → reanudar auto
+    cont.classList.remove('locked-gallery');
+    startAuto(cardId, parseInt(cont.dataset.count||1));
+  } else {
+    // bloquear → parar auto
+    cont.classList.add('locked-gallery');
+    if(galleryTimers[cardId]) clearInterval(galleryTimers[cardId]);
+  }
+}
+
+function startAuto(cardId, count){
+  if(count<=1) return;
+  if(galleryTimers[cardId]) clearInterval(galleryTimers[cardId]);
+  // rotación lenta: cada 3.5s
+  galleryTimers[cardId] = setInterval(()=>{
+    const cont = document.querySelector(`.img-container[data-card="${cardId}"]`);
+    if(!cont || cont.classList.contains('locked-gallery')) return;
+    const cur = parseInt(cont.dataset.current||0);
+    galGoTo(cardId, cur+1);
+  }, 3500);
+}
+
+function render(lista=productos, pagina=1){
+  listaActual=lista;
+  paginaActual=pagina;
+  let cont=document.getElementById("productGrid");
+  cont.innerHTML="";
+  // limpiar timers viejos
+  Object.keys(galleryTimers).forEach(k=>{clearInterval(galleryTimers[k]);delete galleryTimers[k];});
+
+  if(lista.length===0){
+    cont.innerHTML=`<p style="grid-column:1/-1;text-align:center;color:#bbb;padding:60px 20px;font-size:15px;">No se encontraron productos 🔍</p>`;
+    renderPaginacion(0,1);
+    return;
+  }
+
+  const totalPaginas=Math.ceil(lista.length/POR_PAGINA);
+  const inicio=(pagina-1)*POR_PAGINA;
+  const fin=Math.min(inicio+POR_PAGINA, lista.length);
+  const paginados=lista.slice(inicio,fin);
+
+ paginados.forEach((p,i)=>{
+    const cardId = 'card-'+inicio+i+'-'+p.n.replace(/\s/g,'');
+    const imgs = p.imgs || [p.img];
+    const gal = buildGallery(imgs, cardId);
+    const precioFinal = p.desc ? Math.round(p.p*(1-p.desc/100)) : p.p;
+    const badgeHtml = p.desc ? `<div class="discount-badge">-${p.desc}%</div>` : '';
+    const precioHtml = p.desc
+      ? `<span class="price-original">$${formato(p.p)}</span>$${formato(precioFinal)} <span>ARS</span>`
+      : `$${formato(p.p)} <span>ARS</span>`;
+    const prodIdx = productos.indexOf(p);
+    const catDisplay = {agendas:'Agendas',stickers:'Stickers',fotos:'Fotos',emprendedor:'Emprendedores',Eventos:'Eventos','':'General'}[p.cat] || p.cat || 'Producto';
+    let card=document.createElement("div");
+    card.className="card";
+    card.innerHTML=`
+      <div class="img-container" data-card="${cardId}" data-current="0" data-count="${gal.count}" onclick="galLock('${cardId}')">
+        ${gal.html}
+        ${badgeHtml}
+      </div>
+      <div class="card-body">
+        <div class="card-cat-label">${catDisplay}</div>
+        <h3>${p.n}</h3>
+        <p class="desc">${p.d}</p>
+        <p class="price">${precioHtml}</p>
+        <button class="btn-detail" onclick="openModal(productos[${prodIdx}])">
+          <i class="fas fa-eye"></i> Ver detalle
+        </button>
+        <button class="btn-add" onclick='add(${JSON.stringify(p.n)},${precioFinal},${JSON.stringify(p.img)})'>
+          <i class="fas fa-cart-plus"></i> Agregar
+        </button>
+      </div>`;
+    cont.appendChild(card);
+    setTimeout(()=>startAuto(cardId, gal.count), i*200);
+  });
+  setTimeout(animar,60);
+  renderPaginacion(lista.length, totalPaginas);
+}
+
+function renderPaginacion(total, totalPaginas){
+  const pag=document.getElementById("pagination");
+  pag.innerHTML="";
+  if(totalPaginas<=1){pag.style.display="none";return;}
+  pag.style.display="flex";
+
+  // Botón anterior
+  const btnPrev=document.createElement("button");
+  btnPrev.className="page-btn";
+  btnPrev.innerHTML='<i class="fas fa-chevron-left"></i>';
+  btnPrev.disabled=paginaActual===1;
+  btnPrev.onclick=()=>irAPagina(paginaActual-1);
+  pag.appendChild(btnPrev);
+
+  // Números de páginas
+  for(let i=1;i<=totalPaginas;i++){
+    // Mostrar siempre: primera, última, actual y adyacentes
+    if(i===1||i===totalPaginas||Math.abs(i-paginaActual)<=1){
+      const btn=document.createElement("button");
+      btn.className="page-btn"+(i===paginaActual?" active":"");
+      btn.innerText=i;
+      btn.onclick=(()=>{const p=i;return()=>irAPagina(p);})();
+      pag.appendChild(btn);
+    } else if(Math.abs(i-paginaActual)===2){
+      const dots=document.createElement("span");
+      dots.className="page-info";dots.innerText="…";
+      pag.appendChild(dots);
+    }
+  }
+
+  // Botón siguiente
+  const btnNext=document.createElement("button");
+  btnNext.className="page-btn";
+  btnNext.innerHTML='<i class="fas fa-chevron-right"></i>';
+  btnNext.disabled=paginaActual===totalPaginas;
+  btnNext.onclick=()=>irAPagina(paginaActual+1);
+  pag.appendChild(btnNext);
+}
+
+function irAPagina(n){
+  render(listaActual, n);
+  document.getElementById("productGrid").scrollIntoView({behavior:"smooth",block:"start"});
+}
+
+function animar(){
+  document.querySelectorAll(".card").forEach((c,i)=>{
+    c.classList.remove("show");
+    void c.offsetWidth;
+    setTimeout(()=>c.classList.add("show"),i*60);
+  });
+}
+
+function filtrar(){
+  let t=document.getElementById("buscador").value.toLowerCase();
+  document.getElementById("clearBtn").classList.toggle("visible",t.length>0);
+  // Ocultar carteles de ofertas mientras se busca
+  document.getElementById("ofertas").style.display = t.length>0 ? "none" : "";
+  let base=categoriaActual==="todos"?productos:productos.filter(p=>p.cat===categoriaActual);
+  render(t?base.filter(p=>p.n.toLowerCase().includes(t)||p.d.toLowerCase().includes(t)):base, 1);
+}
+
+function limpiarBusqueda(){
+  document.getElementById("buscador").value="";
+  document.getElementById("clearBtn").classList.remove("visible");
+  filtrar();
+}
+
+function filtrarCategoria(cat){
+  categoriaActual=cat;
+  document.getElementById("buscador").value="";
+  document.getElementById("clearBtn").classList.remove("visible");
+  // sync pills
+  document.querySelectorAll('.cat-pill').forEach(p=>{
+    p.classList.toggle('active', p.getAttribute('onclick').includes("'"+cat+"'"));
+  });
+  filtrar();
+  document.getElementById("productGrid").scrollIntoView({behavior:"smooth"});
+}
+
+// Desde sidebar: cierra menú, filtra y hace scroll suave a productos
+function irCategoria(cat){
+  toggleMenu(true);
+  categoriaActual=cat;
+  document.getElementById("buscador").value="";
+  document.getElementById("clearBtn").classList.remove("visible");
+  document.getElementById("ofertas").style.display="";
+  render(cat==="todos"?productos:productos.filter(p=>p.cat===cat), 1);
+  setTimeout(()=>document.getElementById("productos").scrollIntoView({behavior:"smooth"}), 320);
+}
+
+function add(n,p,img){
+  let item=cart.find(x=>x.n==n);
+  if(item){item.c++;}else{cart.push({n,p,c:1,img});}
+  guardar();
+  toast("✓  "+n+" agregado");
+}
+
+function guardar(){localStorage.setItem("cart",JSON.stringify(cart));update();}
+
+function update(){
+  let html="",total=0,count=0;
+  if(cart.length===0)html=`<p style="color:#ccc;text-align:center;padding:20px 0;font-size:13px;">Tu carrito está vacío</p>`;
+  cart.forEach(x=>{
+    total+=x.p*x.c;count+=x.c;
+    html+=`<div style="display:flex;gap:10px;margin-bottom:14px;align-items:center;">
+      <img src="${x.img}" style="width:52px;height:52px;border-radius:10px;object-fit:cover;flex-shrink:0;border:1px solid #f0e0e8;">
+      <div style="flex:1;min-width:0;">
+        <b style="font-size:13px;display:block;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;">${x.n}</b>
+        <span style="color:#aaa;font-size:12px;">$${formato(x.p)} × ${x.c}</span>
+      </div>
+      <div style="display:flex;flex-direction:column;gap:4px;">
+        <button class="cart-btn btn-plus" onclick='cambiar("${x.n}",1)'>＋</button>
+        <button class="cart-btn btn-minus" onclick='cambiar("${x.n}",-1)'>−</button>
+      </div>
+      <button class="cart-btn btn-delete" onclick='eliminar("${x.n}")'>✕</button>
+    </div>`;
+  });
+  document.getElementById("cart-items").innerHTML=html;
+  document.getElementById("total").innerText=formato(total);
+  document.getElementById("cart-count").innerText=count;
+}
+
+function cambiar(n,c){
+  cart=cart.map(x=>{if(x.n==n){x.c+=c;if(x.c<=0)return null;}return x;}).filter(x=>x);
+  guardar();
+}
+function eliminar(n){cart=cart.filter(x=>x.n!=n);guardar();}
+function vaciarCarrito(){cart=[];guardar();toast("Carrito vaciado");document.getElementById("cartBox").style.display="none";}
+function toggleCart(){let cb=document.getElementById("cartBox");cb.style.display=cb.style.display=="block"?"none":"block";}
+
+function toast(msg){
+  let t=document.getElementById("toast");
+  t.innerText=msg;t.classList.add("show");
+  setTimeout(()=>t.classList.remove("show"),2200);
+}
+
+function comprarTodo(){
+  if(cart.length===0){alert("El carrito está vacío");return;}
+  let nombre=document.getElementById("cliente").value.trim();
+  let direccion=document.getElementById("direccion").value.trim();
+  let envio=document.getElementById("envio").value;
+  let pago=document.getElementById("pago").value;
+  if(!nombre){alert("Ingresá tu nombre");return;}
+  let total=0;
+  let fecha=new Date().toLocaleString("es-AR");
+  let numeroPedido="MAVIC-"+Math.floor(Math.random()*100000);
+  let msg=" *MAVIC PAPELERÍA CREATIVA & ESTRATÉGICA* \n━━━━━━━━━━━━━━━━━━━━\n *PEDIDO CONFIRMADO* \nN°: "+numeroPedido+"\nFecha: "+fecha+"\n\n *Cliente* : "+nombre+"\n\n *DETALLE DEL PEDIDO* \n";
+  cart.forEach(x=>{
+    msg+="• "+x.n+"\n  *Cantidad* : "+x.c+"\n  *Precio unitario* : $"+formato(x.p)+"\n  *Subtotal* : $"+formato(x.p*x.c)+"\n\n";
+    total+=x.p*x.c;
+  });
+  msg+="━━━━━━━━━━━━━━━━━━━━\n *Envío* : "+envio+"\n *Pago* : "+pago+"\n";
+  if(direccion)msg+=" *Dirección* : "+direccion+"\n";
+  msg+="━━━━━━━━━━━━━━━━━━━━\n *TOTAL FINAL* : $"+formato(total)+"\n\n Pedido generado correctamente\n *¡Gracias por confiar en MAVIC!*  ";
+  window.open("https://wa.me/5493854077166?text="+encodeURIComponent(msg),"_blank");
+  cart=[];guardar();
+  document.getElementById("cliente").value="";
+  document.getElementById("direccion").value="";
+  toggleCart();
+}
+
+function toggleMenu(forceClose=false){
+  const s=document.getElementById("sidebar");
+  const o=document.getElementById("overlay");
+  if(forceClose){s.classList.remove("active");o.classList.remove("active");document.body.style.overflow="auto";return;}
+  s.classList.toggle("active");o.classList.toggle("active");
+  document.body.style.overflow=s.classList.contains("active")?"hidden":"auto";
+}
+
+// ─── MODAL DE PRODUCTO ───
+let modalCurrentImgs = [];
+let modalCurrentIdx = 0;
+let modalCurrentProduct = null;
+
+const catLabels = {
+  agendas: 'Agendas',
+  stickers: 'Stickers',
+  fotos: 'Fotos',
+  emprendedor: 'Emprendedores',
+  Eventos: 'Eventos',
+  '': 'General'
+};
+
+const catIcons = {
+  agendas: 'fa-book',
+  stickers: 'fa-sticky-note',
+  fotos: 'fa-image',
+  emprendedor: 'fa-briefcase',
+  Eventos: 'fa-star',
+  '': 'fa-tag'
+};
+
+function openModal(product){
+  modalCurrentProduct = product;
+  modalCurrentImgs = product.imgs || [product.img];
+  modalCurrentIdx = 0;
+
+  // Categ
+  const catKey = product.cat || '';
+  const catLabel = catLabels[catKey] || catKey || 'Producto';
+  document.getElementById('modalCatLabel').textContent = catLabel;
+  document.getElementById('modalCat').textContent = catLabel;
+  const iconClass = catIcons[catKey] || 'fa-tag';
+  document.querySelector('#modalCatBadge i').className = 'fas ' + iconClass;
+
+  // Nombre
+  document.getElementById('modalName').textContent = product.n;
+
+  // Precios
+  const formato = n => n.toLocaleString('es-AR');
+  const precioFinal = product.desc ? Math.round(product.p * (1 - product.desc/100)) : product.p;
+  document.getElementById('modalPrice').textContent = formato(precioFinal);
+
+  if(product.desc){
+    document.getElementById('modalPriceOrigWrap').style.display = '';
+    document.getElementById('modalPriceOrig').textContent = '$' + formato(product.p);
+    document.getElementById('modalDiscountWrap').style.display = '';
+    document.getElementById('modalDiscount').innerHTML = '<i class="fas fa-tag"></i> ' + product.desc + '% OFF';
+  } else {
+    document.getElementById('modalPriceOrigWrap').style.display = 'none';
+    document.getElementById('modalDiscountWrap').style.display = 'none';
+  }
+
+  // Descripción
+  document.getElementById('modalDesc').textContent = product.d;
+
+  // Chips de características
+  const features = getFeatures(product);
+  const featsEl = document.getElementById('modalFeatures');
+  featsEl.innerHTML = features.map(f=>`<span class="modal-feat-chip"><i class="fas ${f.icon}"></i>${f.text}</span>`).join('');
+
+  // Imagen principal
+  modalSetImg(0);
+
+  // Thumbnails
+  const thumbsEl = document.getElementById('modalThumbs');
+  thumbsEl.innerHTML = modalCurrentImgs.map((src,i)=>
+    `<div class="modal-thumb ${i===0?'active-thumb':''}" onclick="modalSetImg(${i})">
+      <img src="${src}" alt="" loading="lazy">
+    </div>`
+  ).join('');
+
+  // Botones
+  document.getElementById('modalBtnAdd').onclick = ()=>{
+    add(product.n, precioFinal, product.img);
+    closeModalDirect();
+  };
+  document.getElementById('modalBtnWa').onclick = ()=>{
+    const msg = `Hola MAVIC! 👋 Me interesa el producto: *${product.n}* ($${formato(precioFinal)} ARS). ¿Podrían darme más información?`;
+    window.open('https://wa.me/5493854077166?text='+encodeURIComponent(msg),'_blank');
+  };
+
+  // Abrir
+  document.getElementById('productModal').classList.add('active');
+  document.body.style.overflow = 'hidden';
+  // Scroll al top del modal
+  setTimeout(()=>{ document.getElementById('modalBox').scrollTop=0; }, 50);
+}
+
+function getFeatures(product){
+  const feats = [];
+  if(product.cat==='agendas') feats.push({icon:'fa-book',text:'Personalizada'},{icon:'fa-paint-brush',text:'Diseño propio'},{icon:'fa-leaf',text:'Tapa a elección'});
+  else if(product.cat==='stickers') feats.push({icon:'fa-droplet',text:'Resistente al agua'},{icon:'fa-palette',text:'Colores vivos'},{icon:'fa-cut',text:'Troquelado'});
+  else if(product.cat==='fotos') feats.push({icon:'fa-camera',text:'Alta calidad'},{icon:'fa-image',text:'Estilo polaroid'},{icon:'fa-gift',text:'Ideal para regalar'});
+  else if(product.cat==='emprendedor') feats.push({icon:'fa-briefcase',text:'Profesional'},{icon:'fa-star',text:'Para tu marca'},{icon:'fa-check-circle',text:'Alta resolución'});
+  else if(product.cat==='Eventos') feats.push({icon:'fa-party-horn',text:'Para eventos'},{icon:'fa-users',text:'Para invitados'},{icon:'fa-gift',text:'Souvenir ideal'});
+  else feats.push({icon:'fa-check-circle',text:'Personalizado'},{icon:'fa-paint-brush',text:'Diseño único'});
+  return feats;
+}
+
+function modalSetImg(idx){
+  modalCurrentIdx = ((idx % modalCurrentImgs.length) + modalCurrentImgs.length) % modalCurrentImgs.length;
+  const img = document.getElementById('modalMainImg');
+  img.style.opacity = '0';
+  setTimeout(()=>{
+    img.src = modalCurrentImgs[modalCurrentIdx];
+    img.style.opacity = '1';
+  }, 150);
+  document.querySelectorAll('.modal-thumb').forEach((t,i)=>{
+    t.classList.toggle('active-thumb', i===modalCurrentIdx);
+  });
+}
+
+function modalNavImg(dir){
+  modalSetImg(modalCurrentIdx + dir);
+}
+
+function closeModal(e){
+  if(e.target === document.getElementById('productModal')) closeModalDirect();
+}
+function closeModalDirect(){
+  document.getElementById('productModal').classList.remove('active');
+  document.body.style.overflow = 'auto';
+}
+document.addEventListener("keydown",e=>{
+  if(e.key==="Escape"){
+    closeModalDirect();
+    toggleMenu(true);
+  }
+});
+
+function filtrarOfertas(){
+  const conDescuento = productos.filter(p => p.desc);
+  // Activar pill "Todos" (ninguno específico, solo destacar visualmente)
+  document.querySelectorAll('.cat-pill').forEach(p=>p.classList.remove('active'));
+  render(conDescuento, 1);
+  setTimeout(()=>{ document.getElementById('productGrid').scrollIntoView({behavior:'smooth'}); }, 80);
+}
+
+function catPillClick(cat, btn){
+  document.querySelectorAll('.cat-pill').forEach(p=>p.classList.remove('active'));
+  btn.classList.add('active');
+  filtrarCategoria(cat);
+}
+
+// Scroll to top button
+window.addEventListener('scroll',()=>{
+  const btn=document.getElementById('scrollTopBtn');
+  if(btn) btn.classList.toggle('visible', window.scrollY > 500);
+});
+
+render();update();
+</script>
+
+<!-- ─── MODAL PRODUCTO ─── -->
+<div class="modal-overlay" id="productModal" onclick="closeModal(event)">
+  <div class="modal-box" id="modalBox">
+    <button class="modal-close" onclick="closeModalDirect()"><i class="fas fa-times"></i></button>
+
+    <!-- Breadcrumb -->
+    <div class="modal-breadcrumb" id="modalBreadcrumb">
+      MAVIC › <span id="modalCatLabel">Producto</span>
+    </div>
+
+    <div class="modal-inner">
+      <!-- Galería -->
+      <div class="modal-gallery">
+        <div class="modal-main-img" id="modalMainImgWrap">
+          <button class="modal-img-nav left" onclick="modalNavImg(-1)"><i class="fas fa-chevron-left"></i></button>
+          <img id="modalMainImg" src="" alt="">
+          <button class="modal-img-nav right" onclick="modalNavImg(1)"><i class="fas fa-chevron-right"></i></button>
+        </div>
+        <div class="modal-thumbs" id="modalThumbs"></div>
+      </div>
+
+      <!-- Info -->
+      <div class="modal-info">
+        <div class="modal-cat-badge" id="modalCatBadge"><i class="fas fa-tag"></i> <span id="modalCat">-</span></div>
+        <h2 class="modal-title" id="modalName">-</h2>
+
+        <div class="modal-rating">
+          <span class="modal-stars">★★★★★</span>
+          <span class="modal-rating-text">5.0 · Producto personalizado</span>
+        </div>
+
+        <div class="modal-price-block">
+          <div id="modalPriceOrigWrap" style="display:none">
+            <div class="modal-price-original" id="modalPriceOrig"></div>
+          </div>
+          <div>
+            <span class="modal-price-currency">$</span><span class="modal-price-main" id="modalPrice">-</span><span class="modal-price-ars"> ARS</span>
+          </div>
+          <div id="modalDiscountWrap" style="display:none">
+            <div class="modal-discount-tag" id="modalDiscount"></div>
+          </div>
+        </div>
+
+        <div class="modal-divider"></div>
+
+        <div class="modal-desc-title">Descripción del producto</div>
+        <div class="modal-desc-text" id="modalDesc">-</div>
+
+        <div class="modal-features" id="modalFeatures"></div>
+
+        <div class="modal-actions">
+          <button class="modal-btn-add" id="modalBtnAdd">
+            <i class="fas fa-cart-plus"></i> Agregar al carrito
+          </button>
+          <button class="modal-btn-wa" id="modalBtnWa">
+            <i class="fab fa-whatsapp"></i> Consultar por WhatsApp
+          </button>
+        </div>
+
+        <div class="modal-trust">
+          <span class="modal-trust-item"><i class="fas fa-shield-alt"></i> Diseño personalizado</span>
+          <span class="modal-trust-item"><i class="fas fa-truck"></i> Envío disponible</span>
+          <span class="modal-trust-item"><i class="fas fa-star"></i> Calidad garantizada</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<footer>
+  <div class="footer-container">
+    <div class="footer-brand">
+      <h2>MAVIC Papelería Creativa</h2>
+      <p>Creamos productos únicos y personalizados para acompañar tus momentos más especiales. Agendas, stickers, souvenirs y kits para emprendedores. Diseñamos con amor, creatividad y calidad.</p>
+      <div class="footer-social" id="footer-social">
+        <a href="https://wa.me/5493854077166" target="_blank"><i class="fab fa-whatsapp"></i></a>
+        <a href="https://www.instagram.com/mavic.sgo?igsh=MTl2cmwydXB5eG4wdA==" target="_blank"><i class="fab fa-instagram"></i></a>
+        <a href="https://www.facebook.com/profile.php?id=100071057791710" target="_blank"><i class="fab fa-facebook-f"></i></a>
+        <a href="https://www.tiktok.com/@mavicdisenos?_r=1&_t=ZS-95QQze8gYCq" target="_blank"><i class="fab fa-tiktok"></i></a>
+      </div>
+    </div>
+    <div class="footer-links">
+      <h3>Secciones</h3>
+      <a href="#">Inicio</a>
+      <a href="#productGrid">Productos</a>
+      <a href="#">Sobre Nosotros</a>
+    </div>
+    <div class="footer-links">
+      <h3>Información</h3>
+      <a href="#">Envíos</a>
+      <a href="#">Personalizados</a>
+      <a href="#">Términos y Condiciones</a>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    © 2026 <b>MAVIC Papelería Creativa & Estratégica</b> · Todos los derechos reservados
+  </div>
+</footer>
+</body>
+</html>
