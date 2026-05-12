@@ -1,0 +1,3303 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+<meta name="referrer" content="no-referrer">
+<title>MAVIC · Papelería Creativa &amp; Estratégica</title>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@300;400;500;600;700;800&family=Playfair+Display:wght@700;800&family=Bebas+Neue&family=Oswald:wght@600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+<style>
+*{box-sizing:border-box;margin:0;padding:0;}
+
+:root{
+  --pink:#e8157a;
+  --pink-light:#f06292;
+  --pink-pale:#fdf2f7;
+  --pink-deep:#c2006b;
+  --radius:18px;
+  --shadow:0 6px 28px rgba(232,21,122,0.13);
+  --shadow-hover:0 14px 40px rgba(232,21,122,0.22);
+  --transition:0.3s cubic-bezier(.4,0,.2,1);
+  --font-body:'DM Sans',sans-serif;
+  --font-display:'Playfair Display',serif;
+  --font-brand:'Bebas Neue',sans-serif;
+  --font-sub:'Bebas Neue',sans-serif;
+  --surface:#fff;
+  --text-main:#1a1a2e;
+  --text-muted:#7a7a8a;
+  --border:rgba(232,21,122,0.1);
+  --header-h:64px;
+}
+
+body{
+  font-family:var(--font-body);
+  background:linear-gradient(160deg,#fdf2f7 0%,#fce4f0 55%,#f8d7ea 100%) fixed;
+  background-attachment:fixed;
+  min-height:100vh;
+  display:flex;
+  flex-direction:column;
+  color:var(--text-main);
+  -webkit-font-smoothing:antialiased;
+  -moz-osx-font-smoothing:grayscale;
+  text-rendering:optimizeLegibility;
+  overflow-x:hidden;
+}
+
+::-webkit-scrollbar{width:6px;}
+::-webkit-scrollbar-track{background:#fff0f5;}
+::-webkit-scrollbar-thumb{background:var(--pink-light);border-radius:10px;}
+
+/* ─── PAGINACIÓN ─── */
+.pagination{
+  display:flex;align-items:center;justify-content:center;
+  gap:8px;padding:20px 20px 40px;
+  flex-wrap:wrap;
+}
+.page-btn{
+  width:40px;height:40px;
+  border:2px solid rgba(232,21,122,0.18);
+  background:white;color:var(--pink-deep);
+  border-radius:12px;cursor:pointer;
+  font-family:var(--font-body);
+  font-size:14px;font-weight:600;
+  transition:var(--transition);
+  display:flex;align-items:center;justify-content:center;
+  box-shadow:0 2px 10px rgba(232,21,122,0.08);
+}
+.page-btn:hover{
+  background:linear-gradient(135deg,var(--pink-deep),var(--pink));
+  color:white;border-color:transparent;
+  transform:translateY(-2px);
+  box-shadow:0 6px 18px rgba(232,21,122,0.35);
+}
+.page-btn.active{
+  background:linear-gradient(135deg,var(--pink-deep),var(--pink));
+  color:white;border-color:transparent;
+  box-shadow:0 4px 16px rgba(232,21,122,0.38);
+  transform:scale(1.08);
+}
+.page-btn:disabled{
+  opacity:0.35;cursor:default;pointer-events:none;
+}
+.page-info{
+  font-size:13px;color:#aaa;font-weight:500;
+  padding:0 6px;
+}
+
+/* ─── HEADER ─── */
+header{
+  background:transparent;
+  backdrop-filter:none;
+  -webkit-backdrop-filter:none;
+  color:white;
+  padding:0 16px;
+  height:var(--header-h);
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  position:fixed;
+  top:0;left:0;right:0;
+  z-index:100;
+  box-shadow:none;
+  border-bottom:none;
+  transition:background 0.4s cubic-bezier(.4,0,.2,1),
+             box-shadow 0.4s cubic-bezier(.4,0,.2,1),
+             backdrop-filter 0.4s;
+}
+
+/* Cuando se hace scroll, el header adquiere fondo glassmorphism oscuro */
+header.scrolled{
+  background:rgba(10,2,8,0.72);
+  backdrop-filter:blur(20px);
+  -webkit-backdrop-filter:blur(20px);
+  box-shadow:0 1px 0 rgba(232,21,122,0.18), 0 8px 32px rgba(0,0,0,0.3);
+  border-bottom:1px solid rgba(232,21,122,0.12);
+}
+
+.logo{display:flex;align-items:center;gap:10px;}
+.logo-icon{
+  width:42px;height:42px;
+  border-radius:12px;
+  overflow:hidden;
+  display:flex;align-items:center;justify-content:center;
+  flex-shrink:0;
+  box-shadow:0 3px 14px rgba(0,0,0,0.35);
+  border:1.5px solid rgba(255,255,255,0.18);
+  transition:box-shadow 0.3s, border-color 0.3s;
+}
+.logo-icon:hover{
+  box-shadow:0 4px 20px rgba(232,21,122,0.45);
+  border-color:rgba(232,21,122,0.5);
+}
+.logo-icon img{
+  width:100%;height:100%;
+  object-fit:cover;
+  display:block;
+}
+.logo h2{
+  font-family:'Bebas Neue',sans-serif;
+  font-size:22px;font-weight:400;
+  color:rgba(255,255,255,0.95);
+  letter-spacing:4px;
+  text-transform:uppercase;
+  text-shadow:0 2px 12px rgba(0,0,0,0.4);
+}
+
+/* ─── MENU TOGGLE ─── */
+.menu-toggle{
+  position:absolute;
+  top:50%;left:14px;
+  transform:translateY(-50%);
+  font-size:17px;
+  background:rgba(255,255,255,0.1);
+  color:rgba(255,255,255,0.9);
+  width:40px;height:40px;
+  display:flex;align-items:center;justify-content:center;
+  border-radius:12px;
+  cursor:pointer;
+  z-index:10001;
+  border:1px solid rgba(255,255,255,0.18);
+  transition:var(--transition);
+  backdrop-filter:blur(8px);
+  -webkit-backdrop-filter:blur(8px);
+}
+.menu-toggle:hover{
+  background:var(--pink);
+  color:white;
+  border-color:var(--pink);
+  box-shadow:0 4px 16px rgba(232,21,122,0.45);
+}
+
+/* ─── SIDEBAR ─── */
+.sidebar{
+  position:fixed;top:0;left:0;
+  transform:translateX(-100%);
+  width:290px;height:100vh;
+  will-change:transform;
+  background:linear-gradient(180deg,#fff 0%,#fdf6fa 100%);
+  padding-top:0;
+  display:flex;flex-direction:column;gap:0;
+  transition:transform 0.42s cubic-bezier(.4,0,.2,1),
+             box-shadow 0.42s cubic-bezier(.4,0,.2,1);
+  z-index:20000;
+  box-shadow:none;
+  overflow-y:auto;
+  overflow-x:hidden;
+  scrollbar-width:thin;
+  scrollbar-color:rgba(232,21,122,0.2) transparent;
+}
+.sidebar::-webkit-scrollbar{width:4px;}
+.sidebar::-webkit-scrollbar-thumb{background:rgba(232,21,122,0.2);border-radius:4px;}
+.sidebar.active{
+  transform:translateX(0);
+  box-shadow:20px 0 60px rgba(0,0,0,0.14), 4px 0 20px rgba(232,21,122,0.08);
+}
+
+/* Header del sidebar */
+.sidebar-header{
+  display:flex;align-items:center;gap:10px;
+  padding:22px 20px 16px;
+  border-bottom:1px solid rgba(232,21,122,0.08);
+  background:rgba(255,255,255,0.9);
+  backdrop-filter:blur(10px);
+  position:sticky;top:0;z-index:2;
+  flex-shrink:0;
+}
+.sidebar-header-logo{
+  width:36px;height:36px;border-radius:10px;
+  overflow:hidden;flex-shrink:0;
+  box-shadow:0 2px 8px rgba(232,21,122,0.22);
+}
+.sidebar-header-logo img{width:100%;height:100%;object-fit:cover;}
+.sidebar-header-title{
+  font-family:var(--font-display);
+  font-size:15px;font-weight:700;color:var(--pink-deep);
+  letter-spacing:0.2px;
+  line-height:1.2;
+}
+.sidebar-header-sub{
+  font-size:10px;color:var(--text-muted);font-weight:400;
+}
+.sidebar-close{
+  margin-left:auto;
+  width:30px;height:30px;
+  display:flex;align-items:center;justify-content:center;
+  border-radius:8px;
+  background:rgba(232,21,122,0.06);
+  color:var(--pink);
+  cursor:pointer;
+  font-size:13px;
+  transition:var(--transition);
+  border:1px solid rgba(232,21,122,0.1);
+  flex-shrink:0;
+}
+.sidebar-close:hover{background:var(--pink);color:white;border-color:transparent;}
+
+/* Contenido scrollable */
+.sidebar-body{
+  padding:12px 12px 24px;
+  display:flex;flex-direction:column;gap:2px;
+  flex:1;
+}
+
+.sidebar a{
+  display:flex;align-items:center;gap:11px;
+  padding:11px 14px;
+  text-decoration:none;
+  color:#4a4a5a;
+  font-weight:500;font-size:13.5px;
+  border-radius:13px;
+  transition:
+    background 0.22s cubic-bezier(.4,0,.2,1),
+    color 0.22s,
+    transform 0.22s cubic-bezier(.34,1.2,.64,1),
+    box-shadow 0.22s;
+  letter-spacing:0.1px;
+  position:relative;
+  overflow:hidden;
+  -webkit-tap-highlight-color:transparent;
+}
+.sidebar a::before{
+  content:'';
+  position:absolute;left:0;top:0;bottom:0;
+  width:3px;border-radius:0 3px 3px 0;
+  background:linear-gradient(180deg,var(--pink),var(--pink-light));
+  transform:scaleY(0);
+  transform-origin:center;
+  transition:transform 0.22s cubic-bezier(.4,0,.2,1);
+}
+.sidebar a .sidebar-icon{
+  width:34px;height:34px;
+  display:flex;align-items:center;justify-content:center;
+  border-radius:10px;
+  background:rgba(232,21,122,0.07);
+  flex-shrink:0;
+  transition:background 0.22s, transform 0.22s cubic-bezier(.34,1.2,.64,1);
+}
+.sidebar a i{
+  font-size:13px;
+  color:var(--pink);
+  transition:transform 0.22s cubic-bezier(.34,1.2,.64,1), color 0.2s;
+}
+.sidebar a:hover,
+.sidebar a:active{
+  background:linear-gradient(90deg,rgba(232,21,122,0.07) 0%,rgba(232,21,122,0.03) 100%);
+  color:var(--pink-deep);
+  transform:translateX(5px);
+  box-shadow:0 2px 12px rgba(232,21,122,0.08);
+}
+.sidebar a:hover::before,
+.sidebar a:active::before{
+  transform:scaleY(1);
+}
+.sidebar a:hover .sidebar-icon,
+.sidebar a:active .sidebar-icon{
+  background:rgba(232,21,122,0.14);
+  transform:scale(1.08);
+}
+.sidebar a:hover i,
+.sidebar a:active i{
+  transform:scale(1.1);
+}
+
+/* Efecto tap en móvil */
+.sidebar a:active{
+  transform:translateX(3px) scale(0.99);
+  background:rgba(232,21,122,0.1);
+}
+
+.menu-title{
+  padding:16px 14px 8px;font-family:var(--font-display);
+  font-weight:700;font-size:16px;color:var(--pink-deep);letter-spacing:0.3px;
+}
+.menu-sub{
+  padding:14px 14px 5px;
+  font-size:9.5px;font-weight:800;color:#c0b8c8;
+  text-transform:uppercase;letter-spacing:2px;
+  display:flex;align-items:center;gap:8px;
+}
+.menu-sub::after{
+  content:'';flex:1;height:1px;
+  background:linear-gradient(90deg,rgba(232,21,122,0.12),transparent);
+  border-radius:1px;
+}
+.sidebar-divider{height:1px;background:rgba(232,21,122,0.06);margin:6px 4px;}
+
+/* ── Social Cards ── */
+.sidebar-social-grid{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:10px;
+  padding:4px 0 12px;
+}
+.sidebar-social-card{
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  justify-content:center;
+  gap:8px;
+  padding:16px 10px;
+  border-radius:18px;
+  text-decoration:none;
+  font-size:12px;
+  font-weight:700;
+  letter-spacing:0.3px;
+  transition:transform 0.25s cubic-bezier(.34,1.3,.64,1),
+             box-shadow 0.25s ease,
+             filter 0.2s;
+  position:relative;
+  overflow:hidden;
+  -webkit-tap-highlight-color:transparent;
+  border:none !important;
+  background:none !important;
+}
+.sidebar-social-card::before{
+  content:'';
+  position:absolute;inset:0;
+  background:rgba(255,255,255,0.13);
+  opacity:0;
+  transition:opacity 0.2s;
+}
+.sidebar-social-card:hover::before,
+.sidebar-social-card:active::before{ opacity:1; }
+.sidebar-social-card:hover{
+  transform:translateY(-4px) scale(1.03) !important;
+  box-shadow:0 12px 32px rgba(0,0,0,0.22) !important;
+  filter:brightness(1.06);
+}
+.sidebar-social-card:active{
+  transform:scale(0.96) !important;
+  filter:brightness(0.95);
+}
+.sidebar-social-card .ssc-icon{
+  width:46px;height:46px;
+  background:rgba(255,255,255,0.22);
+  border-radius:14px;
+  display:flex;align-items:center;justify-content:center;
+  font-size:22px;
+  box-shadow:0 2px 8px rgba(0,0,0,0.12);
+  transition:transform 0.25s cubic-bezier(.34,1.3,.64,1);
+}
+.sidebar-social-card:hover .ssc-icon{transform:scale(1.12) rotate(-4deg);}
+.sidebar-social-card .ssc-label{
+  color:rgba(255,255,255,0.95);
+  font-size:11.5px;
+  font-weight:700;
+  letter-spacing:0.4px;
+  text-shadow:0 1px 4px rgba(0,0,0,0.15);
+}
+/* colores individuales — fondo blanco, borde+glow de color */
+.ssc-wa{
+  background:#fff;
+  border:2.5px solid #25d366 !important;
+  box-shadow:0 4px 18px rgba(37,211,102,0.28), inset 0 0 0 0 rgba(37,211,102,0);
+}
+.ssc-wa .ssc-icon{ background:rgba(37,211,102,0.1); color:#25d366; }
+.ssc-wa .ssc-icon i{ color:#25d366; }
+.ssc-wa .ssc-label{ color:#1a9e50; }
+.ssc-wa:hover{
+  background:linear-gradient(135deg,#25d366,#128c5e) !important;
+  box-shadow:0 10px 32px rgba(37,211,102,0.45) !important;
+}
+.ssc-wa:hover .ssc-icon{ background:rgba(255,255,255,0.2); }
+.ssc-wa:hover .ssc-icon i,
+.ssc-wa:hover .ssc-label{ color:#fff; }
+
+.ssc-ig{
+  background:#fff;
+  border:2.5px solid #e1306c !important;
+  box-shadow:0 4px 18px rgba(225,48,108,0.22);
+}
+.ssc-ig .ssc-icon{
+  background:linear-gradient(135deg,rgba(240,148,51,0.12),rgba(188,24,136,0.12));
+}
+.ssc-ig .ssc-icon i{
+  background:linear-gradient(135deg,#f09433,#e6683c,#dc2743,#cc2366,#bc1888);
+  -webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;
+}
+.ssc-ig .ssc-label{ color:#bc1888; }
+.ssc-ig:hover{
+  background:linear-gradient(135deg,#f09433,#dc2743,#bc1888) !important;
+  border-color:transparent !important;
+  box-shadow:0 10px 32px rgba(188,24,136,0.45) !important;
+}
+.ssc-ig:hover .ssc-icon{ background:rgba(255,255,255,0.2); }
+.ssc-ig:hover .ssc-icon i{ background:none; -webkit-text-fill-color:#fff; color:#fff; }
+.ssc-ig:hover .ssc-label{ color:#fff; }
+
+.ssc-fb{
+  background:#fff;
+  border:2.5px solid #1877f2 !important;
+  box-shadow:0 4px 18px rgba(24,119,242,0.22);
+}
+.ssc-fb .ssc-icon{ background:rgba(24,119,242,0.1); color:#1877f2; }
+.ssc-fb .ssc-icon i{ color:#1877f2; }
+.ssc-fb .ssc-label{ color:#1877f2; }
+.ssc-fb:hover{
+  background:linear-gradient(135deg,#1877f2,#0d5dbf) !important;
+  border-color:transparent !important;
+  box-shadow:0 10px 32px rgba(24,119,242,0.45) !important;
+}
+.ssc-fb:hover .ssc-icon{ background:rgba(255,255,255,0.2); }
+.ssc-fb:hover .ssc-icon i,
+.ssc-fb:hover .ssc-label{ color:#fff; }
+
+.ssc-tt{
+  background:#fff;
+  border:2.5px solid #ee1d52 !important;
+  box-shadow:0 4px 18px rgba(238,29,82,0.18);
+}
+.ssc-tt .ssc-icon{ background:rgba(0,0,0,0.04); }
+.ssc-tt .ssc-icon i{
+  background:linear-gradient(135deg,#69c9d0,#ee1d52,#010101);
+  -webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;
+}
+.ssc-tt .ssc-label{ color:#111; }
+.ssc-tt:hover{
+  background:linear-gradient(135deg,#010101,#2b2b2b) !important;
+  border-color:transparent !important;
+  box-shadow:0 10px 32px rgba(0,0,0,0.38) !important;
+}
+.ssc-tt:hover .ssc-icon{ background:rgba(255,255,255,0.1); }
+.ssc-tt:hover .ssc-icon i{ background:linear-gradient(135deg,#69c9d0,#ee1d52,#fff); -webkit-background-clip:text; -webkit-text-fill-color:transparent; background-clip:text; }
+.ssc-tt:hover .ssc-label{ color:#fff; }
+
+.overlay{
+  position:fixed;top:0;left:0;width:100%;height:100%;
+  background:rgba(10,0,6,0.4);
+  opacity:0;pointer-events:none;
+  transition:opacity 0.38s;
+  z-index:15000;
+  backdrop-filter:blur(3px);
+  -webkit-backdrop-filter:blur(3px);
+}
+.overlay.active{opacity:1;pointer-events:auto;}
+
+/* ─── HERO ─── */
+.hero{
+  min-height:100vh;
+  display:flex;justify-content:center;align-items:center;
+  text-align:center;
+  position:relative;
+  overflow:hidden;
+  flex-direction:column;
+  gap:0;
+  padding:80px 20px 80px;
+  margin-top:0;
+}
+
+/* Imagen de fondo con overlay multi-capa */
+.hero::after{
+  content:'';
+  position:absolute;inset:0;
+  background-image:url('https://i.pinimg.com/originals/9a/d5/6e/9ad56e57f1f5340c6d235f14a520a170.jpg');
+  background-size:cover;
+  background-position:center top;
+  z-index:0;
+  transform:scale(1.04);
+  transition:transform 8s ease-out;
+  animation:heroZoom 12s ease-out forwards;
+}
+@keyframes heroZoom{
+  from{transform:scale(1.08);}
+  to{transform:scale(1.0);}
+}
+
+/* Overlay degradado premium */
+.hero::before{
+  content:'';position:absolute;inset:0;z-index:1;
+  background:
+    linear-gradient(180deg,
+      rgba(10,2,8,0.72) 0%,
+      rgba(194,0,107,0.28) 45%,
+      rgba(10,2,8,0.82) 100%);
+}
+
+/* Partículas decorativas */
+.hero-particles{
+  position:absolute;inset:0;z-index:2;pointer-events:none;overflow:hidden;
+}
+.hero-particle{
+  position:absolute;
+  border-radius:50%;
+  background:rgba(232,21,122,0.35);
+  animation:floatParticle linear infinite;
+}
+@keyframes floatParticle{
+  0%{transform:translateY(100vh) scale(0);opacity:0;}
+  10%{opacity:1;}
+  90%{opacity:0.6;}
+  100%{transform:translateY(-10vh) scale(1.2);opacity:0;}
+}
+
+/* Línea de luz horizontal */
+.hero-line{
+  position:absolute;
+  left:0;right:0;
+  height:1px;
+  background:linear-gradient(90deg,transparent,rgba(232,21,122,0.5),rgba(255,255,255,0.4),rgba(232,21,122,0.5),transparent);
+  z-index:2;
+}
+.hero-line-top{top:18%;}
+.hero-line-bottom{bottom:18%;}
+
+/* Contenido principal */
+.hero-content{
+  position:relative;z-index:3;
+  max-width:680px;width:100%;
+  margin-bottom:36px;
+  animation:heroFadeUp 0.9s cubic-bezier(.22,1,.36,1) both;
+}
+@keyframes heroFadeUp{
+  from{opacity:0;transform:translateY(40px);}
+  to{opacity:1;transform:translateY(0);}
+}
+
+.hero-eyebrow{
+  display:inline-flex;align-items:center;gap:10px;
+  margin-bottom:24px;
+  animation:heroFadeUp 0.9s 0.15s cubic-bezier(.22,1,.36,1) both;
+}
+.hero-eyebrow-line{
+  width:36px;height:1px;
+  background:linear-gradient(90deg,transparent,rgba(255,255,255,0.6));
+}
+.hero-eyebrow-line.right{
+  background:linear-gradient(90deg,rgba(255,255,255,0.6),transparent);
+}
+
+.hero-badge{
+  display:inline-flex;align-items:center;gap:7px;
+  background:rgba(255,255,255,0.12);
+  border:1px solid rgba(255,255,255,0.25);
+  backdrop-filter:blur(12px);
+  -webkit-backdrop-filter:blur(12px);
+  color:rgba(255,255,255,0.92);
+  font-size:10.5px;font-weight:700;
+  padding:6px 18px;border-radius:30px;
+  letter-spacing:2.5px;text-transform:uppercase;
+}
+.hero-badge-dot{
+  width:6px;height:6px;border-radius:50%;
+  background:var(--pink-light);
+  box-shadow:0 0 8px var(--pink);
+  animation:pulseDot 2s ease-in-out infinite;
+}
+@keyframes pulseDot{
+  0%,100%{box-shadow:0 0 6px var(--pink),0 0 0 0 rgba(232,21,122,0);}
+  50%{box-shadow:0 0 10px var(--pink),0 0 0 5px rgba(232,21,122,0);}
+}
+
+.hero-content h1{
+  font-family:'Oswald',sans-serif;
+  font-size:clamp(38px,7.5vw,82px);
+  font-weight:700;
+  color:#fff;
+  line-height:0.95;
+  margin-bottom:0;
+  letter-spacing:3px;
+  text-transform:uppercase;
+  text-shadow:0 4px 30px rgba(0,0,0,0.4);
+  animation:heroFadeUp 0.9s 0.25s cubic-bezier(.22,1,.36,1) both;
+}
+.hero-title-accent{
+  display:block;
+  color:transparent;
+  -webkit-text-stroke:1.5px rgba(255,255,255,0.55);
+  font-size:0.85em;
+  letter-spacing:6px;
+  margin-top:4px;
+}
+.hero-title-highlight{
+  display:block;
+  background:linear-gradient(135deg,#fff 0%,var(--pink-light) 60%,#fff 100%);
+  -webkit-background-clip:text;
+  -webkit-text-fill-color:transparent;
+  background-clip:text;
+  background-size:200% auto;
+  animation:heroFadeUp 0.9s 0.25s cubic-bezier(.22,1,.36,1) both,
+             shimmerText 4s linear 1.2s infinite;
+}
+@keyframes shimmerText{
+  0%{background-position:0% center;}
+  100%{background-position:200% center;}
+}
+
+.hero-divider{
+  display:flex;align-items:center;gap:16px;
+  margin:22px auto;
+  width:fit-content;
+  animation:heroFadeUp 0.9s 0.38s cubic-bezier(.22,1,.36,1) both;
+}
+.hero-divider-line{
+  width:60px;height:1px;
+  background:linear-gradient(90deg,transparent,rgba(255,255,255,0.4));
+}
+.hero-divider-line.right{
+  background:linear-gradient(90deg,rgba(255,255,255,0.4),transparent);
+}
+.hero-divider-icon{
+  color:var(--pink-light);font-size:14px;
+  filter:drop-shadow(0 0 8px rgba(232,21,122,0.7));
+}
+
+.hero-content p{
+  font-family:'Bebas Neue',sans-serif;
+  font-size:clamp(15px,2.5vw,20px);
+  color:rgba(255,255,255,0.65);
+  font-weight:400;
+  margin-bottom:0;
+  line-height:1.6;
+  letter-spacing:3.5px;
+  text-transform:uppercase;
+  animation:heroFadeUp 0.9s 0.42s cubic-bezier(.22,1,.36,1) both;
+}
+
+/* Botones */
+.hero-actions{
+  display:flex;align-items:center;justify-content:center;
+  gap:16px;
+  margin-top:36px;
+  flex-wrap:wrap;
+  animation:heroFadeUp 0.9s 0.55s cubic-bezier(.22,1,.36,1) both;
+}
+
+.hero-btn{
+  padding:16px 42px;
+  background:linear-gradient(135deg,var(--pink-deep),var(--pink),var(--pink-light));
+  background-size:200% auto;
+  color:white;border:none;border-radius:50px;
+  cursor:pointer;font-family:var(--font-body);
+  font-size:14px;font-weight:700;
+  transition:var(--transition);
+  box-shadow:0 8px 28px rgba(232,21,122,0.45),0 1px 0 rgba(255,255,255,0.15) inset;
+  letter-spacing:0.8px;
+  text-transform:uppercase;
+  position:relative;overflow:hidden;
+}
+.hero-btn::before{
+  content:'';position:absolute;inset:0;
+  background:linear-gradient(135deg,rgba(255,255,255,0.18),transparent);
+  border-radius:50px;
+  opacity:0;transition:opacity 0.3s;
+}
+.hero-btn:hover{
+  transform:translateY(-4px);
+  box-shadow:0 16px 40px rgba(232,21,122,0.55),0 1px 0 rgba(255,255,255,0.2) inset;
+  background-position:right center;
+}
+.hero-btn:hover::before{opacity:1;}
+
+.hero-btn-ghost{
+  padding:15px 36px;
+  background:rgba(255,255,255,0.08);
+  color:rgba(255,255,255,0.88);
+  border:1px solid rgba(255,255,255,0.22);
+  border-radius:50px;
+  cursor:pointer;font-family:var(--font-body);
+  font-size:14px;font-weight:600;
+  transition:var(--transition);
+  letter-spacing:0.5px;
+  backdrop-filter:blur(10px);
+  -webkit-backdrop-filter:blur(10px);
+  display:inline-flex;align-items:center;gap:8px;
+}
+.hero-btn-ghost:hover{
+  background:rgba(255,255,255,0.15);
+  border-color:rgba(255,255,255,0.4);
+  transform:translateY(-3px);
+  color:#fff;
+}
+
+/* Stats row */
+.hero-stats{
+  display:flex;align-items:center;justify-content:center;
+  gap:0;
+  margin-top:40px;
+  position:relative;z-index:3;
+  animation:heroFadeUp 0.9s 0.7s cubic-bezier(.22,1,.36,1) both;
+  flex-wrap:wrap;
+}
+.hero-stat{
+  text-align:center;padding:0 24px;
+  border-right:1px solid rgba(255,255,255,0.14);
+}
+.hero-stat:last-child{border-right:none;}
+.hero-stat-num{
+  font-family:'Oswald',sans-serif;
+  font-size:clamp(22px,3.5vw,32px);
+  font-weight:700;
+  color:#fff;
+  letter-spacing:1px;
+  line-height:1;
+  background:linear-gradient(135deg,#fff,var(--pink-light));
+  -webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;
+}
+.hero-stat-label{
+  font-family:'Bebas Neue',sans-serif;
+  font-size:11px;
+  color:rgba(255,255,255,0.45);
+  letter-spacing:2.5px;
+  text-transform:uppercase;
+  margin-top:4px;
+  display:block;
+}
+
+/* Scroll indicator */
+.hero-scroll{
+  position:absolute;bottom:30px;left:50%;transform:translateX(-50%);
+  z-index:3;
+  display:flex;flex-direction:column;align-items:center;gap:6px;
+  opacity:0.55;
+  animation:heroFadeUp 1s 1s cubic-bezier(.22,1,.36,1) both;
+  cursor:pointer;
+  transition:opacity 0.3s;
+}
+.hero-scroll:hover{opacity:0.9;}
+.hero-scroll-text{
+  font-family:'Bebas Neue',sans-serif;
+  font-size:9px;letter-spacing:3px;color:#fff;text-transform:uppercase;
+}
+.hero-scroll-bar{
+  width:1px;height:40px;
+  background:linear-gradient(to bottom,rgba(255,255,255,0.6),transparent);
+  position:relative;overflow:hidden;
+}
+.hero-scroll-bar::after{
+  content:'';position:absolute;
+  top:-100%;left:0;width:100%;height:100%;
+  background:rgba(255,255,255,0.9);
+  animation:scrollDrop 1.8s ease-in-out infinite;
+}
+@keyframes scrollDrop{
+  0%{top:-100%;}100%{top:200%;}
+}
+
+/* Search dentro del hero */
+.hero .search-wrapper{
+  position:relative;z-index:3;
+  animation:heroFadeUp 0.9s 0.65s cubic-bezier(.22,1,.36,1) both;
+}
+
+/* Responsive hero */
+@media(max-width:600px){
+  .hero{padding:70px 14px 60px;min-height:100svh;}
+  .hero-stat{padding:0 14px;}
+  .hero-stats{gap:0;margin-top:28px;}
+  .hero-actions{gap:10px;}
+  .hero-btn{padding:13px 24px;font-size:13px;}
+  .hero-btn-ghost{padding:12px 22px;font-size:13px;}
+  .hero-title-accent{letter-spacing:2px;}
+  .hero-content h1{line-height:1;}
+  .hero-content p{font-size:13px;letter-spacing:2.5px;}
+  .search-wrapper{max-width:100% !important;}
+}
+
+
+
+/* ─── FILTROS CATEGORÍA — TABS ESTILO EDITORIAL ─── */
+.cat-filter-bar{
+  display:flex;align-items:center;justify-content:center;
+  gap:0;padding:24px 20px 0;
+  max-width:900px;margin:0 auto;
+  border-bottom:1.5px solid rgba(232,21,122,0.1);
+  flex-wrap:wrap;
+  transition: opacity 0.35s cubic-bezier(.4,0,.2,1),
+              transform 0.35s cubic-bezier(.4,0,.2,1),
+              max-height 0.4s cubic-bezier(.4,0,.2,1),
+              padding 0.35s cubic-bezier(.4,0,.2,1);
+  max-height: 200px;
+  overflow: visible;
+}
+.cat-filter-bar.hidden{
+  opacity: 0;
+  transform: translateY(-12px);
+  max-height: 0;
+  padding-top: 0;
+  padding-bottom: 0;
+  pointer-events: none;
+  overflow: hidden;
+}
+.cat-pill{
+  display:inline-flex;align-items:center;gap:7px;
+  padding:12px 22px 14px;
+  border:none;
+  background:transparent;
+  color:#9a8fa8;
+  font-size:13px;font-weight:700;
+  cursor:pointer;
+  transition:color 0.22s ease, box-shadow 0.22s ease;
+  font-family:var(--font-body);
+  white-space:nowrap;
+  letter-spacing:0.6px;
+  text-transform:uppercase;
+  position:relative;
+  border-radius:0;
+}
+.cat-pill::after{
+  content:'';
+  position:absolute;bottom:-1.5px;left:50%;right:50%;
+  height:2.5px;
+  background:linear-gradient(90deg,var(--pink),var(--pink-light));
+  border-radius:2px 2px 0 0;
+  transition:left 0.3s cubic-bezier(.4,0,.2,1), right 0.3s cubic-bezier(.4,0,.2,1);
+}
+.cat-pill i{ font-size:12px; }
+.cat-pill:hover{ color:var(--pink); }
+.cat-pill.active{
+  color:var(--pink-deep);
+}
+.cat-pill.active::after{
+  left:12px;right:12px;
+}
+/* ocultar pill-icon-wrap y pill-count */
+.cat-pill .pill-icon-wrap{ display:none; }
+.pill-count{ display:none; }
+
+@media(max-width:600px){
+  .cat-filter-bar{ gap:0; padding:24px 8px 0; }
+  .cat-pill{ padding:10px 14px 12px; font-size:11px; gap:5px; }
+}
+
+/* ─── BUSCADOR ─── */
+.search-wrapper{
+  width:100%;max-width:520px;
+  display:flex;align-items:center;
+  background:rgba(255,255,255,0.12);
+  border-radius:50px;
+  box-shadow:0 8px 32px rgba(0,0,0,0.25),0 1px 0 rgba(255,255,255,0.15) inset;
+  overflow:hidden;
+  border:1px solid rgba(255,255,255,0.22);
+  transition:box-shadow 0.3s,border-color 0.3s,background 0.3s;
+  position:relative;z-index:1;
+  backdrop-filter:blur(14px);
+  -webkit-backdrop-filter:blur(14px);
+}
+.search-wrapper:focus-within{
+  background:rgba(255,255,255,0.18);
+  box-shadow:0 8px 40px rgba(232,21,122,0.35),0 1px 0 rgba(255,255,255,0.2) inset;
+  border-color:rgba(232,21,122,0.4);
+}
+.search-wrapper .search-icon{
+  padding:0 14px 0 20px;color:rgba(255,255,255,0.7);font-size:16px;
+  display:flex;align-items:center;flex-shrink:0;
+}
+.search-wrapper input{
+  flex:1;padding:15px 8px;border:none;outline:none;
+  font-family:var(--font-body);font-size:14px;
+  background:transparent;color:#fff;min-width:0;
+}
+.search-wrapper input::placeholder{color:rgba(255,255,255,0.5);font-style:italic;}
+.search-wrapper .clear-btn{
+  padding:0 18px;color:rgba(255,255,255,0.4);background:none;border:none;
+  font-size:18px;cursor:pointer;display:none;align-items:center;transition:color 0.2s;
+}
+.search-wrapper .clear-btn:hover{color:var(--pink-light);}
+.search-wrapper .clear-btn.visible{display:flex;}
+
+/* ─── TOAST ─── */
+.toast{
+  position:fixed;bottom:155px;left:50%;
+  transform:translateX(-50%) translateY(12px);
+  background:linear-gradient(135deg,var(--pink),var(--pink-light));
+  color:white;padding:13px 28px;border-radius:50px;
+  opacity:0;transition:opacity 0.3s,transform 0.3s;
+  z-index:60001;font-size:14px;font-weight:600;
+  box-shadow:0 8px 28px rgba(232,21,122,0.38);
+  white-space:nowrap;pointer-events:none;
+}
+.toast.show{opacity:1;transform:translateX(-50%) translateY(0);}
+
+/* ─── SCROLL TO TOP ─── */
+.scroll-top{
+  position:fixed;bottom:28px;right:20px;
+  width:44px;height:44px;
+  background:linear-gradient(135deg,var(--pink),var(--pink-light));
+  color:white;border:none;border-radius:50%;
+  display:flex;align-items:center;justify-content:center;
+  font-size:16px;cursor:pointer;z-index:9000;
+  box-shadow:0 4px 18px rgba(232,21,122,0.4);
+  opacity:0;pointer-events:none;
+  transition:opacity 0.3s,transform 0.3s;
+  transform:translateY(8px);
+  z-index:8998;
+}
+.scroll-top.visible{opacity:1;pointer-events:auto;transform:translateY(0);}
+.scroll-top:hover{transform:translateY(-3px);box-shadow:0 8px 24px rgba(232,21,122,0.5);}
+
+/* ─── SECCIÓN TITLE ─── */
+.section-title{
+  text-align:center;padding:0 20px 10px;
+  font-family:var(--font-display);
+  font-size:clamp(26px,4.5vw,42px);font-weight:800;
+  color:var(--text-main);letter-spacing:-1px;
+  line-height:1.1;
+}
+.section-title .title-accent{
+  background:linear-gradient(135deg,var(--pink-deep),var(--pink),var(--pink-light));
+  -webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;
+}
+.section-subtitle{
+  text-align:center;color:var(--text-muted);
+  font-size:15px;margin-bottom:4px;font-weight:400;
+  letter-spacing:0.2px;
+  line-height:1.6;
+}
+.section-line{
+  width:56px;height:3px;
+  background:linear-gradient(90deg,var(--pink),var(--pink-light));
+  margin:14px auto 0;border-radius:10px;margin-bottom:0;
+  position:relative;
+}
+.section-line::after{
+  content:none;
+}
+
+/* ─── GRID ─── */
+.products{
+  display:grid;
+  grid-template-columns:repeat(4,1fr);
+  gap:28px;
+  padding:28px 32px 72px;
+  max-width:1440px;
+  margin:0 auto;
+  width:100%;
+  box-sizing:border-box;
+}
+
+/* ─── CARD ─── */
+.card{
+  background:#fff;
+  border-radius:22px;
+  box-shadow:0 1px 3px rgba(0,0,0,0.04), 0 6px 28px rgba(232,21,122,0.06);
+  opacity:0;
+  transform:translateY(32px);
+  transition:opacity 0.55s cubic-bezier(.4,0,.2,1), transform 0.55s cubic-bezier(.4,0,.2,1), box-shadow 0.4s ease;
+  display:flex;
+  flex-direction:column;
+  overflow:hidden;
+  border:1px solid rgba(232,21,122,0.07);
+  position:relative;
+  cursor:pointer;
+}
+.card:hover{
+  box-shadow:0 2px 8px rgba(0,0,0,0.06), 0 28px 64px rgba(232,21,122,0.18);
+  transform:translateY(-10px);
+  border-color:rgba(232,21,122,0.14);
+}
+.card.show{opacity:1;transform:translateY(0);}
+
+/* ─── IMAGEN ─── */
+.img-container{
+  width:100%;
+  aspect-ratio:1/1;
+  overflow:hidden;
+  flex-shrink:0;
+  background:linear-gradient(145deg,#fdf2f7 0%,#fce4f0 100%);
+  position:relative;
+  cursor:pointer;
+}
+.img-container::before{
+  content:'';
+  position:absolute;inset:0;
+  background:linear-gradient(180deg, transparent 50%, rgba(10,0,6,0.35) 100%);
+  z-index:2;
+  pointer-events:none;
+  opacity:0;
+  transition:opacity 0.4s ease;
+}
+.card:hover .img-container::before{ opacity:1; }
+.img-container img{
+  position:absolute;
+  top:0;left:0;
+  width:100%;height:100%;
+  object-fit:cover;
+  object-position:center;
+  opacity:0;
+  transition:opacity 0.7s ease, transform 0.7s cubic-bezier(.4,0,.2,1);
+  backface-visibility:hidden;
+  z-index:1;
+}
+.img-container img.active-img{opacity:1;}
+.card:hover .img-container img.active-img{transform:scale(1.07);}
+
+/* ── HOVER OVERLAY CTA ── */
+.card-img-overlay{
+  position:absolute;bottom:0;left:0;right:0;
+  padding:16px;
+  z-index:6;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  opacity:0;
+  transform:translateY(10px);
+  transition:opacity 0.3s ease, transform 0.3s ease;
+  pointer-events:none;
+}
+.card:hover .card-img-overlay{
+  opacity:1;
+  transform:translateY(0);
+}
+.card-img-overlay-pill{
+  background:rgba(255,255,255,0.94);
+  backdrop-filter:blur(14px);
+  -webkit-backdrop-filter:blur(14px);
+  color:var(--pink-deep);
+  font-size:11px;
+  font-weight:800;
+  padding:8px 22px;
+  border-radius:30px;
+  letter-spacing:0.6px;
+  display:flex;align-items:center;gap:7px;
+  box-shadow:0 6px 22px rgba(0,0,0,0.2);
+  border:1px solid rgba(255,255,255,0.9);
+  text-transform:uppercase;
+}
+
+/* ─── CARD BODY ─── */
+.card-body{
+  padding:18px 20px 20px;
+  display:flex;flex-direction:column;flex:1;gap:0;
+  position:relative;z-index:1;
+}
+.card-cat-label{
+  font-size:9px;font-weight:800;color:var(--pink);
+  text-transform:uppercase;letter-spacing:2.2px;
+  margin-bottom:7px;
+  display:flex;align-items:center;gap:6px;
+}
+.card-cat-label::before{
+  content:'';width:18px;height:1.5px;
+  background:linear-gradient(90deg,var(--pink),var(--pink-light));
+  border-radius:2px;
+  display:inline-block;
+  flex-shrink:0;
+}
+.card-body h3{
+  font-size:15px;font-weight:700;color:var(--text-main);
+  line-height:1.36;margin:0 0 7px;
+  letter-spacing:-0.2px;
+}
+.card-body .desc{
+  font-size:12px;color:#b0a8b8;line-height:1.6;flex:1;margin:0 0 14px;
+  display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden;
+}
+
+/* ─── PRECIO ─── */
+.card-price-row{
+  display:flex;align-items:center;justify-content:space-between;
+  margin-bottom:14px;
+  gap:8px;
+}
+.card-body .price{
+  font-size:22px;font-weight:900;color:var(--pink-deep);
+  letter-spacing:-1px;margin:0;
+  display:flex;align-items:baseline;gap:3px;
+  font-family:var(--font-body);
+  line-height:1;
+}
+.card-body .price .price-currency{
+  font-size:13px;font-weight:700;color:var(--pink);
+  margin-right:1px;
+}
+.card-body .price .price-ars{
+  font-size:9.5px;font-weight:600;color:#c8bad0;
+  margin-left:3px;
+  text-transform:uppercase;
+  letter-spacing:0.8px;
+}
+
+/* ─── BTN AGREGAR ─── */
+.btn-add{
+  width:100%;padding:13px 16px;margin-top:0;
+  background:linear-gradient(135deg,var(--pink-deep) 0%,var(--pink) 50%,#f04090 100%);
+  background-size:200% 100%;
+  background-position:0% 0%;
+  color:white;border:none;border-radius:14px;
+  cursor:pointer;font-family:var(--font-body);
+  font-weight:700;font-size:12.5px;
+  transition:background-position 0.4s ease, box-shadow 0.3s ease, transform 0.2s ease;
+  display:flex;align-items:center;justify-content:center;gap:8px;
+  box-shadow:0 4px 18px rgba(232,21,122,0.28);
+  letter-spacing:0.3px;
+  position:relative;
+  overflow:hidden;
+}
+.btn-add:hover{
+  background-position:100% 0%;
+  box-shadow:0 8px 30px rgba(232,21,122,0.44);
+  transform:translateY(-1px);
+}
+.btn-add:active{transform:scale(0.97);box-shadow:0 2px 10px rgba(232,21,122,0.28);}
+.btn-add i{font-size:14px;}
+
+/* ─── BTN GENÉRICO ─── */
+.btn{
+  width:100%;padding:11px;margin-top:8px;
+  background:linear-gradient(135deg,var(--pink),var(--pink-light));
+  color:white;border:none;border-radius:12px;
+  cursor:pointer;font-family:var(--font-body);
+  font-weight:600;font-size:14px;transition:var(--transition);
+  box-shadow:0 4px 14px rgba(232,21,122,0.2);
+}
+.btn:hover{transform:scale(1.02);box-shadow:0 6px 18px rgba(232,21,122,0.32);}
+
+/* ─── BADGE DESCUENTO ─── */
+.discount-badge{
+  position:absolute;top:14px;left:14px;
+  background:linear-gradient(135deg,#e8157a,#c2006b);
+  color:white;font-size:9.5px;font-weight:800;
+  padding:5px 12px;border-radius:30px;
+  z-index:8;
+  box-shadow:0 4px 14px rgba(194,0,107,0.5);
+  display:flex;align-items:center;gap:4px;
+  pointer-events:none;
+  letter-spacing:0.5px;
+  text-transform:uppercase;
+  animation:badgePop 0.4s cubic-bezier(.34,1.56,.64,1);
+}
+.discount-badge::before{content:'🏷️';font-size:9px;}
+@keyframes badgePop{
+  from{transform:scale(0.3) rotate(-8deg);opacity:0;}
+  to{transform:scale(1) rotate(0deg);opacity:1;}
+}
+
+/* ─── PRECIO ORIGINAL TACHADO ─── */
+.price-original{
+  font-size:11px;font-weight:500;
+  color:#c8bad0;text-decoration:line-through;
+  letter-spacing:0;
+  display:block;margin-bottom:2px;
+}
+
+/* ─── DOTS ─── */
+.img-dots{
+  position:absolute;bottom:10px;left:50%;
+  transform:translateX(-50%);
+  display:flex;gap:4px;z-index:10;
+  pointer-events:none;
+}
+.img-dots span{
+  width:5px;height:5px;border-radius:50%;
+  background:rgba(255,255,255,0.5);
+  transition:all 0.3s cubic-bezier(.4,0,.2,1);
+  pointer-events:auto;cursor:pointer;
+  border:1.5px solid rgba(255,255,255,0.75);
+}
+.img-dots span.dot-active{
+  background:white;width:20px;border-radius:4px;
+  box-shadow:0 2px 8px rgba(0,0,0,0.25);
+}
+
+/* ─── LOCK ICON ─── */
+.lock-icon{
+  position:absolute;top:10px;right:10px;
+  background:rgba(232,21,122,0.8);
+  backdrop-filter:blur(8px);
+  color:white;border-radius:10px;
+  width:28px;height:28px;display:none;
+  align-items:center;justify-content:center;
+  font-size:11px;z-index:10;
+  box-shadow:0 2px 10px rgba(232,21,122,0.35);
+  border:1px solid rgba(255,255,255,0.2);
+}
+.img-container.locked-gallery .lock-icon{display:flex;}
+
+/* ─── FLECHAS ─── */
+.img-arrow{
+  position:absolute;top:50%;transform:translateY(-50%);
+  background:rgba(255,255,255,0.92);
+  backdrop-filter:blur(8px);
+  color:var(--pink);
+  border:none;border-radius:50%;
+  width:30px;height:30px;
+  display:none;align-items:center;justify-content:center;
+  font-size:11px;cursor:pointer;z-index:10;
+  box-shadow:0 3px 14px rgba(0,0,0,0.14);
+  transition:all 0.22s cubic-bezier(.4,0,.2,1);
+  border:1px solid rgba(255,255,255,0.8);
+}
+.img-arrow:hover{background:white;transform:translateY(-50%) scale(1.12);box-shadow:0 4px 18px rgba(0,0,0,0.2);}
+.img-arrow.arrow-left{left:10px;}
+.img-arrow.arrow-right{right:10px;}
+.img-container.locked-gallery .img-arrow{display:flex;}
+.card:hover .img-arrow{display:flex;}
+
+/* ─── RESPONSIVE ─── */
+@media(max-width:1200px){
+  .products{grid-template-columns:repeat(3,1fr);gap:22px;padding:28px 24px 52px;}
+}
+@media(max-width:860px){
+  .products{grid-template-columns:repeat(2,1fr);gap:16px;padding:24px 18px 40px;}
+}
+@media(max-width:480px){
+  .products{grid-template-columns:repeat(2,1fr);gap:12px;padding:18px 12px 32px;}
+  .card-body{padding:12px 13px 14px;}
+  .card-body h3{font-size:13px;line-height:1.3;}
+  .card-body .desc{font-size:11px;margin-bottom:8px;-webkit-line-clamp:2;}
+  .card-body .price{font-size:17px;}
+  .btn-add{font-size:11px;padding:10px 8px;gap:5px;}
+  .btn-add i{font-size:12px;}
+  .img-arrow{display:none !important;}
+  .card-img-overlay{display:none;}
+  .card-cat-label{font-size:8.5px;letter-spacing:1.5px;margin-bottom:4px;}
+}
+
+/* ─── CARRITO TOGGLE ─── */
+.cart-toggle{
+  position:absolute;top:50%;right:14px;
+  transform:translateY(-50%);
+  background:rgba(255,255,255,0.1);
+  color:white;width:44px;height:44px;
+  display:flex;align-items:center;justify-content:center;
+  border-radius:13px;cursor:pointer;z-index:10000;
+  font-size:17px;
+  box-shadow:none;
+  transition:background var(--transition),box-shadow var(--transition),transform var(--transition);
+  border:1px solid rgba(255,255,255,0.18);
+  backdrop-filter:blur(8px);
+  -webkit-backdrop-filter:blur(8px);
+}
+.cart-toggle:hover{
+  background:var(--pink);
+  border-color:var(--pink);
+  box-shadow:0 6px 22px rgba(232,21,122,0.5);
+  transform:translateY(-50%) scale(1.05);
+}
+/* Con productos en el carrito → rosa permanente */
+.cart-toggle.has-items{
+  background:linear-gradient(135deg,var(--pink),var(--pink-light));
+  border-color:transparent;
+  box-shadow:0 4px 20px rgba(232,21,122,0.5);
+}
+.cart-toggle.has-items:hover{
+  background:linear-gradient(135deg,var(--pink-deep),var(--pink));
+  box-shadow:0 8px 28px rgba(232,21,122,0.65);
+  transform:translateY(-50%) scale(1.07);
+}
+.cart-count-badge{
+  position:absolute;top:-6px;right:-6px;
+  background:var(--pink);color:#fff;
+  font-size:10px;font-weight:700;
+  width:18px;height:18px;border-radius:50%;
+  display:flex;align-items:center;justify-content:center;
+  border:1.5px solid rgba(255,255,255,0.9);line-height:1;
+  box-shadow:0 2px 8px rgba(232,21,122,0.4);
+}
+
+/* ─── CARRITO BOX ─── */
+.cart-box{
+  position:fixed;right:14px;top:calc(var(--header-h) + 10px);
+  width:340px;background:white;
+  padding:20px;border-radius:20px;
+  display:none;
+  box-shadow:0 16px 50px rgba(0,0,0,0.18);
+  z-index:10000;max-height:82vh;overflow-y:auto;
+  border:1px solid rgba(232,21,122,0.08);
+}
+.cart-box h3{font-size:16px;font-weight:700;color:#222;margin:0;}
+.cart-box input,.cart-box select{
+  width:100%;padding:10px 14px;margin:5px 0;
+  border:1.5px solid #f0e0e8;border-radius:10px;
+  font-family:var(--font-body);font-size:13px;
+  color:#444;outline:none;transition:border-color 0.2s;background:#fafafa;
+}
+.cart-box input:focus,.cart-box select:focus{border-color:var(--pink-light);}
+.cart-total-row{
+  display:flex;justify-content:space-between;align-items:center;
+  padding:10px 0 6px;border-top:1.5px solid #f5f0f3;margin-top:8px;
+}
+.cart-total-row span:first-child{font-weight:500;color:#888;font-size:14px;}
+.cart-total-row span:last-child{font-weight:700;color:var(--pink);font-size:18px;}
+.cart-btn{
+  border:none;border-radius:7px;padding:5px 9px;
+  cursor:pointer;font-weight:700;font-size:13px;transition:0.2s;
+}
+.btn-plus{background:#e8f8ee;color:#27ae60;}
+.btn-minus{background:#fff3e0;color:#e67e22;}
+.btn-delete{
+  background:#fff0f0;color:#e53935;border-radius:8px;
+  width:28px;height:28px;display:flex;align-items:center;justify-content:center;font-size:13px;
+}
+/* vaciar carrito - override */
+.cart-header-vaciar{
+  width:auto !important;height:auto !important;
+  padding:6px 12px !important;font-size:11px !important;
+  border-radius:8px !important;display:flex !important;
+  align-items:center !important;gap:5px !important;
+  background:#fff0f0 !important;color:#e53935 !important;
+  font-family:var(--font-body) !important;font-weight:700 !important;
+  border:none;cursor:pointer;
+  transition:background 0.2s,transform 0.2s;
+}
+.cart-header-vaciar:hover{background:#ffe0e0 !important;transform:scale(1.04);}
+.cart-btn:hover{opacity:0.8;transform:scale(1.1);}
+
+/* ─── FOOTER ─── */
+footer{
+  background:linear-gradient(135deg,#1a1a2e 0%,#2d1b3d 100%);
+  color:white;padding:64px 24px 32px;margin-top:auto;
+  position:relative;overflow:hidden;
+  border-top:1px solid rgba(232,21,122,0.18);
+}
+footer::before{
+  content:'';position:absolute;top:-60px;right:-60px;
+  width:260px;height:260px;border-radius:50%;
+  background:radial-gradient(circle,rgba(232,21,122,0.15),transparent 70%);
+  pointer-events:none;
+}
+.footer-container{
+  max-width:1100px;margin:auto;
+  display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:40px;
+  position:relative;z-index:1;
+}
+.footer-brand h2{
+  font-family:var(--font-display);
+  font-size:20px;margin-bottom:12px;font-weight:700;
+  background:linear-gradient(90deg,#fff,rgba(255,255,255,0.7));
+  -webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;
+}
+.footer-brand p{font-size:13.5px;line-height:1.75;opacity:0.65;color:#e0c8d8;}
+.footer-social{display:flex;gap:10px;margin-top:20px;flex-wrap:wrap;}
+.footer-social a{
+  width:42px;height:42px;display:flex;align-items:center;justify-content:center;
+  background:rgba(255,255,255,0.07);border-radius:12px;font-size:17px;
+  text-decoration:none;color:rgba(255,255,255,0.7);transition:var(--transition);
+  border:1px solid rgba(255,255,255,0.1);
+}
+.footer-social a:hover{background:var(--pink);color:white;border-color:transparent;transform:translateY(-3px);box-shadow:0 6px 18px rgba(232,21,122,0.4);}
+.footer-links h3{font-size:12px;margin-bottom:16px;font-weight:700;opacity:0.5;text-transform:uppercase;letter-spacing:1.5px;}
+.footer-links a{display:block;color:rgba(255,255,255,0.65);text-decoration:none;margin-bottom:10px;font-size:13.5px;transition:0.2s;}
+.footer-links a:hover{color:var(--pink-light);padding-left:4px;}
+.footer-bottom{
+  text-align:center;margin-top:40px;padding-top:20px;
+  border-top:1px solid rgba(255,255,255,0.08);
+  font-size:12.5px;opacity:0.45;
+  position:relative;z-index:1;
+}
+
+/* ─── PROMOS / CARRUSEL INFINITO ─── */
+.promos-section{
+  width:100%;
+  padding:56px 0 64px;
+  position:relative;
+  overflow:hidden;
+  background:linear-gradient(160deg,#1a0a14 0%,#2d0a24 40%,#1a0a14 100%);
+  contain:paint;
+}
+
+/* Fondo decorativo */
+.promos-section::before{
+  content:'';position:absolute;inset:0;
+  background:
+    radial-gradient(ellipse 60% 50% at 20% 50%, rgba(232,21,122,0.18) 0%, transparent 70%),
+    radial-gradient(ellipse 50% 60% at 80% 30%, rgba(194,0,107,0.12) 0%, transparent 70%);
+  pointer-events:none;
+}
+
+/* Líneas de luz superior e inferior */
+.promos-section::after{
+  content:'';position:absolute;
+  left:0;right:0;top:0;height:1px;
+  background:linear-gradient(90deg,transparent 0%,rgba(232,21,122,0.5) 30%,rgba(255,150,200,0.7) 50%,rgba(232,21,122,0.5) 70%,transparent 100%);
+}
+
+/* Header de la sección */
+.promos-header{
+  text-align:center;
+  padding:0 20px 40px;
+  position:relative;z-index:2;
+}
+.promos-eyebrow{
+  display:inline-flex;align-items:center;gap:10px;
+  margin-bottom:14px;
+}
+.promos-eyebrow-line{
+  width:28px;height:1px;
+  background:linear-gradient(90deg,transparent,rgba(232,21,122,0.7));
+}
+.promos-eyebrow-line.r{
+  background:linear-gradient(90deg,rgba(232,21,122,0.7),transparent);
+}
+.promos-eyebrow-label{
+  font-family:'Bebas Neue',sans-serif;
+  font-size:11px;letter-spacing:4px;color:rgba(232,21,122,0.85);
+  text-transform:uppercase;
+}
+.promos-title{
+  font-family:var(--font-display);
+  font-size:clamp(24px,4.5vw,40px);font-weight:800;
+  color:#fff;
+  letter-spacing:-0.5px;
+  line-height:1.1;
+  margin-bottom:0;
+  text-shadow:0 2px 20px rgba(232,21,122,0.3);
+}
+.promos-title span{
+  background:linear-gradient(135deg,#ff69b4,#e8157a,#c2006b);
+  -webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;
+}
+
+/* ── Contenedor del carrusel ── */
+.promos-carousel-wrap{
+  position:relative;
+  z-index:2;
+}
+
+/* Fade masks laterales */
+.promos-carousel-wrap::before,
+.promos-carousel-wrap::after{
+  content:'';
+  position:absolute;top:0;bottom:0;width:120px;z-index:10;pointer-events:none;
+}
+.promos-carousel-wrap::before{
+  left:0;
+  background:linear-gradient(90deg,#1a0a14 0%,transparent 100%);
+}
+.promos-carousel-wrap::after{
+  right:0;
+  background:linear-gradient(270deg,#1a0a14 0%,transparent 100%);
+}
+
+/* Track del carrusel — scroll CSS infinito */
+.promos-track{
+  display:flex;
+  gap:24px;
+  padding:12px 0 20px;
+  width:max-content;
+  animation:carouselScroll 36s linear infinite;
+  will-change:transform;
+}
+.promos-track:has(.promo-card:hover){
+  animation-play-state:paused;
+}
+@keyframes carouselScroll{
+  0%  { transform:translateX(0); }
+  100%{ transform:translateX(-50%); }
+}
+
+/* ── Tarjeta de promo ── */
+.promo-card{
+  width:340px;
+  flex-shrink:0;
+  border-radius:24px;
+  padding:32px 28px 28px;
+  position:relative;
+  overflow:hidden;
+  cursor:pointer;
+  transition:transform 0.4s cubic-bezier(.22,1,.36,1),
+             box-shadow 0.4s cubic-bezier(.22,1,.36,1);
+  min-height:230px;
+  display:flex;flex-direction:column;justify-content:flex-start;
+  border:1px solid rgba(255,255,255,0.06);
+  backdrop-filter:blur(2px);
+}
+.promo-card:hover{
+  transform:translateY(-10px) scale(1.03);
+  z-index:5;
+}
+
+/* Cartel 1 – Flash Sale */
+.promo-flash{
+  background:linear-gradient(135deg,var(--pink) 0%,#e8157a 50%,#c2006b 100%);
+  color:white;
+  box-shadow:0 14px 44px rgba(255,20,147,0.5), 0 0 0 1px rgba(255,100,170,0.25) inset;
+}
+.promo-flash:hover{
+  box-shadow:0 24px 60px rgba(255,20,147,0.65), 0 0 0 1px rgba(255,150,200,0.3) inset;
+}
+
+/* Cartel 2 – Emprendedor */
+.promo-descuento{
+  background:linear-gradient(135deg,#0d0d1a 0%,#1a0a2e 60%,#2a0a3e 100%);
+  color:white;
+  box-shadow:0 14px 40px rgba(0,0,0,0.5), 0 0 0 1px rgba(232,21,122,0.2) inset;
+}
+.promo-descuento:hover{
+  box-shadow:0 24px 56px rgba(232,21,122,0.3), 0 0 0 1px rgba(232,21,122,0.35) inset;
+}
+
+/* Cartel 3 – Eventos */
+.promo-kit{
+  background:linear-gradient(135deg,#0a1a2e 0%,#0a2a4a 60%,#063055 100%);
+  color:white;
+  box-shadow:0 14px 40px rgba(10,40,80,0.55), 0 0 0 1px rgba(100,180,255,0.15) inset;
+}
+.promo-kit:hover{
+  box-shadow:0 24px 56px rgba(10,80,160,0.4), 0 0 0 1px rgba(100,180,255,0.28) inset;
+}
+
+/* Cartel 4 – Fotos */
+.promo-envio{
+  background:linear-gradient(135deg,#1a1205 0%,#2e2008 60%,#3d2a0a 100%);
+  color:white;
+  box-shadow:0 14px 40px rgba(60,40,0,0.55), 0 0 0 1px rgba(255,215,0,0.18) inset;
+}
+.promo-envio:hover{
+  box-shadow:0 24px 56px rgba(200,150,0,0.3), 0 0 0 1px rgba(255,215,0,0.3) inset;
+}
+
+/* Cartel 5 – Stickers */
+.promo-stickers{
+  background:linear-gradient(135deg,#0f1a0a 0%,#142b0d 60%,#1a3a10 100%);
+  color:white;
+  box-shadow:0 14px 40px rgba(20,60,10,0.5), 0 0 0 1px rgba(80,200,80,0.15) inset;
+}
+.promo-stickers:hover{
+  box-shadow:0 24px 56px rgba(20,160,20,0.3), 0 0 0 1px rgba(80,220,80,0.28) inset;
+}
+
+/* Cartel 6 – Agendas */
+.promo-agendas{
+  background:linear-gradient(135deg,#1a0a1a 0%,#2e0a30 60%,#3d0a40 100%);
+  color:white;
+  box-shadow:0 14px 40px rgba(60,0,80,0.55), 0 0 0 1px rgba(200,100,255,0.15) inset;
+}
+.promo-agendas:hover{
+  box-shadow:0 24px 56px rgba(140,0,200,0.3), 0 0 0 1px rgba(200,100,255,0.28) inset;
+}
+
+/* Orb decorativo en cada cartel */
+.promo-orb{
+  position:absolute;
+  border-radius:50%;
+  pointer-events:none;
+  filter:blur(30px);
+}
+.promo-flash .promo-orb-1{width:130px;height:130px;top:-40px;right:-30px;background:rgba(255,255,255,0.18);}
+.promo-flash .promo-orb-2{width:80px;height:80px;bottom:-20px;left:-15px;background:rgba(255,100,170,0.3);}
+.promo-descuento .promo-orb-1{width:120px;height:120px;top:-30px;right:-20px;background:rgba(232,21,122,0.25);}
+.promo-descuento .promo-orb-2{width:70px;height:70px;bottom:-15px;left:-10px;background:rgba(180,0,100,0.2);}
+.promo-kit .promo-orb-1{width:120px;height:120px;top:-20px;right:-20px;background:rgba(100,180,255,0.2);}
+.promo-kit .promo-orb-2{width:80px;height:80px;bottom:-20px;left:-10px;background:rgba(50,100,200,0.18);}
+.promo-envio .promo-orb-1{width:120px;height:120px;top:-25px;right:-20px;background:rgba(255,215,0,0.2);}
+.promo-envio .promo-orb-2{width:70px;height:70px;bottom:-15px;left:-10px;background:rgba(200,150,0,0.15);}
+.promo-stickers .promo-orb-1{width:110px;height:110px;top:-20px;right:-20px;background:rgba(80,220,80,0.18);}
+.promo-stickers .promo-orb-2{width:70px;height:70px;bottom:-15px;left:-10px;background:rgba(40,160,40,0.15);}
+.promo-agendas .promo-orb-1{width:120px;height:120px;top:-25px;right:-20px;background:rgba(200,100,255,0.2);}
+.promo-agendas .promo-orb-2{width:70px;height:70px;bottom:-15px;left:-10px;background:rgba(140,0,200,0.15);}
+
+/* Badge */
+.promo-badge{
+  display:inline-flex;align-items:center;gap:5px;
+  font-size:10.5px;font-weight:800;
+  letter-spacing:1.5px;text-transform:uppercase;
+  padding:5px 14px;border-radius:20px;
+  margin-bottom:16px;width:fit-content;
+  position:relative;z-index:1;
+  backdrop-filter:blur(8px);
+}
+.promo-flash .promo-badge{background:rgba(255,255,255,0.22);color:rgba(255,255,255,0.95);border:1px solid rgba(255,255,255,0.25);}
+.promo-descuento .promo-badge{background:rgba(232,21,122,0.22);color:rgba(255,150,200,0.95);border:1px solid rgba(232,21,122,0.3);}
+.promo-kit .promo-badge{background:rgba(100,180,255,0.15);color:#aad4ff;border:1px solid rgba(100,180,255,0.2);}
+.promo-envio .promo-badge{background:rgba(255,215,0,0.18);color:#ffd54f;border:1px solid rgba(255,215,0,0.25);}
+.promo-stickers .promo-badge{background:rgba(80,220,80,0.15);color:#a5d6a7;border:1px solid rgba(80,220,80,0.22);}
+.promo-agendas .promo-badge{background:rgba(200,100,255,0.15);color:#ce93d8;border:1px solid rgba(200,100,255,0.22);}
+
+/* Icono de badge */
+.promo-badge-icon{font-size:12px;}
+
+/* Título y descripción */
+.promo-card h3{
+  font-family:var(--font-display);
+  font-size:clamp(17px,2vw,22px);font-weight:800;
+  line-height:1.2;margin-bottom:10px;
+  position:relative;z-index:1;
+  letter-spacing:-0.4px;
+  color:#fff;
+}
+.promo-card p{
+  font-size:13px;font-weight:400;color:rgba(255,255,255,0.68);
+  position:relative;z-index:1;
+  line-height:1.6;flex:1;
+}
+
+/* Precio destacado */
+.promo-price{
+  display:inline-flex;align-items:baseline;gap:3px;
+  margin:10px 0 0;
+  position:relative;z-index:1;
+}
+.promo-price-currency{
+  font-size:14px;font-weight:700;color:rgba(255,255,255,0.7);
+  margin-top:3px;
+}
+.promo-price-amount{
+  font-family:'Oswald',sans-serif;
+  font-size:34px;font-weight:700;color:#fff;
+  line-height:1;letter-spacing:-1px;
+}
+.promo-flash .promo-price-amount{color:#fff;}
+.promo-envio .promo-price-amount{color:#ffd54f;}
+.promo-descuento .promo-price-amount{color:#f48fb1;}
+.promo-kit .promo-price-amount{color:#90caf9;}
+.promo-stickers .promo-price-amount{color:#a5d6a7;}
+.promo-agendas .promo-price-amount{color:#ce93d8;}
+
+/* CTA botón */
+.promo-card .promo-cta{
+  display:inline-flex;align-items:center;gap:8px;
+  margin-top:20px;padding:11px 24px;
+  border-radius:30px;font-size:13px;font-weight:700;
+  text-decoration:none;transition:all 0.3s cubic-bezier(.22,1,.36,1);
+  width:fit-content;position:relative;z-index:1;
+  cursor:pointer;border:none;font-family:var(--font-body);
+  letter-spacing:0.3px;
+}
+.promo-flash .promo-cta{
+  background:#fff;color:var(--pink-deep);
+  box-shadow:0 4px 18px rgba(0,0,0,0.2);
+}
+.promo-flash .promo-cta:hover{
+  background:rgba(255,255,255,0.92);
+  transform:translateX(4px);
+  box-shadow:0 8px 28px rgba(0,0,0,0.28);
+}
+.promo-descuento .promo-cta{
+  background:linear-gradient(135deg,var(--pink),var(--pink-light));
+  color:white;
+  box-shadow:0 4px 18px rgba(232,21,122,0.4);
+}
+.promo-descuento .promo-cta:hover{transform:translateX(4px);box-shadow:0 8px 28px rgba(232,21,122,0.55);}
+.promo-kit .promo-cta{
+  background:rgba(100,180,255,0.18);color:#90caf9;
+  border:1.5px solid rgba(100,180,255,0.3);
+}
+.promo-kit .promo-cta:hover{background:rgba(100,180,255,0.3);transform:translateX(4px);}
+.promo-envio .promo-cta{
+  background:rgba(255,215,0,0.18);color:#ffd54f;
+  border:1.5px solid rgba(255,215,0,0.3);
+}
+.promo-envio .promo-cta:hover{background:rgba(255,215,0,0.28);transform:translateX(4px);}
+.promo-stickers .promo-cta{
+  background:rgba(80,220,80,0.15);color:#a5d6a7;
+  border:1.5px solid rgba(80,220,80,0.25);
+}
+.promo-stickers .promo-cta:hover{background:rgba(80,220,80,0.25);transform:translateX(4px);}
+.promo-agendas .promo-cta{
+  background:rgba(200,100,255,0.15);color:#ce93d8;
+  border:1.5px solid rgba(200,100,255,0.25);
+}
+.promo-agendas .promo-cta:hover{background:rgba(200,100,255,0.25);transform:translateX(4px);}
+
+.promo-cta-arrow{
+  display:inline-flex;align-items:center;justify-content:center;
+  width:20px;height:20px;border-radius:50%;
+  background:rgba(255,255,255,0.15);
+  font-size:10px;flex-shrink:0;
+  transition:transform 0.3s cubic-bezier(.22,1,.36,1);
+}
+.promo-card:hover .promo-cta-arrow{transform:translateX(3px);}
+
+/* Shimmer animado */
+.promo-shimmer{
+  position:absolute;inset:0;
+  background:linear-gradient(105deg,transparent 38%,rgba(255,255,255,0.08) 50%,transparent 62%);
+  background-size:220% 100%;
+  animation:shimmerCard 3.5s ease-in-out infinite;
+  border-radius:24px;
+  pointer-events:none;
+  z-index:2;
+}
+@keyframes shimmerCard{
+  0%{background-position:220% 0;}
+  100%{background-position:-220% 0;}
+}
+
+/* Pulso vivo */
+.pulse-dot{
+  display:inline-block;width:7px;height:7px;
+  background:rgba(255,255,255,0.9);border-radius:50%;
+  animation:pulseDot 1.6s infinite;flex-shrink:0;
+  box-shadow:0 0 6px rgba(255,255,255,0.6);
+}
+@keyframes pulseDot{
+  0%,100%{opacity:1;transform:scale(1);}
+  50%{opacity:0.35;transform:scale(0.65);}
+}
+
+/* Número decorativo grande */
+.promo-big-num{
+  position:absolute;right:18px;bottom:14px;
+  font-size:90px;font-weight:900;
+  opacity:0.06;line-height:1;
+  pointer-events:none;color:white;
+  font-family:'Bebas Neue',sans-serif;
+  z-index:0;
+}
+
+/* Etiqueta de descuento flotante */
+.promo-discount-ribbon{
+  position:absolute;top:18px;right:18px;
+  width:54px;height:54px;
+  border-radius:50%;
+  display:flex;flex-direction:column;align-items:center;justify-content:center;
+  font-weight:900;line-height:1;
+  z-index:3;
+  pointer-events:none;
+}
+.promo-flash .promo-discount-ribbon{
+  background:rgba(255,255,255,0.96);
+  color:var(--pink-deep);
+  box-shadow:0 4px 14px rgba(0,0,0,0.2);
+}
+.promo-descuento .promo-discount-ribbon{
+  background:linear-gradient(135deg,var(--pink),var(--pink-light));
+  color:white;
+  box-shadow:0 4px 14px rgba(232,21,122,0.45);
+}
+.promo-envio .promo-discount-ribbon{
+  background:linear-gradient(135deg,#ffd700,#ffb300);
+  color:#4a2d00;
+  box-shadow:0 4px 14px rgba(200,150,0,0.4);
+}
+.promo-discount-ribbon-pct{font-size:16px;}
+.promo-discount-ribbon-off{font-size:9px;letter-spacing:0.5px;}
+
+/* Indicadores del carrusel (dots) */
+.promos-indicators{
+  display:flex;justify-content:center;gap:8px;
+  padding-top:28px;
+  position:relative;z-index:2;
+}
+.promos-indicator{
+  width:28px;height:3px;border-radius:3px;
+  background:rgba(255,255,255,0.2);
+  cursor:pointer;transition:all 0.3s;
+}
+.promos-indicator.active{
+  background:var(--pink);width:48px;
+  box-shadow:0 0 8px rgba(232,21,122,0.5);
+}
+
+
+/* Línea inferior */
+.promos-bottom-line{
+  position:absolute;left:0;right:0;bottom:0;height:1px;
+  background:linear-gradient(90deg,transparent 0%,rgba(232,21,122,0.4) 30%,rgba(255,150,200,0.6) 50%,rgba(232,21,122,0.4) 70%,transparent 100%);
+}
+
+@media(max-width:768px){
+  .promos-track{gap:14px;}
+  .promo-card{width:270px;min-height:205px;padding:22px 18px 20px;}
+  .promo-card h3{font-size:16px;}
+  .promo-price-amount{font-size:26px;}
+  .promos-carousel-wrap::before,
+  .promos-carousel-wrap::after{width:50px;}
+  .img-arrow{display:none !important;}
+  .hero{min-height:88vh;background-attachment:scroll;padding:50px 14px 40px;}
+  .hero-content{padding:24px 20px;}
+  .cart-box{width:calc(100vw - 24px);right:12px;left:12px;right:auto;}
+  .section-title{padding:24px 16px 6px;font-size:clamp(20px,5vw,30px);}
+  .cat-filter-bar{padding:20px 16px 8px;gap:8px;}
+  .cat-pill{padding:10px 12px;font-size:11px;}
+}
+@media(max-width:420px){
+  .promo-card{width:230px;min-height:190px;padding:18px 14px 16px;}
+  .promo-card h3{font-size:14.5px;}
+  .hero-stat-num{font-size:20px;}
+  .hero-stat-label{font-size:10px;letter-spacing:2px;}
+}
+
+/* ─── BOTÓN VER DETALLE EN CARD ─── */
+/* ─── MODAL OVERLAY ─── */
+.modal-overlay{
+  position:fixed;inset:0;
+  background:rgba(0,0,0,0.55);
+  backdrop-filter:blur(6px);
+  -webkit-backdrop-filter:blur(6px);
+  z-index:50000;
+  display:flex;align-items:center;justify-content:center;
+  padding:16px;
+  opacity:0;pointer-events:none;
+  transition:opacity 0.3s cubic-bezier(.4,0,.2,1);
+}
+.modal-overlay.active{opacity:1;pointer-events:auto;}
+
+/* ─── MODAL BOX ─── */
+.modal-box{
+  background:#fff;
+  border-radius:24px;
+  max-width:860px;width:100%;
+  max-height:92vh;
+  overflow-y:auto;
+  box-shadow:0 30px 80px rgba(0,0,0,0.3),0 0 0 1px rgba(232,21,122,0.08);
+  transform:translateY(32px) scale(0.97);
+  transition:transform 0.35s cubic-bezier(.4,0,.2,1);
+  position:relative;
+  scrollbar-width:thin;
+  scrollbar-color:rgba(232,21,122,0.3) transparent;
+}
+.modal-overlay.active .modal-box{transform:translateY(0) scale(1);}
+
+/* ─── MODAL CLOSE ─── */
+.modal-close{
+  position:absolute;top:16px;right:16px;
+  width:38px;height:38px;
+  background:rgba(0,0,0,0.06);color:#555;
+  border:none;border-radius:50%;
+  display:flex;align-items:center;justify-content:center;
+  font-size:17px;cursor:pointer;z-index:10;
+  transition:background 0.2s,color 0.2s,transform 0.2s;
+}
+.modal-close:hover{background:var(--pink);color:white;transform:rotate(90deg);}
+
+/* ─── MODAL INNER LAYOUT ─── */
+.modal-inner{
+  display:grid;grid-template-columns:1fr 1fr;
+  gap:0;
+}
+@media(max-width:640px){
+  .modal-inner{grid-template-columns:1fr;}
+}
+
+/* ─── MODAL GALERÍA ─── */
+.modal-gallery{
+  padding:28px 20px 28px 28px;
+  display:flex;flex-direction:column;gap:14px;
+}
+@media(max-width:640px){.modal-gallery{padding:20px 20px 12px;}}
+
+.modal-main-img{
+  width:100%;aspect-ratio:1/1;
+  border-radius:18px;overflow:hidden;
+  background:linear-gradient(135deg,#fff0f5,#ffe4ee);
+  position:relative;
+  box-shadow:0 4px 20px rgba(232,21,122,0.12);
+}
+.modal-main-img img{
+  width:100%;height:100%;object-fit:cover;
+  transition:transform 0.5s cubic-bezier(.4,0,.2,1), opacity 0.4s;
+}
+.modal-main-img img:hover{transform:scale(1.04);}
+
+.modal-thumbs{
+  display:flex;gap:10px;
+  flex-wrap:wrap;
+}
+.modal-thumb{
+  width:68px;height:68px;border-radius:12px;
+  overflow:hidden;cursor:pointer;
+  border:2.5px solid transparent;
+  transition:border-color 0.2s,transform 0.2s,box-shadow 0.2s;
+  flex-shrink:0;
+  background:linear-gradient(135deg,#fff0f5,#ffe4ee);
+}
+.modal-thumb:hover{transform:scale(1.06);box-shadow:0 4px 14px rgba(232,21,122,0.22);}
+.modal-thumb.active-thumb{border-color:var(--pink);box-shadow:0 0 0 2px rgba(232,21,122,0.18);}
+.modal-thumb img{width:100%;height:100%;object-fit:cover;}
+
+/* ─── MODAL INFO ─── */
+.modal-info{
+  padding:28px 28px 28px 20px;
+  display:flex;flex-direction:column;
+  border-left:1px solid rgba(232,21,122,0.08);
+  gap:0;
+  overflow-y:auto;
+}
+@media(max-width:640px){
+  .modal-info{padding:4px 20px 24px;border-left:none;border-top:1px solid #f5f0f3;}
+}
+
+.modal-cat-badge{
+  display:inline-flex;align-items:center;gap:5px;
+  background:linear-gradient(90deg,#fff0f5,#ffe4ee);
+  color:var(--pink);font-size:11px;font-weight:600;
+  padding:5px 12px;border-radius:20px;
+  margin-bottom:12px;width:fit-content;
+  letter-spacing:0.4px;text-transform:capitalize;
+  border:1px solid rgba(232,21,122,0.15);
+}
+
+.modal-title{
+  font-family:var(--font-display);
+  font-size:clamp(17px,2.8vw,24px);font-weight:800;
+  color:var(--text-main);line-height:1.25;margin-bottom:8px;
+  letter-spacing:-0.5px;
+}
+
+.modal-rating{
+  display:flex;align-items:center;gap:8px;
+  margin-bottom:16px;
+}
+.modal-stars{color:#f5a623;font-size:14px;letter-spacing:1px;}
+.modal-rating-text{font-size:12px;color:#aaa;}
+
+.modal-price-block{
+  background:linear-gradient(135deg,#fff0f5,#ffe4ee);
+  border-radius:16px;padding:18px 20px;
+  margin-bottom:18px;
+  border:1px solid rgba(232,21,122,0.1);
+}
+.modal-price-original{
+  font-size:13px;color:#bbb;text-decoration:line-through;margin-bottom:2px;
+}
+.modal-price-main{
+  font-size:clamp(26px,4vw,34px);font-weight:800;
+  color:var(--pink);letter-spacing:-1px;line-height:1;
+}
+.modal-price-currency{font-size:16px;font-weight:600;vertical-align:top;margin-top:4px;display:inline-block;}
+.modal-price-ars{font-size:13px;color:#bbb;font-weight:400;margin-left:4px;}
+.modal-discount-tag{
+  display:inline-flex;align-items:center;gap:4px;
+  background:linear-gradient(135deg,var(--pink),var(--pink-deep));
+  color:white;font-size:11px;font-weight:700;
+  padding:3px 10px;border-radius:20px;margin-top:6px;
+}
+
+.modal-divider{height:1px;background:#f5f0f3;margin:14px 0;}
+
+.modal-desc-title{
+  font-size:12px;font-weight:700;color:#888;
+  text-transform:uppercase;letter-spacing:1px;margin-bottom:8px;
+}
+.modal-desc-text{
+  font-size:13.5px;color:#555;line-height:1.7;margin-bottom:16px;
+  flex:1;
+}
+
+.modal-features{
+  display:flex;flex-wrap:wrap;gap:8px;margin-bottom:16px;
+}
+.modal-feat-chip{
+  display:inline-flex;align-items:center;gap:5px;
+  background:white;border:1.5px solid rgba(232,21,122,0.15);
+  color:#666;font-size:11.5px;font-weight:500;
+  padding:5px 11px;border-radius:20px;
+}
+.modal-feat-chip i{color:var(--pink);font-size:10px;}
+
+.modal-actions{
+  display:flex;flex-direction:column;gap:10px;
+  margin-top:auto;
+  padding-top:8px;
+}
+.modal-btn-add{
+  width:100%;padding:14px;
+  background:linear-gradient(135deg,var(--pink),var(--pink-light));
+  color:white;border:none;border-radius:12px;
+  cursor:pointer;font-family:var(--font-body);
+  font-weight:700;font-size:14px;
+  transition:var(--transition);
+  display:flex;align-items:center;justify-content:center;gap:8px;
+  box-shadow:0 4px 18px rgba(232,21,122,0.35);
+  letter-spacing:0.2px;
+}
+.modal-btn-add:hover{transform:translateY(-2px);box-shadow:0 8px 24px rgba(232,21,122,0.45);}
+.modal-btn-add:active{transform:scale(0.98);}
+
+.modal-btn-wa{
+  width:100%;padding:13px;
+  background:linear-gradient(135deg,#25D366,#1da851);
+  color:white;border:none;border-radius:12px;
+  cursor:pointer;font-family:var(--font-body);
+  font-weight:600;font-size:13.5px;
+  transition:var(--transition);
+  display:flex;align-items:center;justify-content:center;gap:8px;
+  box-shadow:0 4px 14px rgba(37,211,102,0.3);
+}
+.modal-btn-wa:hover{transform:translateY(-2px);box-shadow:0 6px 20px rgba(37,211,102,0.42);}
+
+.modal-trust{
+  display:flex;justify-content:center;gap:18px;
+  margin-top:12px;flex-wrap:wrap;
+}
+.modal-trust-item{
+  display:flex;align-items:center;gap:5px;
+  font-size:11.5px;color:#aaa;font-weight:500;
+}
+.modal-trust-item i{color:var(--pink);font-size:11px;}
+
+/* ─── MODAL BREADCRUMB ─── */
+.modal-breadcrumb{
+  padding:14px 28px 0;
+  font-size:12px;color:#bbb;display:flex;align-items:center;gap:6px;flex-wrap:wrap;
+}
+.modal-breadcrumb span{color:var(--pink);font-weight:500;}
+
+/* Zoom nav arrows en modal */
+.modal-img-nav{
+  position:absolute;top:50%;transform:translateY(-50%);
+  background:rgba(255,255,255,0.9);color:var(--pink);
+  border:none;border-radius:50%;width:34px;height:34px;
+  display:flex;align-items:center;justify-content:center;
+  font-size:13px;cursor:pointer;z-index:5;
+  box-shadow:0 2px 12px rgba(0,0,0,0.12);
+  transition:all 0.2s;backdrop-filter:blur(4px);
+}
+.modal-img-nav:hover{background:white;transform:translateY(-50%) scale(1.1);}
+.modal-img-nav.left{left:10px;}
+.modal-img-nav.right{right:10px;}
+
+/* Cards cursor pointer */
+.card{cursor:pointer;}
+
+/* ══════ MEJORAS ADICIONALES RESPONSIVE + CALIDAD ══════ */
+
+/* Pills bar scrollable en móvil */
+@media(max-width:640px){
+  .cat-filter-bar{
+    flex-wrap:nowrap !important;
+    overflow-x:auto !important;
+    overflow-y:visible !important;
+    justify-content:flex-start !important;
+    padding:20px 16px 12px !important;
+    scroll-snap-type:x mandatory;
+    -webkit-overflow-scrolling:touch;
+    scrollbar-width:none;
+    max-height:none !important;
+    /* fade edge hint */
+    -webkit-mask-image:linear-gradient(to right, transparent 0, black 16px, black calc(100% - 24px), transparent 100%);
+    mask-image:linear-gradient(to right, transparent 0, black 16px, black calc(100% - 24px), transparent 100%);
+  }
+  .cat-filter-bar::-webkit-scrollbar{display:none;}
+  .cat-pill{
+    scroll-snap-align:start;
+    flex-shrink:0 !important;
+    white-space:nowrap;
+  }
+}
+
+/* Mejora visual de cards en móvil */
+@media(max-width:480px){
+  .card{border-radius:16px;}
+  .img-container{border-radius:0;}
+  .card-price-row{margin-bottom:10px;}
+  .modal-box{border-radius:18px;}
+  .modal-gallery{padding:16px 16px 8px;}
+  .modal-info{padding:4px 16px 20px;}
+  .modal-actions{gap:8px;}
+  .modal-btn-add,.modal-btn-wa{padding:12px;font-size:13px;}
+  .modal-trust{gap:10px;}
+  .modal-trust-item{font-size:10.5px;}
+}
+
+/* Header con logo responsive */
+@media(max-width:380px){
+  .logo h2{font-size:18px;letter-spacing:3px;}
+  .logo-icon{width:36px;height:36px;}
+}
+
+/* Cart box posicionado correctamente en móvil */
+@media(max-width:520px){
+  .cart-box{
+    width:calc(100vw - 20px);
+    right:10px;
+    top:calc(var(--header-h) + 8px);
+    border-radius:16px;
+    padding:16px;
+  }
+}
+
+/* Paginación mejorada en móvil */
+@media(max-width:480px){
+  .pagination{gap:5px;padding:16px 12px 32px;}
+  .page-btn{width:36px;height:36px;font-size:13px;border-radius:10px;}
+}
+
+/* Sección de promos en móvil: título más compacto */
+@media(max-width:600px){
+  .promos-header{padding:0 16px 28px;}
+  .promos-section{padding:40px 0 48px;}
+  .promos-title{font-size:clamp(20px,6vw,28px);}
+}
+
+/* Footer responsivo mejorado */
+@media(max-width:600px){
+  footer{padding:40px 16px 24px;}
+  .footer-container{gap:28px;}
+  .footer-brand h2{font-size:18px;}
+  .footer-social{gap:8px;}
+  .footer-social a{width:38px;height:38px;font-size:15px;border-radius:10px;}
+}
+
+/* Search dentro del hero más compacto en móvil */
+@media(max-width:480px){
+  .search-wrapper{
+    max-width:100%;
+    border-radius:14px;
+  }
+  .search-wrapper input{font-size:13.5px;padding:13px 6px;}
+  .search-wrapper .search-icon{padding:0 10px 0 14px;font-size:14px;}
+}
+
+/* Mejora de accesibilidad focus */
+button:focus-visible,a:focus-visible{
+  outline:2px solid var(--pink);
+  outline-offset:2px;
+}
+
+
+/* Mejora de descuento badge en móvil */
+@media(max-width:480px){
+  .discount-badge{font-size:9.5px;padding:4px 9px;}
+}
+
+/* Mejora overflow global */
+html{scroll-behavior:smooth;overflow-x:hidden;}
+
+/* Previene el flash de layout shifts */
+#productGrid{min-height:300px;}
+
+/* ─── IMG FALLBACK cuando no carga ─── */
+.img-container.img-load-error{
+  background:linear-gradient(145deg,#fce4f0 0%,#f8d7ea 100%);
+}
+.img-container.img-load-error::before{
+  content:'\f302';
+  font-family:'Font Awesome 6 Free';
+  font-weight:900;
+  position:absolute;
+  top:50%;left:50%;
+  transform:translate(-50%,-50%);
+  font-size:32px;
+  color:rgba(232,21,122,0.3);
+  z-index:3;
+  pointer-events:none;
+  background:none !important;
+  opacity:1 !important;
+}
+
+/* ─── LOGO sin texto alt visible ─── */
+.logo-icon img{
+  font-size:0;
+  color:transparent;
+}
+
+</style>
+</head>
+<body>
+
+<header>
+  <div class="logo">
+    <div class="logo-icon">
+      <img src="https://i.pinimg.com/1200x/df/15/d3/df15d3a1d5bb78c012125f77f02206a2.jpg" alt="" referrerpolicy="no-referrer">
+    </div>
+  </div>
+  <div class="menu-toggle" onclick="toggleMenu()" aria-label="Abrir menú"><i class="fas fa-bars"></i></div>
+  <div class="cart-toggle" onclick="toggleCart()" aria-label="Ver carrito">
+    <i class="fas fa-shopping-cart"></i>
+    <div class="cart-count-badge" id="cart-count">0</div>
+  </div>
+</header>
+
+<!-- SIDEBAR -->
+<div class="sidebar" id="sidebar">
+
+  <!-- Header fijo -->
+  <div class="sidebar-header">
+    <div class="sidebar-header-logo">
+      <img src="https://i.pinimg.com/1200x/df/15/d3/df15d3a1d5bb78c012125f77f02206a2.jpg" alt="MAVIC" referrerpolicy="no-referrer">
+    </div>
+    <div>
+      <div class="sidebar-header-title">MAVIC</div>
+      <div class="sidebar-header-sub">Papelería Creativa</div>
+    </div>
+    <div class="sidebar-close" onclick="toggleMenu(true)"><i class="fas fa-times"></i></div>
+  </div>
+
+  <!-- Cuerpo scrollable -->
+  <div class="sidebar-body">
+
+    <p class="menu-sub">Navegación</p>
+    <a href="#" onclick="event.preventDefault();toggleMenu();window.scrollTo({top:0,behavior:'smooth'})">
+      <span class="sidebar-icon"><i class="fas fa-home"></i></span> Inicio
+    </a>
+    <a href="#productos" onclick="filtrarCategoria('todos');toggleMenu(true)">
+      <span class="sidebar-icon"><i class="fas fa-store"></i></span> Todos los productos
+    </a>
+
+    <div class="sidebar-divider"></div>
+    <p class="menu-sub">Categorías</p>
+
+    <a href="#" onclick="event.preventDefault();irCategoria('agendas')">
+      <span class="sidebar-icon"><i class="fas fa-book"></i></span> Agendas
+    </a>
+    <a href="#" onclick="event.preventDefault();irCategoria('stickers')">
+      <span class="sidebar-icon"><i class="fas fa-sticky-note"></i></span> Stickers
+    </a>
+    <a href="#" onclick="event.preventDefault();irCategoria('fotos')">
+      <span class="sidebar-icon"><i class="fas fa-image"></i></span> Fotos
+    </a>
+    <a href="#" onclick="event.preventDefault();irCategoria('emprendedor')">
+      <span class="sidebar-icon"><i class="fas fa-briefcase"></i></span> Emprendedores
+    </a>
+    <a href="#" onclick="event.preventDefault();irCategoria('Eventos')">
+      <span class="sidebar-icon"><i class="fas fa-star"></i></span> Eventos
+    </a>
+
+    <div class="sidebar-divider"></div>
+    <p class="menu-sub">Más</p>
+
+    <a href="#productGrid" onclick="filtrarOfertas();toggleMenu(true)">
+      <span class="sidebar-icon"><i class="fas fa-tags"></i></span> Descuentos
+    </a>
+    <a href="#footer-social" onclick="toggleMenu(true);setTimeout(()=>document.getElementById('footer-social').scrollIntoView({behavior:'smooth'}),120)">
+      <span class="sidebar-icon"><i class="fas fa-phone"></i></span> Contacto
+    </a>
+
+    <div class="sidebar-divider"></div>
+    <p class="menu-sub">Redes sociales</p>
+
+    <div class="sidebar-social-grid">
+      <a href="https://wa.me/5493854077166" target="_blank" class="sidebar-social-card ssc-wa">
+        <div class="ssc-icon"><i class="fab fa-whatsapp"></i></div>
+        <span class="ssc-label">WhatsApp</span>
+      </a>
+      <a href="https://www.instagram.com/mavic.sgo" target="_blank" class="sidebar-social-card ssc-ig">
+        <div class="ssc-icon"><i class="fab fa-instagram"></i></div>
+        <span class="ssc-label">Instagram</span>
+      </a>
+      <a href="https://www.facebook.com/profile.php?id=100071057791710" target="_blank" class="sidebar-social-card ssc-fb">
+        <div class="ssc-icon"><i class="fab fa-facebook-f"></i></div>
+        <span class="ssc-label">Facebook</span>
+      </a>
+      <a href="https://www.tiktok.com/@mavicdisenos" target="_blank" class="sidebar-social-card ssc-tt">
+        <div class="ssc-icon"><i class="fab fa-tiktok"></i></div>
+        <span class="ssc-label">TikTok</span>
+      </a>
+    </div>
+
+  </div><!-- /sidebar-body -->
+</div>
+<div class="overlay" id="overlay" onclick="toggleMenu()"></div>
+
+<!-- HERO -->
+<section class="hero">
+
+  <!-- Partículas flotantes -->
+  <div class="hero-particles" id="heroParticles"></div>
+
+  <!-- Líneas de luz -->
+  <div class="hero-line hero-line-top"></div>
+  <div class="hero-line hero-line-bottom"></div>
+
+  <!-- Contenido -->
+  <div class="hero-content">
+
+    <!-- Eyebrow -->
+    <div class="hero-eyebrow">
+      <div class="hero-eyebrow-line"></div>
+      <div class="hero-badge">
+        <span class="hero-badge-dot"></span>
+        Diseños únicos
+      </div>
+      <div class="hero-eyebrow-line right"></div>
+    </div>
+
+    <!-- Título -->
+    <h1>
+      <span class="hero-title-accent">Papelería</span>
+      <span class="hero-title-highlight">Creativa</span>
+      <span class="hero-title-accent">&amp; Estratégica</span>
+    </h1>
+
+    <!-- Divider decorativo -->
+    <div class="hero-divider">
+      <div class="hero-divider-line"></div>
+      <i class="fas fa-star hero-divider-icon"></i>
+      <div class="hero-divider-line right"></div>
+    </div>
+
+    <!-- Subtítulo -->
+    <p>Creamos papelería pensada para acompañar tus ideas,<br>organizar tu día y hacer crecer tu emprendimiento.</p>
+
+    <!-- Botones -->
+    <div class="hero-actions">
+      <button class="hero-btn" onclick="document.getElementById('productos').scrollIntoView({behavior:'smooth'})">
+        <i class="fas fa-shopping-bag" style="margin-right:9px;"></i>Ver productos
+      </button>
+    </div>
+  </div>
+
+  <!-- Stats -->
+  <div class="hero-stats">
+    <div class="hero-stat">
+      <div class="hero-stat-num">+500</div>
+      <span class="hero-stat-label">Clientes felices</span>
+    </div>
+    <div class="hero-stat">
+      <div class="hero-stat-num">100%</div>
+      <span class="hero-stat-label">Personalizado</span>
+    </div>
+    <div class="hero-stat">
+      <div class="hero-stat-num">5★</div>
+      <span class="hero-stat-label">Calidad garantizada</span>
+    </div>
+  </div>
+
+  <!-- Search -->
+  <div class="search-wrapper" style="margin-top:32px;position:relative;z-index:4;max-width:520px;width:100%;">
+    <span class="search-icon"><i class="fas fa-search"></i></span>
+    <input type="text" id="buscador" placeholder="Buscar agendas, stickers, fotos..." oninput="filtrar()" autocomplete="off" spellcheck="false">
+    <button class="clear-btn" id="clearBtn" onclick="limpiarBusqueda()" aria-label="Limpiar búsqueda">✕</button>
+  </div>
+
+  <!-- Scroll indicator -->
+  <div class="hero-scroll" onclick="document.getElementById('productos').scrollIntoView({behavior:'smooth'})">
+    <span class="hero-scroll-text">Scroll</span>
+    <div class="hero-scroll-bar"></div>
+  </div>
+
+</section>
+
+<script>
+// Generador de partículas hero
+(function(){
+  const container = document.getElementById('heroParticles');
+  if(!container) return;
+  const count = 18;
+  for(let i = 0; i < count; i++){
+    const p = document.createElement('div');
+    p.className = 'hero-particle';
+    const size = Math.random() * 5 + 2;
+    p.style.cssText = `
+      width:${size}px;height:${size}px;
+      left:${Math.random()*100}%;
+      animation-duration:${Math.random()*12+8}s;
+      animation-delay:${Math.random()*10}s;
+      opacity:${Math.random()*0.5+0.1};
+    `;
+    container.appendChild(p);
+  }
+})();
+</script>
+
+
+
+<!-- CARRITO BOX -->
+<div class="cart-box" id="cartBox">
+  <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:14px;">
+    <h3>🛒 Tu carrito</h3>
+    <button class="cart-header-vaciar" onclick="vaciarCarrito()" title="Vaciar carrito">
+      <i class="fas fa-trash"></i> Vaciar
+    </button>
+  </div>
+  <div id="cart-items"></div>
+  <div class="cart-total-row">
+    <span>Total</span>
+    <span>$<span id="total">0</span></span>
+  </div>
+  <input id="cliente" placeholder="👤 Tu nombre">
+  <input id="direccion" placeholder="📍 Dirección (opcional)">
+  <select id="envio">
+    <option value="Retiro">📦 Retiro en persona</option>
+    <option value="Envío">🏠 Envío a domicilio</option>
+  </select>
+  <select id="pago">
+    <option value="Transferencia">💳 Transferencia</option>
+    <option value="Efectivo">💵 Efectivo</option>
+  </select>
+  <button class="btn" onclick="comprarTodo()">
+    <i class="fab fa-whatsapp" style="margin-right:6px;"></i>Finalizar por WhatsApp
+  </button>
+</div>
+
+<!-- ─── CARRUSEL INFINITO PROMOS ─── -->
+<section class="promos-section" id="ofertas">
+
+  <!-- Header -->
+  <div class="promos-header">
+    <div class="promos-eyebrow">
+      <div class="promos-eyebrow-line"></div>
+      <span class="promos-eyebrow-label">Ofertas especiales</span>
+      <div class="promos-eyebrow-line r"></div>
+    </div>
+    <div class="promos-title">Promociones &amp; <span>Descuentos</span></div>
+  </div>
+
+  <!-- Carrusel -->
+  <div class="promos-carousel-wrap">
+    <div class="promos-track" id="promosTrack">
+
+      <!-- ── TARJETA 1: Flash Sale ── -->
+      <div class="promo-card promo-flash" onclick="filtrarCategoria('todos');document.getElementById('productGrid').scrollIntoView({behavior:'smooth'})">
+        <div class="promo-orb promo-orb-1"></div>
+        <div class="promo-orb promo-orb-2"></div>
+        <div class="promo-shimmer"></div>
+        <div class="promo-discount-ribbon">
+          <span class="promo-discount-ribbon-pct">20%</span>
+          <span class="promo-discount-ribbon-off">OFF</span>
+        </div>
+        <div class="promo-badge"><span class="pulse-dot"></span> Oferta activa</div>
+        <h3>Productos desde<br>¡$2.000!</h3>
+        <p>Stickers, llaveros y más al mejor precio de temporada</p>
+        <div class="promo-price">
+          <span class="promo-price-currency">$</span>
+          <span class="promo-price-amount">2.000</span>
+        </div>
+        <button class="promo-cta">
+          Ver todo <span class="promo-cta-arrow"><i class="fas fa-arrow-right"></i></span>
+        </button>
+        <div class="promo-big-num">%</div>
+      </div>
+
+      <!-- ── TARJETA 2: Emprendedores ── -->
+      <div class="promo-card promo-descuento" onclick="filtrarCategoria('emprendedor');document.getElementById('productGrid').scrollIntoView({behavior:'smooth'})">
+        <div class="promo-orb promo-orb-1"></div>
+        <div class="promo-orb promo-orb-2"></div>
+        <div class="promo-shimmer"></div>
+        <div class="promo-discount-ribbon">
+          <span class="promo-discount-ribbon-pct">10%</span>
+          <span class="promo-discount-ribbon-off">OFF</span>
+        </div>
+        <div class="promo-badge"><i class="fas fa-briefcase promo-badge-icon"></i> Emprendedores</div>
+        <h3>Kits Completos<br>para tu Marca</h3>
+        <p>Tarjetas + etiquetas + bolsitas y más en un solo kit profesional</p>
+        <div class="promo-price">
+          <span class="promo-price-currency">$</span>
+          <span class="promo-price-amount">29.000</span>
+        </div>
+        <button class="promo-cta">
+          Ver kit <span class="promo-cta-arrow"><i class="fas fa-arrow-right"></i></span>
+        </button>
+        <div class="promo-big-num">★</div>
+      </div>
+
+      <!-- ── TARJETA 3: Eventos ── -->
+      <div class="promo-card promo-kit" onclick="filtrarCategoria('Eventos');document.getElementById('productGrid').scrollIntoView({behavior:'smooth'})">
+        <div class="promo-orb promo-orb-1"></div>
+        <div class="promo-orb promo-orb-2"></div>
+        <div class="promo-shimmer"></div>
+        <div class="promo-badge"><i class="fas fa-star promo-badge-icon"></i> Especial eventos</div>
+        <h3>Combo Cumpleaños<br>&amp; Eventos</h3>
+        <p>Personaliza cada detalle de tu celebración con diseños únicos</p>
+        <button class="promo-cta">
+          Explorar <span class="promo-cta-arrow"><i class="fas fa-arrow-right"></i></span>
+        </button>
+        <div class="promo-big-num">✦</div>
+      </div>
+
+      <!-- ── TARJETA 4: Fotos Polaroid ── -->
+      <div class="promo-card promo-envio" onclick="filtrarCategoria('fotos');document.getElementById('productGrid').scrollIntoView({behavior:'smooth'})">
+        <div class="promo-orb promo-orb-1"></div>
+        <div class="promo-orb promo-orb-2"></div>
+        <div class="promo-shimmer"></div>
+        <div class="promo-badge"><i class="fas fa-camera promo-badge-icon"></i> Fotos especiales</div>
+        <h3>Fotos Polaroid<br>de Alta Calidad</h3>
+        <p>Mini y clásicas en alta resolución, ideales para regalar o decorar</p>
+        <div class="promo-price">
+          <span class="promo-price-currency">$</span>
+          <span class="promo-price-amount">3.500</span>
+        </div>
+        <button class="promo-cta">
+          Ver fotos <span class="promo-cta-arrow"><i class="fas fa-arrow-right"></i></span>
+        </button>
+        <div class="promo-big-num">📷</div>
+      </div>
+
+      <!-- ── TARJETA 5: Stickers ── -->
+      <div class="promo-card promo-stickers" onclick="filtrarCategoria('stickers');document.getElementById('productGrid').scrollIntoView({behavior:'smooth'})">
+        <div class="promo-orb promo-orb-1"></div>
+        <div class="promo-orb promo-orb-2"></div>
+        <div class="promo-shimmer"></div>
+        <div class="promo-badge"><i class="fas fa-sticky-note promo-badge-icon"></i> Stickers</div>
+        <h3>Packs de Stickers<br>Resistentes</h3>
+        <p>Resistentes al agua, colores vibrantes y troquelados a medida</p>
+        <div class="promo-price">
+          <span class="promo-price-currency">$</span>
+          <span class="promo-price-amount">3.000</span>
+        </div>
+        <button class="promo-cta">
+          Ver stickers <span class="promo-cta-arrow"><i class="fas fa-arrow-right"></i></span>
+        </button>
+        <div class="promo-big-num">✂</div>
+      </div>
+
+      <!-- ── TARJETA 6: Agendas ── -->
+      <div class="promo-card promo-agendas" onclick="filtrarCategoria('agendas');document.getElementById('productGrid').scrollIntoView({behavior:'smooth'})">
+        <div class="promo-orb promo-orb-1"></div>
+        <div class="promo-orb promo-orb-2"></div>
+        <div class="promo-shimmer"></div>
+        <div class="promo-badge"><i class="fas fa-book promo-badge-icon"></i> Agendas</div>
+        <h3>Agendas 100%<br>Personalizadas</h3>
+        <p>Diseñadas con tu estilo, logo y colores favoritos en tamaño A5</p>
+        <div class="promo-price">
+          <span class="promo-price-currency">$</span>
+          <span class="promo-price-amount">12.000</span>
+        </div>
+        <button class="promo-cta">
+          Ver agendas <span class="promo-cta-arrow"><i class="fas fa-arrow-right"></i></span>
+        </button>
+        <div class="promo-big-num">✏</div>
+      </div>
+
+
+      <!-- ══ CLONES para loop infinito ══ -->
+      <div class="promo-card promo-flash" onclick="filtrarCategoria('todos');document.getElementById('productGrid').scrollIntoView({behavior:'smooth'})">
+        <div class="promo-orb promo-orb-1"></div><div class="promo-orb promo-orb-2"></div>
+        <div class="promo-shimmer"></div>
+        <div class="promo-discount-ribbon"><span class="promo-discount-ribbon-pct">20%</span><span class="promo-discount-ribbon-off">OFF</span></div>
+        <div class="promo-badge"><span class="pulse-dot"></span> Oferta activa</div>
+        <h3>Productos desde<br>¡$2.000!</h3>
+        <p>Stickers, llaveros y más al mejor precio de temporada</p>
+        <div class="promo-price"><span class="promo-price-currency">$</span><span class="promo-price-amount">2.000</span></div>
+        <button class="promo-cta">Ver todo <span class="promo-cta-arrow"><i class="fas fa-arrow-right"></i></span></button>
+        <div class="promo-big-num">%</div>
+      </div>
+      <div class="promo-card promo-descuento" onclick="filtrarCategoria('emprendedor');document.getElementById('productGrid').scrollIntoView({behavior:'smooth'})">
+        <div class="promo-orb promo-orb-1"></div><div class="promo-orb promo-orb-2"></div>
+        <div class="promo-shimmer"></div>
+        <div class="promo-discount-ribbon"><span class="promo-discount-ribbon-pct">10%</span><span class="promo-discount-ribbon-off">OFF</span></div>
+        <div class="promo-badge"><i class="fas fa-briefcase promo-badge-icon"></i> Emprendedores</div>
+        <h3>Kits Completos<br>para tu Marca</h3>
+        <p>Tarjetas + etiquetas + bolsitas y más en un solo kit profesional</p>
+        <div class="promo-price"><span class="promo-price-currency">$</span><span class="promo-price-amount">29.000</span></div>
+        <button class="promo-cta">Ver kit <span class="promo-cta-arrow"><i class="fas fa-arrow-right"></i></span></button>
+        <div class="promo-big-num">★</div>
+      </div>
+      <div class="promo-card promo-kit" onclick="filtrarCategoria('Eventos');document.getElementById('productGrid').scrollIntoView({behavior:'smooth'})">
+        <div class="promo-orb promo-orb-1"></div><div class="promo-orb promo-orb-2"></div>
+        <div class="promo-shimmer"></div>
+        <div class="promo-badge"><i class="fas fa-star promo-badge-icon"></i> Especial eventos</div>
+        <h3>Combo Cumpleaños<br>&amp; Eventos</h3>
+        <p>Personaliza cada detalle de tu celebración con diseños únicos</p>
+        <button class="promo-cta">Explorar <span class="promo-cta-arrow"><i class="fas fa-arrow-right"></i></span></button>
+        <div class="promo-big-num">✦</div>
+      </div>
+      <div class="promo-card promo-envio" onclick="filtrarCategoria('fotos');document.getElementById('productGrid').scrollIntoView({behavior:'smooth'})">
+        <div class="promo-orb promo-orb-1"></div><div class="promo-orb promo-orb-2"></div>
+        <div class="promo-shimmer"></div>
+        <div class="promo-badge"><i class="fas fa-camera promo-badge-icon"></i> Fotos especiales</div>
+        <h3>Fotos Polaroid<br>de Alta Calidad</h3>
+        <p>Mini y clásicas en alta resolución, ideales para regalar o decorar</p>
+        <div class="promo-price"><span class="promo-price-currency">$</span><span class="promo-price-amount">3.500</span></div>
+        <button class="promo-cta">Ver fotos <span class="promo-cta-arrow"><i class="fas fa-arrow-right"></i></span></button>
+        <div class="promo-big-num">📷</div>
+      </div>
+      <div class="promo-card promo-stickers" onclick="filtrarCategoria('stickers');document.getElementById('productGrid').scrollIntoView({behavior:'smooth'})">
+        <div class="promo-orb promo-orb-1"></div><div class="promo-orb promo-orb-2"></div>
+        <div class="promo-shimmer"></div>
+        <div class="promo-badge"><i class="fas fa-sticky-note promo-badge-icon"></i> Stickers</div>
+        <h3>Packs de Stickers<br>Resistentes</h3>
+        <p>Resistentes al agua, colores vibrantes y troquelados a medida</p>
+        <div class="promo-price"><span class="promo-price-currency">$</span><span class="promo-price-amount">3.000</span></div>
+        <button class="promo-cta">Ver stickers <span class="promo-cta-arrow"><i class="fas fa-arrow-right"></i></span></button>
+        <div class="promo-big-num">✂</div>
+      </div>
+      <div class="promo-card promo-agendas" onclick="filtrarCategoria('agendas');document.getElementById('productGrid').scrollIntoView({behavior:'smooth'})">
+        <div class="promo-orb promo-orb-1"></div><div class="promo-orb promo-orb-2"></div>
+        <div class="promo-shimmer"></div>
+        <div class="promo-badge"><i class="fas fa-book promo-badge-icon"></i> Agendas</div>
+        <h3>Agendas 100%<br>Personalizadas</h3>
+        <p>Diseñadas con tu estilo, logo y colores favoritos en tamaño A5</p>
+        <div class="promo-price"><span class="promo-price-currency">$</span><span class="promo-price-amount">12.000</span></div>
+        <button class="promo-cta">Ver agendas <span class="promo-cta-arrow"><i class="fas fa-arrow-right"></i></span></button>
+        <div class="promo-big-num">✏</div>
+      </div>
+
+    </div><!-- /promos-track -->
+  </div><!-- /promos-carousel-wrap -->
+
+  <!-- Indicadores -->
+  <div class="promos-indicators" id="promosIndicators">
+    <div class="promos-indicator active"></div>
+    <div class="promos-indicator"></div>
+    <div class="promos-indicator"></div>
+    <div class="promos-indicator"></div>
+    <div class="promos-indicator"></div>
+    <div class="promos-indicator"></div>
+  </div>
+
+  <!-- Línea inferior -->
+  <div class="promos-bottom-line"></div>
+
+</section>
+
+<!-- ─── SEPARADOR ─── -->
+<div style="height:2px;background:linear-gradient(90deg,transparent,rgba(232,21,122,0.12),transparent);margin:0;"></div>
+
+<!-- SECCIÓN PRODUCTOS -->
+<div style="text-align:center;padding:56px 20px 0;">
+  <div style="display:inline-flex;align-items:center;gap:10px;margin-bottom:14px;">
+    <div style="width:28px;height:1px;background:linear-gradient(90deg,transparent,var(--pink));"></div>
+    <span style="font-family:'Bebas Neue',sans-serif;font-size:11px;letter-spacing:3.5px;color:var(--pink);text-transform:uppercase;">Catálogo</span>
+    <div style="width:28px;height:1px;background:linear-gradient(90deg,var(--pink),transparent);"></div>
+  </div>
+  <h2 class="section-title" id="productos" style="padding-top:0;">Nuestros <span class="title-accent">Productos</span></h2>
+  <p class="section-subtitle">Cada pieza, diseñada especialmente para vos ✨</p>
+  <div class="section-line"></div>
+</div>
+
+
+<div class="products" id="productGrid"></div>
+<div class="pagination" id="pagination"></div>
+<div id="toast" class="toast"></div>
+<button class="scroll-top-btn" id="scrollTopBtn" onclick="window.scrollTo({top:0,behavior:'smooth'})" title="Volver arriba" aria-label="Volver arriba">
+  <i class="fas fa-chevron-up"></i>
+</button>
+<button class="scroll-top" id="scrollTopBtn" onclick="window.scrollTo({top:0,behavior:'smooth'})"><i class="fas fa-arrow-up"></i></button>
+
+<script>
+let productos=[
+  {n:"Agendas",p:12000,d:"Organiza tus dias con una agenda de tamaño A5 que contiene 40 hojas, diseñada 100% para vos, tapas personalizadas con tu logo y estilo, además podes sumar QR de tus redes sociales en su contratapa. Super practico y funcional.",img:"https://i.pinimg.com/1200x/3d/5a/c9/3d5ac902b59e99e05c85b6f2960a7960.jpg",imgs:["https://i.pinimg.com/1200x/3d/5a/c9/3d5ac902b59e99e05c85b6f2960a7960.jpg","https://i.pinimg.com/1200x/cd/a4/33/cda4334434e4a7ed96ceb8525ca0a1b5.jpg","https://i.pinimg.com/1200x/ad/c9/ca/adc9ca5e6498b02e1f861e60da16d8f1.jpg"],cat:"agendas",desc:10},
+  {n:"Agenda Pediátrica para tu bebé",p:9500,d:"Ideal para registrar controles y su crecimiento, guardando cada momento importante en un solo lugar.",img:"https://i.pinimg.com/1200x/5d/8d/29/5d8d2987bd579e6adf6d5d556b687530.jpg",imgs:["https://i.pinimg.com/1200x/5d/8d/29/5d8d2987bd579e6adf6d5d556b687530.jpg","https://i.pinimg.com/1200x/88/6c/2d/886c2ddddfd0fdd9e8def91a880f044c.jpg","https://i.pinimg.com/1200x/25/71/f9/2571f9cf06ec1440b5cb437db5768ca3.jpg"],cat:"agendas",desc:10},
+  {n:"Llavero Personalizados",p:2500,d:"Llavero con diseño personalizado a elección.",img:"https://i.pinimg.com/1200x/79/bc/27/79bc27468089c4b797c7b8909782ac90.jpg",imgs:["https://i.pinimg.com/1200x/79/bc/27/79bc27468089c4b797c7b8909782ac90.jpg","https://i.pinimg.com/1200x/5a/90/8a/5a908a63c6df51541352bb7d0a4aa402.jpg","https://i.pinimg.com/1200x/cc/d0/8f/ccd08f7424ed2d0db5b41d2865987dc1.jpg"],cat:"emprendedor",desc:20},
+  {n:"Stickers Circulares",p:3500,d:"Pack de 20 unidades perfectos para packaging aportan un toque profesional y personalizado en cada de detalle la medida ideal (5cm).",img:"https://i.pinimg.com/1200x/4b/02/f1/4b02f11a032f1e32d59e1cddbe31301b.jpg",imgs:["https://i.pinimg.com/1200x/4b/02/f1/4b02f11a032f1e32d59e1cddbe31301b.jpg","https://i.pinimg.com/1200x/01/61/17/016117b826f93d8564ed21bf15d647aa.jpg","https://i.pinimg.com/1200x/09/e5/e5/09e5e519bb9a2b47799dbe5bf52b9e45.jpg"],cat:"stickers",desc:14},
+  {n:"Fotos Polaroid x6u",p:3500,d:"Fotos estilo polaroid impresas en alta calidad.",img:"https://i.pinimg.com/1200x/d5/e6/ff/d5e6ff273a154e20687cc3ea4bd1dd72.jpg",imgs:["https://i.pinimg.com/1200x/d5/e6/ff/d5e6ff273a154e20687cc3ea4bd1dd72.jpg","https://i.pinimg.com/1200x/27/33/e5/2733e51b505c521eb754213310686b5f.jpg","https://i.pinimg.com/1200x/11/c0/01/11c0016099ea7aa0c246158ac0b8bfd8.jpg"],cat:"fotos"},
+  {n:"Fotos Mini Polaroid x16u",p:4000,d:"Mini fotos ideales para recuerdos y regalos.",img:"https://i.pinimg.com/1200x/8a/5f/6f/8a5f6f03da9c978c878954f05a923140.jpg",imgs:["https://i.pinimg.com/1200x/8a/5f/6f/8a5f6f03da9c978c878954f05a923140.jpg","https://i.pinimg.com/1200x/27/33/e5/2733e51b505c521eb754213310686b5f.jpg","https://i.pinimg.com/1200x/a0/0b/bb/a00bbba2f391eaf5eefce02c643ef602.jpg"],cat:"fotos"},
+  {n:"Bolsitas Personalizadas",p:5000,d:"Bolsitas para emprendedores con diseño propio.",img:"https://i.pinimg.com/1200x/bf/63/f4/bf63f48baa091146c26508874aafc341.jpg",imgs:["https://i.pinimg.com/1200x/bf/63/f4/bf63f48baa091146c26508874aafc341.jpg","https://i.pinimg.com/1200x/20/85/83/20858319329216722a4d958056ee162c.jpg","https://i.pinimg.com/1200x/cd/91/24/cd9124e171e6d6bf4d74bbda021140e9.jpg"],cat:"emprendedor"},
+  {n:"Bolsitas Golosineras ",p:5000,d:"Pack de 10 bolsitas para eventos y souvenirs.",img:"https://i.pinimg.com/1200x/38/5c/6e/385c6e3176c93e64bd0d606168c66749.jpg",imgs:["https://i.pinimg.com/1200x/38/5c/6e/385c6e3176c93e64bd0d606168c66749.jpg","https://i.pinimg.com/1200x/03/36/b6/0336b6b2d0a034eb0a1eeb6b95a456ca.jpg","https://i.pinimg.com/1200x/87/90/67/8790673659fbd97eb56f298088c0051a.jpg"],cat:"Eventos",desc:10},
+  {n:"Stickers Para Termos",p:3500,d:"Pack de 10 diseños resistentes ideales para termos.",img:"https://i.pinimg.com/1200x/13/16/fb/1316fb01c2127ae3aa9d26dc93c3e182.jpg",imgs:["https://i.pinimg.com/1200x/13/16/fb/1316fb01c2127ae3aa9d26dc93c3e182.jpg","https://i.pinimg.com/1200x/e3/b4/c6/e3b4c6089dcab1b0bbd0f27d6783b145.jpg","https://i.pinimg.com/1200x/e0/f6/b9/e0f6b96d0b99c87edcaff54d0834dbcf.jpg"],cat:"stickers"},
+  {n:"Tarjetas Personales",p:4000,d:"Causa una primera impresion profesional desde el primer contacto, medida 7x4cm ideal para la billetera.",img:"https://i.pinimg.com/1200x/13/99/e8/1399e880cbf50ab9c3de8405f9e3d681.jpg",imgs:["https://i.pinimg.com/1200x/13/99/e8/1399e880cbf50ab9c3de8405f9e3d681.jpg","https://i.pinimg.com/1200x/7a/34/21/7a3421d16ad4e20bb63f3b892f317cb2.jpg","https://i.pinimg.com/1200x/30/75/c3/3075c3ea7cd92abe525e00c2e0daabc1.jpg"],cat:"emprendedor",desc:20},
+  {n:"Etiquetas Colgantes",p:4000,d:"Pack de 20 unidades para personalizar tus productos en la medida de 4x7cm.",img:"https://i.pinimg.com/1200x/8f/5a/46/8f5a465996efa43e731a9bf506ff4dc0.jpg",imgs:["https://i.pinimg.com/1200x/8f/5a/46/8f5a465996efa43e731a9bf506ff4dc0.jpg","https://i.pinimg.com/1200x/b0/ae/93/b0ae9320f3d52bc6477fb42dfddb2152.jpg","https://i.pinimg.com/1200x/3d/5b/98/3d5b98872f09eee2ac38eee39c7d049c.jpg"],cat:"emprendedor"},
+  {n:"Kit de Emprendedor",p:29000,d:"Contiene todo lo que necesitas para empezar a potenciar tu marca!! Este kit contiene: 100 tarjetas 7x4cm en papel fotográfico de 200gr y 100 stickers circulares/cuadrados en 5x5cm realizados en papel fotografico autoadhesivo. Personalizado con tu marca.",img:"https://i.pinimg.com/1200x/f6/15/fe/f615fe1434537a2624cfb260825ea49f.jpg",imgs:["https://i.pinimg.com/1200x/f6/15/fe/f615fe1434537a2624cfb260825ea49f.jpg","https://i.pinimg.com/1200x/2f/f4/83/2ff483de5c770afc41c98b2f7db987fb.jpg","https://i.pinimg.com/1200x/8e/8f/77/8e8f77cefa7cbe2ec365dec47c1409f5.jpg"],cat:"emprendedor",desc:10},
+  {n:"Anotador",p:5000,d:"Personalizados con el estilo de tu marca en medidas A6, perfectos para anotar ideas o llevar el control de tus gastos contiene 40 Hojas.",img:"https://i.pinimg.com/1200x/e8/83/1d/e8831df4ceca1ffb2e85b62eeae0afb1.jpg",imgs:["https://i.pinimg.com/1200x/e8/83/1d/e8831df4ceca1ffb2e85b62eeae0afb1.jpg","https://i.pinimg.com/1200x/a1/49/b9/a149b9bb82e1b2e2d9a6de8ce90ade80.jpg","https://i.pinimg.com/1200x/cf/db/f1/cfdbf115bced40b1c0f8477688476577.jpg"],cat:"agendas"},
+  {n:"Carteles A4 Plastificados",p:4000,d:"Ideales para mostrar tus medios de pago, menú de tu bar, horarios de atención , etc. Personalizado a tu gusto y plastificados para mayor duración.",img:"https://i.pinimg.com/1200x/79/1e/11/791e118873927367c3c58551567d20b8.jpg",imgs:["https://i.pinimg.com/1200x/79/1e/11/791e118873927367c3c58551567d20b8.jpg","https://i.pinimg.com/1200x/3d/39/51/3d3951d49c674b4746ec79ada808c132.jpg","https://i.pinimg.com/1200x/0d/c1/7c/0dc17c6d47d4a7c347e0add3fccefb05.jpg"],cat:"emprendedor",desc:10},
+  {n:"Libritos para colorear ",p:6000,d:"Pack de 10 libritos infantiles para eventos.",img:"https://i.pinimg.com/1200x/a0/0b/bb/a00bbba2f391eaf5eefce02c643ef602.jpg",imgs:["https://i.pinimg.com/1200x/a0/0b/bb/a00bbba2f391eaf5eefce02c643ef602.jpg","https://i.pinimg.com/1200x/c0/57/30/c057303ef4cae0fda0f264ad515b586e.jpg","https://i.pinimg.com/1200x/6b/c6/16/6bc616e6cda724a62baf9237e23f0230.jpg"],cat:"Eventos"},
+  {n:"Tarjetas Estilo Instagram",p:3500,d:"Souvenirs infantiles para eventos.",img:"https://i.pinimg.com/1200x/11/c0/01/11c0016099ea7aa0c246158ac0b8bfd8.jpg",imgs:["https://i.pinimg.com/1200x/11/c0/01/11c0016099ea7aa0c246158ac0b8bfd8.jpg","https://i.pinimg.com/1200x/13/99/e8/1399e880cbf50ab9c3de8405f9e3d681.jpg","https://i.pinimg.com/1200x/8f/5a/46/8f5a465996efa43e731a9bf506ff4dc0.jpg"],cat:"emprendedor"},
+  {n:"Plancha de stickers",p:3000,d:"Incluye 35 stickers en la medida de 4cm (no incluye diseño).",img:"https://i.pinimg.com/1200x/cb/2e/ed/cb2eedac9aba8734123c2e8a4756241a.jpg",imgs:["https://i.pinimg.com/1200x/cb/2e/ed/cb2eedac9aba8734123c2e8a4756241a.jpg","https://i.pinimg.com/1200x/16/de/6f/16de6fab63d2dc66004a9d54643992bf.jpg","https://i.pinimg.com/1200x/a9/8d/db/a98ddb86f79601dce127813d755905fe.jpg"],cat:"stickers",desc:10},
+  {n:"Banderines Personalizados",p:10000,d:"Decorativos y únicos, ideales para darle un toque especial y personalizados a tu celebración.",img:"https://i.pinimg.com/1200x/02/9e/6a/029e6adda60497509935c58fb9979c4f.jpg",imgs:["https://i.pinimg.com/1200x/02/9e/6a/029e6adda60497509935c58fb9979c4f.jpg","https://i.pinimg.com/1200x/1c/e2/d6/1ce2d6ac28ff0ff0f28128adfe8097be.jpg","https://i.pinimg.com/1200x/fd/8e/cc/fd8ecc12a745ef7d769eb6c2b83915f0.jpg"],cat:"Eventos"},
+  {n:"Folletos Publicitarios",p:7500,d:"Pack de 100 Folletos publicitarios ideales para emprendimientos: prácticos y atractivos para promocionar tus productos o servicios de forma clara y profesional.",img:"https://i.pinimg.com/1200x/f9/92/ed/f992ed2fb741961dba6c0fafff303ba3.jpg",imgs:["https://i.pinimg.com/1200x/f9/92/ed/f992ed2fb741961dba6c0fafff303ba3.jpg","https://i.pinimg.com/1200x/46/48/de/4648de2e9f25cd86a4ee262367498df5.jpg","https://i.pinimg.com/1200x/78/99/1a/78991a55c7f569b4a1bfa2faf5c3cc9f.jpg"],cat:"emprendedor"},
+  {n:"Separadores para carpetas Nº3",p:5500,d:"Pack x 6 unidades. Personalizados con tus personajes, temática o diseño favorito. Realizado en papel fotográfico de 120gr .",img:"https://i.pinimg.com/1200x/e8/6e/ee/e86eeeb28eb54a5dc78ed17a33e7c85c.jpg",imgs:["https://i.pinimg.com/1200x/e8/6e/ee/e86eeeb28eb54a5dc78ed17a33e7c85c.jpg","https://i.pinimg.com/1200x/48/84/1a/48841acc320dcf8560d5a53f34c11d8b.jpg","https://i.pinimg.com/1200x/dc/d5/cd/dcd5cd3af2fbc275ad9b2bc3bbcf3f7b.jpg"],cat:""},
+  {n:"Toppers Multiusos",p:4000,d:"Ideal para decorar la mesa dulce de tu cumpleaños, realizado en la medida de 5cm el pack contiene 20 unidades .",img:"https://i.pinimg.com/1200x/9a/c6/40/9ac640d173661a07efe0b856778c5198.jpg",imgs:["https://i.pinimg.com/1200x/9a/c6/40/9ac640d173661a07efe0b856778c5198.jpg","https://i.pinimg.com/1200x/80/64/73/806473d27c3b2327c73f2f6f14397134.jpg","https://i.pinimg.com/1200x/78/7c/6a/787c6a482bd604809cd10a7350f01e5d.jpg"],cat:"Eventos"},
+  {n:"Adornos para torta",p:3500,d:"Este combo incluye 1 adorno principal y 6 adornos pequeños, todos personalizados a tu gusto, ideales para transformar una torta simple en una presentación impactante y súper top..",img:"https://i.pinimg.com/1200x/22/c8/0e/22c80ea1707fe8fa4e917d1e3704c692.jpg",imgs:["https://i.pinimg.com/1200x/22/c8/0e/22c80ea1707fe8fa4e917d1e3704c692.jpg","https://i.pinimg.com/1200x/54/89/1c/54891c04f658a3e47f6570df67bf9e0c.jpg","https://i.pinimg.com/1200x/98/fc/f8/98fcf8c0081d5cacc83c4bffe217ab74.jpg"],cat:"Eventos"},
+  {n:"Certificados",p:2500,d:"Certificados de finalización diseñados para reconocer logros de manera profesional y memorable. Ideales para cursos, talleres o capacitaciones, se personalizan con nombres, fechas, firmas y detalles institucionales. Impresos en alta calidad, aportan un toque formal y elegante que realza cada entrega.",img:"https://i.pinimg.com/1200x/94/65/50/9465500eb2cf94ef152e9454435a74a4.jpg",imgs:["https://i.pinimg.com/1200x/94/65/50/9465500eb2cf94ef152e9454435a74a4.jpg","https://i.pinimg.com/1200x/74/42/b0/7442b069bd6ffa16b82759886ef7d0af.jpg","https://i.pinimg.com/1200x/87/13/88/871388a9235b5445cfd8a52d11551295.jpg"],cat:""},
+];
+
+let cart=JSON.parse(localStorage.getItem("cart"))||[];
+let categoriaActual="todos";
+const POR_PAGINA=8;
+let paginaActual=1;
+let listaActual=[];
+
+function formato(n){return n.toLocaleString("es-AR");}
+
+// ── Galería: estado global de timers ──
+const galleryTimers={};
+
+function buildGallery(imgs, cardId){
+  // imgs: array of 3 urls
+  const allImgs = imgs||[];
+  if(allImgs.length===0) return {html:'', count:0};
+  const errFn = `this.onerror=null;this.style.opacity='0';this.parentNode.classList.add('img-load-error');`;
+  let imgsHtml = allImgs.map((src,i)=>`<img src="${src}" alt="" loading="lazy" decoding="async" referrerpolicy="no-referrer" class="${i===0?'active-img':''}" data-idx="${i}" onerror="${errFn}">`).join('');
+  let dotsHtml = allImgs.length>1 ? `<div class="img-dots">${allImgs.map((_,i)=>`<span class="${i===0?'dot-active':''}" onclick="galDot(event,'${cardId}',${i})"></span>`).join('')}</div>` : '';
+  let arrowsHtml = allImgs.length>1 ? `
+    <button class="img-arrow arrow-left" onclick="galMove(event,'${cardId}',-1)"><i class="fas fa-chevron-left"></i></button>
+    <button class="img-arrow arrow-right" onclick="galMove(event,'${cardId}',1)"><i class="fas fa-chevron-right"></i></button>
+  ` : '';
+  let lockHtml = `<div class="lock-icon"><i class="fas fa-lock"></i></div>`;
+  return {html: imgsHtml+dotsHtml+arrowsHtml+lockHtml, count: allImgs.length};
+}
+
+function galGoTo(cardId, idx){
+  const cont = document.querySelector(`.img-container[data-card="${cardId}"]`);
+  if(!cont) return;
+  const imgs = cont.querySelectorAll('img');
+  const dots = cont.querySelectorAll('.img-dots span');
+  const count = imgs.length;
+  const newIdx = ((idx % count)+count)%count;
+  imgs.forEach((im,i)=>{ im.classList.toggle('active-img', i===newIdx); });
+  dots.forEach((d,i)=>{ d.classList.toggle('dot-active', i===newIdx); });
+  cont.dataset.current = newIdx;
+}
+
+function galDot(e, cardId, idx){
+  e.stopPropagation();
+  galGoTo(cardId, idx);
+}
+
+function galMove(e, cardId, dir){
+  e.stopPropagation();
+  const cont = document.querySelector(`.img-container[data-card="${cardId}"]`);
+  if(!cont) return;
+  const cur = parseInt(cont.dataset.current||0);
+  galGoTo(cardId, cur+dir);
+}
+
+function galLock(cardId){
+  const cont = document.querySelector(`.img-container[data-card="${cardId}"]`);
+  if(!cont) return;
+  if(cont.classList.contains('locked-gallery')){
+    // desbloquear → reanudar auto
+    cont.classList.remove('locked-gallery');
+    startAuto(cardId, parseInt(cont.dataset.count||1));
+  } else {
+    // bloquear → parar auto
+    cont.classList.add('locked-gallery');
+    if(galleryTimers[cardId]) clearInterval(galleryTimers[cardId]);
+  }
+}
+
+function startAuto(cardId, count){
+  if(count<=1) return;
+  if(galleryTimers[cardId]) clearInterval(galleryTimers[cardId]);
+  // rotación lenta: cada 3.5s
+  galleryTimers[cardId] = setInterval(()=>{
+    const cont = document.querySelector(`.img-container[data-card="${cardId}"]`);
+    if(!cont || cont.classList.contains('locked-gallery')) return;
+    const cur = parseInt(cont.dataset.current||0);
+    galGoTo(cardId, cur+1);
+  }, 3500);
+}
+
+function render(lista=productos, pagina=1){
+  listaActual=lista;
+  paginaActual=pagina;
+  let cont=document.getElementById("productGrid");
+  cont.innerHTML="";
+  // limpiar timers viejos
+  Object.keys(galleryTimers).forEach(k=>{clearInterval(galleryTimers[k]);delete galleryTimers[k];});
+
+  if(lista.length===0){
+    cont.innerHTML=`<div style="grid-column:1/-1;text-align:center;padding:80px 20px;"><div style="font-size:48px;margin-bottom:16px;opacity:0.3;">🔍</div><p style="color:#c0b0ba;font-size:16px;font-weight:600;">No se encontraron productos</p><p style="color:#d5c8d8;font-size:13px;margin-top:8px;">Intentá con otro término o categoría</p></div>`;
+    renderPaginacion(0,1);
+    return;
+  }
+
+  const totalPaginas=Math.ceil(lista.length/POR_PAGINA);
+  const inicio=(pagina-1)*POR_PAGINA;
+  const fin=Math.min(inicio+POR_PAGINA, lista.length);
+  const paginados=lista.slice(inicio,fin);
+
+ paginados.forEach((p,i)=>{
+    const cardId = 'card-'+inicio+i+'-'+p.n.replace(/\s/g,'');
+    const imgs = p.imgs || [p.img];
+    const gal = buildGallery(imgs, cardId);
+    const precioFinal = p.desc ? Math.round(p.p*(1-p.desc/100)) : p.p;
+    const badgeHtml = p.desc ? `<div class="discount-badge">-${p.desc}%</div>` : '';
+    const precioOrigHtml = p.desc ? `<span class="price-original">$${formato(p.p)}</span>` : '';
+    const prodIdx = productos.indexOf(p);
+    const catDisplay = {agendas:'Agendas',stickers:'Stickers',fotos:'Fotos',emprendedor:'Emprendedores',Eventos:'Eventos','':'General'}[p.cat] || p.cat || 'Producto';
+    let card=document.createElement("div");
+    card.className="card";
+    card.style.cursor="pointer";
+    card.innerHTML=`
+      <div class="img-container" data-card="${cardId}" data-current="0" data-count="${gal.count}">
+        ${gal.html}
+        ${badgeHtml}
+        <div class="card-img-overlay">
+          <div class="card-img-overlay-pill">
+            <i class="fas fa-eye"></i> Ver producto
+          </div>
+        </div>
+      </div>
+      <div class="card-body">
+        <div class="card-cat-label">${catDisplay}</div>
+        <h3>${p.n}</h3>
+        <p class="desc">${p.d}</p>
+        <div class="card-price-row">
+          <div>
+            ${precioOrigHtml}
+            <p class="price"><span class="price-currency">$</span>${formato(precioFinal)}<span class="price-ars">ARS</span></p>
+          </div>
+        </div>
+        <button class="btn-add" onclick='event.stopPropagation();add(${JSON.stringify(p.n)},${precioFinal},${JSON.stringify(p.img)})'>
+          <i class="fas fa-cart-plus"></i> Agregar al carrito
+        </button>
+      </div>`;
+    card.addEventListener('click', (function(idx){ return function(e){
+      if(e.target.closest('.btn-add') || e.target.closest('.img-arrow') || e.target.closest('.img-dots')) return;
+      openModal(productos[idx]);
+    }; })(prodIdx));
+    cont.appendChild(card);
+    setTimeout(()=>startAuto(cardId, gal.count), i*200);
+  });
+  setTimeout(animar,60);
+  renderPaginacion(lista.length, totalPaginas);
+}
+
+function renderPaginacion(total, totalPaginas){
+  const pag=document.getElementById("pagination");
+  pag.innerHTML="";
+  if(totalPaginas<=1){pag.style.display="none";return;}
+  pag.style.display="flex";
+
+  // Botón anterior
+  const btnPrev=document.createElement("button");
+  btnPrev.className="page-btn";
+  btnPrev.innerHTML='<i class="fas fa-chevron-left"></i>';
+  btnPrev.disabled=paginaActual===1;
+  btnPrev.onclick=()=>irAPagina(paginaActual-1);
+  pag.appendChild(btnPrev);
+
+  // Números de páginas
+  for(let i=1;i<=totalPaginas;i++){
+    // Mostrar siempre: primera, última, actual y adyacentes
+    if(i===1||i===totalPaginas||Math.abs(i-paginaActual)<=1){
+      const btn=document.createElement("button");
+      btn.className="page-btn"+(i===paginaActual?" active":"");
+      btn.innerText=i;
+      btn.onclick=(()=>{const p=i;return()=>irAPagina(p);})();
+      pag.appendChild(btn);
+    } else if(Math.abs(i-paginaActual)===2){
+      const dots=document.createElement("span");
+      dots.className="page-info";dots.innerText="…";
+      pag.appendChild(dots);
+    }
+  }
+
+  // Botón siguiente
+  const btnNext=document.createElement("button");
+  btnNext.className="page-btn";
+  btnNext.innerHTML='<i class="fas fa-chevron-right"></i>';
+  btnNext.disabled=paginaActual===totalPaginas;
+  btnNext.onclick=()=>irAPagina(paginaActual+1);
+  pag.appendChild(btnNext);
+}
+
+function irAPagina(n){
+  render(listaActual, n);
+  document.getElementById("productGrid").scrollIntoView({behavior:"smooth",block:"start"});
+}
+
+function animar(){
+  document.querySelectorAll(".card").forEach((c,i)=>{
+    c.classList.remove("show");
+    void c.offsetWidth;
+    setTimeout(()=>c.classList.add("show"),i*55);
+  });
+}
+
+function filtrar(){
+  let t=document.getElementById("buscador").value.toLowerCase();
+  document.getElementById("clearBtn").classList.toggle("visible",t.length>0);
+  // Ocultar carteles de ofertas mientras se busca
+  document.getElementById("ofertas").style.display = t.length>0 ? "none" : "";
+  // Ocultar / mostrar pills con animación
+  // cat filter bar removed
+  let base=categoriaActual==="todos"?productos:productos.filter(p=>p.cat===categoriaActual);
+  render(t?base.filter(p=>p.n.toLowerCase().includes(t)||p.d.toLowerCase().includes(t)):base, 1);
+}
+
+function initPillCounts(){
+  const cats = ['todos','agendas','stickers','fotos','emprendedor','Eventos'];
+  cats.forEach(cat=>{
+    const el = document.getElementById('pill-count-'+cat);
+    if(!el) return;
+    const count = cat==='todos' ? productos.length : productos.filter(p=>p.cat===cat).length;
+    el.textContent = count;
+  });
+}
+
+function limpiarBusqueda(){
+  document.getElementById("buscador").value="";
+  document.getElementById("clearBtn").classList.remove("visible");
+  filtrar();
+}
+
+function filtrarCategoria(cat){
+  categoriaActual=cat;
+  document.getElementById("buscador").value="";
+  document.getElementById("clearBtn").classList.remove("visible");
+  // cat filter bar removed
+  const lista = cat==="todos" ? productos : productos.filter(p=>p.cat===cat);
+  render(lista, 1);
+}
+
+// Desde sidebar: cierra menú, filtra y hace scroll suave a productos
+function irCategoria(cat){
+  toggleMenu(true);
+  categoriaActual=cat;
+  document.getElementById("buscador").value="";
+  document.getElementById("clearBtn").classList.remove("visible");
+  document.getElementById("ofertas").style.display="";
+  // sync pills
+  document.querySelectorAll('.cat-pill').forEach(p=>{
+    const onclick = p.getAttribute('onclick')||'';
+    const isAll = cat==='todos' && onclick.includes("'todos'");
+    const isCat = onclick.includes("'"+cat+"'");
+    p.classList.toggle('active', isAll || isCat);
+  });
+  const lista = cat==="todos" ? productos : productos.filter(p=>p.cat===cat);
+  render(lista, 1);
+  setTimeout(()=>document.getElementById("productos").scrollIntoView({behavior:"smooth"}), 320);
+}
+
+function add(n,p,img){
+  let item=cart.find(x=>x.n==n);
+  if(item){item.c++;}else{cart.push({n,p,c:1,img});}
+  guardar();
+  toast("✓  "+n+" agregado");
+}
+
+function guardar(){localStorage.setItem("cart",JSON.stringify(cart));update();}
+
+function update(){
+  let html="",total=0,count=0;
+  if(cart.length===0)html=`<p style="color:#ccc;text-align:center;padding:20px 0;font-size:13px;">Tu carrito está vacío</p>`;
+  cart.forEach(x=>{
+    total+=x.p*x.c;count+=x.c;
+    html+=`<div style="display:flex;gap:10px;margin-bottom:14px;align-items:center;">
+      <img src="${x.img}" style="width:52px;height:52px;border-radius:10px;object-fit:cover;flex-shrink:0;border:1px solid #f0e0e8;">
+      <div style="flex:1;min-width:0;">
+        <b style="font-size:13px;display:block;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;">${x.n}</b>
+        <span style="color:#aaa;font-size:12px;">$${formato(x.p)} × ${x.c}</span>
+      </div>
+      <div style="display:flex;flex-direction:column;gap:4px;">
+        <button class="cart-btn btn-plus" onclick='cambiar("${x.n}",1)'>＋</button>
+        <button class="cart-btn btn-minus" onclick='cambiar("${x.n}",-1)'>−</button>
+      </div>
+      <button class="cart-btn btn-delete" onclick='eliminar("${x.n}")'>✕</button>
+    </div>`;
+  });
+  document.getElementById("cart-items").innerHTML=html;
+  document.getElementById("total").innerText=formato(total);
+  document.getElementById("cart-count").innerText=count;
+  // Botón carrito: rosa si hay productos, transparente si está vacío
+  const cartBtn = document.querySelector('.cart-toggle');
+  if(cartBtn) cartBtn.classList.toggle('has-items', count > 0);
+}
+
+function cambiar(n,c){
+  cart=cart.map(x=>{if(x.n==n){x.c+=c;if(x.c<=0)return null;}return x;}).filter(x=>x);
+  guardar();
+}
+function eliminar(n){cart=cart.filter(x=>x.n!=n);guardar();}
+function vaciarCarrito(){cart=[];guardar();toast("Carrito vaciado");document.getElementById("cartBox").style.display="none";}
+function toggleCart(){let cb=document.getElementById("cartBox");cb.style.display=cb.style.display=="block"?"none":"block";}
+
+function toast(msg){
+  let t=document.getElementById("toast");
+  t.innerText=msg;t.classList.add("show");
+  setTimeout(()=>t.classList.remove("show"),2200);
+}
+
+function comprarTodo(){
+  if(cart.length===0){alert("El carrito está vacío");return;}
+  let nombre=document.getElementById("cliente").value.trim();
+  let direccion=document.getElementById("direccion").value.trim();
+  let envio=document.getElementById("envio").value;
+  let pago=document.getElementById("pago").value;
+  if(!nombre){alert("Ingresá tu nombre");return;}
+  let total=0;
+  let fecha=new Date().toLocaleString("es-AR");
+  let numeroPedido="MAVIC-"+Math.floor(Math.random()*100000);
+  let msg=" *MAVIC PAPELERÍA CREATIVA & ESTRATÉGICA* \n━━━━━━━━━━━━━━━━━━━━\n *PEDIDO CONFIRMADO* \nN°: "+numeroPedido+"\nFecha: "+fecha+"\n\n *Cliente* : "+nombre+"\n\n *DETALLE DEL PEDIDO* \n";
+  cart.forEach(x=>{
+    msg+="• "+x.n+"\n  *Cantidad* : "+x.c+"\n  *Precio unitario* : $"+formato(x.p)+"\n  *Subtotal* : $"+formato(x.p*x.c)+"\n\n";
+    total+=x.p*x.c;
+  });
+  msg+="━━━━━━━━━━━━━━━━━━━━\n *Envío* : "+envio+"\n *Pago* : "+pago+"\n";
+  if(direccion)msg+=" *Dirección* : "+direccion+"\n";
+  msg+="━━━━━━━━━━━━━━━━━━━━\n *TOTAL FINAL* : $"+formato(total)+"\n\n Pedido generado correctamente\n *¡Gracias por confiar en MAVIC!*  ";
+  window.open("https://wa.me/5493854077166?text="+encodeURIComponent(msg),"_blank");
+  cart=[];guardar();
+  document.getElementById("cliente").value="";
+  document.getElementById("direccion").value="";
+  toggleCart();
+}
+
+function toggleMenu(forceClose=false){
+  const s=document.getElementById("sidebar");
+  const o=document.getElementById("overlay");
+  if(forceClose){s.classList.remove("active");o.classList.remove("active");document.body.style.overflow="auto";return;}
+  s.classList.toggle("active");o.classList.toggle("active");
+  document.body.style.overflow=s.classList.contains("active")?"hidden":"auto";
+}
+
+// ─── MODAL DE PRODUCTO ───
+let modalCurrentImgs = [];
+let modalCurrentIdx = 0;
+let modalCurrentProduct = null;
+
+const catLabels = {
+  agendas: 'Agendas',
+  stickers: 'Stickers',
+  fotos: 'Fotos',
+  emprendedor: 'Emprendedores',
+  Eventos: 'Eventos',
+  '': 'General'
+};
+
+const catIcons = {
+  agendas: 'fa-book',
+  stickers: 'fa-sticky-note',
+  fotos: 'fa-image',
+  emprendedor: 'fa-briefcase',
+  Eventos: 'fa-star',
+  '': 'fa-tag'
+};
+
+function openModal(product){
+  modalCurrentProduct = product;
+  modalCurrentImgs = product.imgs || [product.img];
+  modalCurrentIdx = 0;
+
+  // Categ
+  const catKey = product.cat || '';
+  const catLabel = catLabels[catKey] || catKey || 'Producto';
+  document.getElementById('modalCatLabel').textContent = catLabel;
+  document.getElementById('modalCat').textContent = catLabel;
+  const iconClass = catIcons[catKey] || 'fa-tag';
+  document.querySelector('#modalCatBadge i').className = 'fas ' + iconClass;
+
+  // Nombre
+  document.getElementById('modalName').textContent = product.n;
+
+  // Precios
+  const formato = n => n.toLocaleString('es-AR');
+  const precioFinal = product.desc ? Math.round(product.p * (1 - product.desc/100)) : product.p;
+  document.getElementById('modalPrice').textContent = formato(precioFinal);
+
+  if(product.desc){
+    document.getElementById('modalPriceOrigWrap').style.display = '';
+    document.getElementById('modalPriceOrig').textContent = '$' + formato(product.p);
+    document.getElementById('modalDiscountWrap').style.display = '';
+    document.getElementById('modalDiscount').innerHTML = '<i class="fas fa-tag"></i> ' + product.desc + '% OFF';
+  } else {
+    document.getElementById('modalPriceOrigWrap').style.display = 'none';
+    document.getElementById('modalDiscountWrap').style.display = 'none';
+  }
+
+  // Descripción
+  document.getElementById('modalDesc').textContent = product.d;
+
+  // Chips de características
+  const features = getFeatures(product);
+  const featsEl = document.getElementById('modalFeatures');
+  featsEl.innerHTML = features.map(f=>`<span class="modal-feat-chip"><i class="fas ${f.icon}"></i>${f.text}</span>`).join('');
+
+  // Imagen principal
+  modalSetImg(0);
+
+  // Thumbnails
+  const thumbsEl = document.getElementById('modalThumbs');
+  thumbsEl.innerHTML = modalCurrentImgs.map((src,i)=>
+    `<div class="modal-thumb ${i===0?'active-thumb':''}" onclick="modalSetImg(${i})">
+      <img src="${src}" alt="" loading="lazy">
+    </div>`
+  ).join('');
+
+  // Botones
+  document.getElementById('modalBtnAdd').onclick = ()=>{
+    add(product.n, precioFinal, product.img);
+    closeModalDirect();
+  };
+  document.getElementById('modalBtnWa').onclick = ()=>{
+    const msg = `Hola MAVIC! 👋 Me interesa el producto: *${product.n}* ($${formato(precioFinal)} ARS). ¿Podrían darme más información?`;
+    window.open('https://wa.me/5493854077166?text='+encodeURIComponent(msg),'_blank');
+  };
+
+  // Abrir
+  document.getElementById('productModal').classList.add('active');
+  document.body.style.overflow = 'hidden';
+  // Scroll al top del modal
+  setTimeout(()=>{ document.getElementById('modalBox').scrollTop=0; }, 50);
+}
+
+function getFeatures(product){
+  const feats = [];
+  if(product.cat==='agendas') feats.push({icon:'fa-book',text:'Personalizada'},{icon:'fa-paint-brush',text:'Diseño propio'},{icon:'fa-leaf',text:'Tapa a elección'});
+  else if(product.cat==='stickers') feats.push({icon:'fa-droplet',text:'Resistente al agua'},{icon:'fa-palette',text:'Colores vivos'},{icon:'fa-cut',text:'Troquelado'});
+  else if(product.cat==='fotos') feats.push({icon:'fa-camera',text:'Alta calidad'},{icon:'fa-image',text:'Estilo polaroid'},{icon:'fa-gift',text:'Ideal para regalar'});
+  else if(product.cat==='emprendedor') feats.push({icon:'fa-briefcase',text:'Profesional'},{icon:'fa-star',text:'Para tu marca'},{icon:'fa-check-circle',text:'Alta resolución'});
+  else if(product.cat==='Eventos') feats.push({icon:'fa-party-horn',text:'Para eventos'},{icon:'fa-users',text:'Para invitados'},{icon:'fa-gift',text:'Souvenir ideal'});
+  else feats.push({icon:'fa-check-circle',text:'Personalizado'},{icon:'fa-paint-brush',text:'Diseño único'});
+  return feats;
+}
+
+function modalSetImg(idx){
+  modalCurrentIdx = ((idx % modalCurrentImgs.length) + modalCurrentImgs.length) % modalCurrentImgs.length;
+  const img = document.getElementById('modalMainImg');
+  img.style.opacity = '0';
+  setTimeout(()=>{
+    img.src = modalCurrentImgs[modalCurrentIdx];
+    img.style.opacity = '1';
+  }, 150);
+  document.querySelectorAll('.modal-thumb').forEach((t,i)=>{
+    t.classList.toggle('active-thumb', i===modalCurrentIdx);
+  });
+}
+
+function modalNavImg(dir){
+  modalSetImg(modalCurrentIdx + dir);
+}
+
+function closeModal(e){
+  if(e.target === document.getElementById('productModal')) closeModalDirect();
+}
+function closeModalDirect(){
+  document.getElementById('productModal').classList.remove('active');
+  document.body.style.overflow = 'auto';
+}
+document.addEventListener("keydown",e=>{
+  if(e.key==="Escape"){
+    closeModalDirect();
+    toggleMenu(true);
+  }
+});
+
+function filtrarOfertas(){
+  const conDescuento = productos.filter(p => p.desc);
+  // Activar pill "Todos" (ninguno específico, solo destacar visualmente)
+  document.querySelectorAll('.cat-pill').forEach(p=>p.classList.remove('active'));
+  render(conDescuento, 1);
+  setTimeout(()=>{ document.getElementById('productGrid').scrollIntoView({behavior:'smooth'}); }, 80);
+}
+
+function catPillClick(cat, btn){
+  document.querySelectorAll('.cat-pill').forEach(p=>p.classList.remove('active'));
+  btn.classList.add('active');
+  filtrarCategoria(cat);
+  setTimeout(()=>document.getElementById('productGrid').scrollIntoView({behavior:'smooth',block:'start'}), 80);
+}
+
+// ── Header: transparente → glassmorphism al hacer scroll ──
+(function(){
+  const hdr = document.querySelector('header');
+  if(!hdr) return;
+  function onScroll(){
+    hdr.classList.toggle('scrolled', window.scrollY > 40);
+  }
+  window.addEventListener('scroll', onScroll, {passive:true});
+  onScroll();
+})();
+
+// Scroll to top button — aparece solo al llegar al final de la página
+window.addEventListener('scroll',()=>{
+  const btn=document.getElementById('scrollTopBtn');
+  if(!btn) return;
+  const scrolled = window.scrollY + window.innerHeight;
+  const total = document.documentElement.scrollHeight;
+  btn.classList.toggle('visible', scrolled >= total - 120);
+},{passive:true});
+
+render();update();initPillCounts();
+
+// ── Indicadores del carrusel de promos ──
+(function(){
+  const track = document.getElementById('promosTrack');
+  const indicators = document.querySelectorAll('.promos-indicator');
+  const CARD_COUNT = 6;
+  const DURATION = 36000; // ms — debe coincidir con la animación CSS
+  if(!track || !indicators.length) return;
+
+  let elapsed = 0;       // tiempo acumulado en ms
+  let lastTs  = null;    // timestamp del último frame
+  let paused  = false;
+
+  // Detectar hover sobre cualquier tarjeta
+  track.addEventListener('mouseenter', e => {
+    if(e.target.closest('.promo-card')) paused = true;
+  }, true);
+  track.addEventListener('mouseleave', e => {
+    if(e.target.closest('.promo-card')) paused = false;
+  }, true);
+  // también con mouseover/out para capturar entradas dentro del track
+  track.addEventListener('mouseover', e => {
+    if(e.target.closest('.promo-card')) paused = true;
+  });
+  track.addEventListener('mouseout', e => {
+    if(!e.relatedTarget || !e.relatedTarget.closest('.promo-card')) paused = false;
+  });
+
+  function tick(ts){
+    if(lastTs !== null && !paused){
+      elapsed = (elapsed + (ts - lastTs)) % DURATION;
+    }
+    lastTs = ts;
+
+    // Calcular índice: el carrusel recorre CARD_COUNT tarjetas en DURATION ms
+    const progress = elapsed / DURATION; // 0..1
+    const idx = Math.floor(progress * CARD_COUNT) % CARD_COUNT;
+    indicators.forEach((el, i) => el.classList.toggle('active', i === idx));
+
+    requestAnimationFrame(tick);
+  }
+  requestAnimationFrame(tick);
+})();
+</script>
+
+<!-- ─── MODAL PRODUCTO ─── -->
+<div class="modal-overlay" id="productModal" onclick="closeModal(event)">
+  <div class="modal-box" id="modalBox">
+    <button class="modal-close" onclick="closeModalDirect()"><i class="fas fa-times"></i></button>
+
+    <!-- Breadcrumb -->
+    <div class="modal-breadcrumb" id="modalBreadcrumb">
+      MAVIC › <span id="modalCatLabel">Producto</span>
+    </div>
+
+    <div class="modal-inner">
+      <!-- Galería -->
+      <div class="modal-gallery">
+        <div class="modal-main-img" id="modalMainImgWrap">
+          <button class="modal-img-nav left" onclick="modalNavImg(-1)"><i class="fas fa-chevron-left"></i></button>
+          <img id="modalMainImg" src="" alt="">
+          <button class="modal-img-nav right" onclick="modalNavImg(1)"><i class="fas fa-chevron-right"></i></button>
+        </div>
+        <div class="modal-thumbs" id="modalThumbs"></div>
+      </div>
+
+      <!-- Info -->
+      <div class="modal-info">
+        <div class="modal-cat-badge" id="modalCatBadge"><i class="fas fa-tag"></i> <span id="modalCat">-</span></div>
+        <h2 class="modal-title" id="modalName">-</h2>
+
+        <div class="modal-rating">
+          <span class="modal-stars">★★★★★</span>
+          <span class="modal-rating-text">5.0 · Producto personalizado</span>
+        </div>
+
+        <div class="modal-price-block">
+          <div id="modalPriceOrigWrap" style="display:none">
+            <div class="modal-price-original" id="modalPriceOrig"></div>
+          </div>
+          <div>
+            <span class="modal-price-currency">$</span><span class="modal-price-main" id="modalPrice">-</span><span class="modal-price-ars"> ARS</span>
+          </div>
+          <div id="modalDiscountWrap" style="display:none">
+            <div class="modal-discount-tag" id="modalDiscount"></div>
+          </div>
+        </div>
+
+        <div class="modal-divider"></div>
+
+        <div class="modal-desc-title">Descripción del producto</div>
+        <div class="modal-desc-text" id="modalDesc">-</div>
+
+        <div class="modal-features" id="modalFeatures"></div>
+
+        <div class="modal-actions">
+          <button class="modal-btn-add" id="modalBtnAdd">
+            <i class="fas fa-cart-plus"></i> Agregar al carrito
+          </button>
+          <button class="modal-btn-wa" id="modalBtnWa">
+            <i class="fab fa-whatsapp"></i> Consultar por WhatsApp
+          </button>
+        </div>
+
+        <div class="modal-trust">
+          <span class="modal-trust-item"><i class="fas fa-shield-alt"></i> Diseño personalizado</span>
+          <span class="modal-trust-item"><i class="fas fa-truck"></i> Envío disponible</span>
+          <span class="modal-trust-item"><i class="fas fa-star"></i> Calidad garantizada</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<footer>
+  <div class="footer-container">
+    <div class="footer-brand">
+      <h2>MAVIC Papelería Creativa</h2>
+      <p>Creamos productos únicos y personalizados para acompañar tus momentos más especiales. Agendas, stickers, souvenirs y kits para emprendedores. Diseñamos con amor, creatividad y calidad.</p>
+      <div class="footer-social" id="footer-social">
+        <a href="https://wa.me/5493854077166" target="_blank"><i class="fab fa-whatsapp"></i></a>
+        <a href="https://www.instagram.com/mavic.sgo?igsh=MTl2cmwydXB5eG4wdA==" target="_blank"><i class="fab fa-instagram"></i></a>
+        <a href="https://www.facebook.com/profile.php?id=100071057791710" target="_blank"><i class="fab fa-facebook-f"></i></a>
+        <a href="https://www.tiktok.com/@mavicdisenos?_r=1&_t=ZS-95QQze8gYCq" target="_blank"><i class="fab fa-tiktok"></i></a>
+      </div>
+    </div>
+    <div class="footer-links">
+      <h3>Secciones</h3>
+      <a href="#">Inicio</a>
+      <a href="#productGrid">Productos</a>
+      <a href="#">Sobre Nosotros</a>
+    </div>
+    <div class="footer-links">
+      <h3>Información</h3>
+      <a href="#">Envíos</a>
+      <a href="#">Personalizados</a>
+      <a href="#">Términos y Condiciones</a>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    © 2026 <b>MAVIC Papelería Creativa & Estratégica</b> · Todos los derechos reservados
+  </div>
+</footer>
+</body>
+</html>
