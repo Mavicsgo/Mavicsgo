@@ -2336,7 +2336,6 @@ html{scroll-behavior:smooth;overflow-x:hidden;}
 
   <!-- Scroll indicator -->
   <div class="hero-scroll" onclick="document.getElementById('productos').scrollIntoView({behavior:'smooth'})">
-    <span class="hero-scroll-text">Scroll</span>
     <div class="hero-scroll-bar"></div>
   </div>
 
@@ -2610,10 +2609,22 @@ html{scroll-behavior:smooth;overflow-x:hidden;}
 
 <!-- SECCIÓN PRODUCTOS -->
 <div style="text-align:center;padding:56px 20px 0;">
-  <div style="display:inline-flex;align-items:center;gap:10px;margin-bottom:14px;">
-    <div style="width:28px;height:1px;background:linear-gradient(90deg,transparent,var(--pink));"></div>
-    <span style="font-family:'Bebas Neue',sans-serif;font-size:11px;letter-spacing:3.5px;color:var(--pink);text-transform:uppercase;">Catálogo</span>
-    <div style="width:28px;height:1px;background:linear-gradient(90deg,var(--pink),transparent);"></div>
+  <div style="display:inline-flex;align-items:center;gap:12px;margin-bottom:16px;">
+    <div style="width:40px;height:1.5px;background:linear-gradient(90deg,transparent,var(--pink));border-radius:2px;"></div>
+    <span style="
+      font-family:'Bebas Neue',sans-serif;
+      font-size:13px;
+      letter-spacing:5px;
+      text-transform:uppercase;
+      color:var(--pink-deep);
+      padding:5px 18px;
+      border:1.5px solid rgba(232,21,122,0.28);
+      border-radius:30px;
+      background:linear-gradient(135deg,rgba(232,21,122,0.06),rgba(194,0,107,0.04));
+      box-shadow:0 2px 14px rgba(232,21,122,0.12),inset 0 1px 0 rgba(255,255,255,0.7);
+      display:inline-flex;align-items:center;gap:7px;
+    "><i class="fas fa-star" style="font-size:9px;color:var(--pink);"></i> Catálogo <i class="fas fa-star" style="font-size:9px;color:var(--pink);"></i></span>
+    <div style="width:40px;height:1.5px;background:linear-gradient(90deg,var(--pink),transparent);border-radius:2px;"></div>
   </div>
   <h2 class="section-title" id="productos" style="padding-top:0;">Nuestros <span class="title-accent">Productos</span></h2>
   <p class="section-subtitle">Cada pieza, diseñada especialmente para vos ✨</p>
